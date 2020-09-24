@@ -29,5 +29,7 @@ namespace WebAppMedOffices.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<WebAppMedOffices.Models.Especialidad> Especialidads { get; set; }
     }
 }
