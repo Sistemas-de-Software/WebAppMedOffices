@@ -7,6 +7,7 @@ using System.Web;
 
 namespace WebAppMedOffices.Models
 {
+    [Table("Medicos")]
     public class Medico
     {
         [Key]

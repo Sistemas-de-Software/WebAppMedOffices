@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using WebAppMedOffices.Migrations;
 
 namespace WebAppMedOffices.Models
 {
@@ -30,6 +31,7 @@ namespace WebAppMedOffices.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<WebAppMedOffices.Models.Especialidad> Especialidads { get; set; }
+        public DbSet<Especialidad> Especialidades { get; set; }
+        public DbSet<Medico> Medicos { get; set; }
     }
 }

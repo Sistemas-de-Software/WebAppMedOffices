@@ -171,16 +171,13 @@
     <Compile Include="Controllers\EspecialidadesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MedicosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202009200534389_InitialCreate.cs" />
     <Compile Include="Migrations\202009200534389_InitialCreate.Designer.cs">
       <DependentUpon>202009200534389_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009240055062_Especialidades.cs" />
-    <Compile Include="Migrations\202009240055062_Especialidades.Designer.cs">
-      <DependentUpon>202009240055062_Especialidades.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -252,6 +249,11 @@
     <Content Include="Views\Especialidades\Details.cshtml" />
     <Content Include="Views\Especialidades\Edit.cshtml" />
     <Content Include="Views\Especialidades\Index.cshtml" />
+    <Content Include="Views\Medicos\Create.cshtml" />
+    <Content Include="Views\Medicos\Delete.cshtml" />
+    <Content Include="Views\Medicos\Details.cshtml" />
+    <Content Include="Views\Medicos\Edit.cshtml" />
+    <Content Include="Views\Medicos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -272,9 +274,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202009200534389_InitialCreate.resx">
       <DependentUpon>202009200534389_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009240055062_Especialidades.resx">
-      <DependentUpon>202009240055062_Especialidades.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
