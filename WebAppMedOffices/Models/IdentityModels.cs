@@ -30,6 +30,6 @@ namespace WebAppMedOffices.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<WebAppMedOffices.Models.Consultorio> Consultorios { get; set; }
+        public DbSet<Consultorio> Consultorios { get; set; }
     }
 }
