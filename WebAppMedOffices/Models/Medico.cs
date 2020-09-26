@@ -41,5 +41,7 @@ namespace WebAppMedOffices.Models
         [Display(Name = "Matrícula")]
         public string Matricula { get; set; }
 
+        public virtual ICollection<DuracionTurnoEspecialidad> DuracionTurnoEspecialidades { get; set; }
+
     }
 }

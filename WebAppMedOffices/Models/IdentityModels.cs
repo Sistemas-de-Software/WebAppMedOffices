@@ -33,5 +33,6 @@ namespace WebAppMedOffices.Models
         public DbSet<Especialidad> Especialidades { get; set; }
         public DbSet<Medico> Medicos { get; set; }
         public DbSet<Consultorio> Consultorios { get; set; }
+        public DbSet<DuracionTurnoEspecialidad> DuracionTurnoEspecialidades { get; set; }
     }
 }

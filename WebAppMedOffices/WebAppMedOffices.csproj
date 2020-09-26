@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DuracionTurnoEspecialidadesController.cs" />
     <Compile Include="Controllers\EspecialidadesController.cs" />
     <Compile Include="Controllers\ConsultoriosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -176,12 +177,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202009262012197_InitialCreate.cs" />
-    <Compile Include="Migrations\202009262012197_InitialCreate.Designer.cs">
-      <DependentUpon>202009262012197_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202009262303463_InitialCreate.cs" />
+    <Compile Include="Migrations\202009262303463_InitialCreate.Designer.cs">
+      <DependentUpon>202009262303463_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DuracionTurno.cs" />
     <Compile Include="Models\Especialidad.cs" />
     <Compile Include="Models\Consultorio.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -261,6 +263,16 @@
     <Content Include="Views\Consultorios\Details.cshtml" />
     <Content Include="Views\Consultorios\Edit.cshtml" />
     <Content Include="Views\Consultorios\Index.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidades\Create.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidades\Delete.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidades\Details.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidades\Edit.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidades\Index.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidads\Create.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidads\Delete.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidads\Details.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidads\Edit.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidads\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -279,8 +291,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202009262012197_InitialCreate.resx">
-      <DependentUpon>202009262012197_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202009262303463_InitialCreate.resx">
+      <DependentUpon>202009262303463_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

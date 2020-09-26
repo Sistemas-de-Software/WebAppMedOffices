@@ -13,7 +13,7 @@ namespace WebAppMedOffices.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202009262012197_InitialCreate"; }
+            get { return "202009262303463_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source
