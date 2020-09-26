@@ -68,3 +68,11 @@ internal sealed class Configuration : DbMigrationsConfiguration<WebAppMedOffices
 
     }
 ```
+
+## Problemas Típicos
+### No se pudo encontrar una parte de la ruta… bin \ roslyn \ csc.exe
+SOLUCIÓN ejecute esto en la Consola del Administrador de paquetes:
+
+```
+Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -r
+```
