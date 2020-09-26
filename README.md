@@ -76,3 +76,5 @@ SOLUCIÓN ejecute esto en la Consola del Administrador de paquetes:
 ```
 Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -r
 ```
+
+Fuente: https://stackoverflow.com/questions/32780315/could-not-find-a-part-of-the-path-bin-roslyn-csc-exe
