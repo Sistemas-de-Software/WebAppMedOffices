@@ -30,8 +30,8 @@ namespace WebAppMedOffices.Models
         {
             return new ApplicationDbContext();
         }
-
         public DbSet<Especialidad> Especialidades { get; set; }
         public DbSet<Medico> Medicos { get; set; }
+        public DbSet<Consultorio> Consultorios { get; set; }
     }
 }
