@@ -24,4 +24,11 @@ namespace WebAppMedOffices.Shared
         T = 1, // Tarde
         G = 2, // Guardia
     }
+
+    public enum Estado
+    {
+        Disponible = 0, 
+        Reservado = 1, 
+        Atendido = 2, 
+    }
 }
