@@ -170,6 +170,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AtencionHorariosController.cs" />
     <Compile Include="Controllers\DuracionTurnoEspecialidadesController.cs" />
+    <Compile Include="Controllers\EnfermedadesController.cs" />
     <Compile Include="Controllers\EspecialidadesController.cs" />
     <Compile Include="Controllers\ConsultoriosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -210,9 +211,18 @@
     <Compile Include="Migrations\202009272247410_TipoEnfermedad_Table.Designer.cs">
       <DependentUpon>202009272247410_TipoEnfermedad_Table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009272306223_Enfermedades_Table.cs" />
+    <Compile Include="Migrations\202009272306223_Enfermedades_Table.Designer.cs">
+      <DependentUpon>202009272306223_Enfermedades_Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009272313443_Enfermedades_Table1.cs" />
+    <Compile Include="Migrations\202009272313443_Enfermedades_Table1.Designer.cs">
+      <DependentUpon>202009272313443_Enfermedades_Table1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DuracionTurnoEspecialidad.cs" />
+    <Compile Include="Models\Enfermedad.cs" />
     <Compile Include="Models\Especialidad.cs" />
     <Compile Include="Models\Consultorio.cs" />
     <Compile Include="Models\AtencionHorario.cs" />
@@ -328,6 +338,11 @@
     <Content Include="Views\TipoEnfermedades\Details.cshtml" />
     <Content Include="Views\TipoEnfermedades\Edit.cshtml" />
     <Content Include="Views\TipoEnfermedades\Index.cshtml" />
+    <Content Include="Views\Enfermedades\Create.cshtml" />
+    <Content Include="Views\Enfermedades\Delete.cshtml" />
+    <Content Include="Views\Enfermedades\Details.cshtml" />
+    <Content Include="Views\Enfermedades\Edit.cshtml" />
+    <Content Include="Views\Enfermedades\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -366,6 +381,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009272247410_TipoEnfermedad_Table.resx">
       <DependentUpon>202009272247410_TipoEnfermedad_Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009272306223_Enfermedades_Table.resx">
+      <DependentUpon>202009272306223_Enfermedades_Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009272313443_Enfermedades_Table1.resx">
+      <DependentUpon>202009272313443_Enfermedades_Table1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

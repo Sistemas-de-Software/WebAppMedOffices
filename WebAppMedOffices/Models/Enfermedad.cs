@@ -7,8 +7,8 @@ using System.Web;
 
 namespace WebAppMedOffices.Models
 {
-    [Table("TipoEnfermedades")]
-    public class TipoEnfermedad
+    [Table("Enfermedades")]
+    public class Enfermedad
     {
         [Key]
         public int Id { get; set; }
@@ -16,9 +16,13 @@ namespace WebAppMedOffices.Models
         [Required(ErrorMessage = "Debes introducir un {0}")]
         [MaxLength(50, ErrorMessage = "El campo {0} puede contener un máximo de {1} caracteres")]
         [Index("Consultorio_Nombre_Index", IsUnique = true)]
-        [Display(Name = "Tipo")]
+        [Display(Name = "Enfermedad")]
         public string Nombre { get; set; }
 
-        public virtual ICollection<Enfermedad> Enfermedades { get; set; }
+        [Required(ErrorMessage = "Debes introducir un {0}")]
+        [Display(Name = "Tipo de Enfermedad")]
+        public int TipoEnfermedadId { get; set; }
+
+        public virtual TipoEnfermedad TipoEnfermedad { get; set; }
     }
 }
