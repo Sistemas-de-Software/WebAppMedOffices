@@ -30,5 +30,7 @@ namespace WebAppMedOffices.Models
         [DataType(DataType.EmailAddress)]
         [Display(Name = "E-Mail")]
         public string Email { get; set; }
+
+        public virtual ICollection<ObraSocialTarifa> Tarifas { get; set; }
     }
 }

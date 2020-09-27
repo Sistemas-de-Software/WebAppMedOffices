@@ -175,6 +175,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MedicosController.cs" />
+    <Compile Include="Controllers\ObraSocialTarifasController.cs" />
     <Compile Include="Controllers\ObrasSocialesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -195,6 +196,10 @@
     <Compile Include="Migrations\202009270303219_ObrasSociales.Designer.cs">
       <DependentUpon>202009270303219_ObrasSociales.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009270336449_ObraSocialTarifas_Relaciones.cs" />
+    <Compile Include="Migrations\202009270336449_ObraSocialTarifas_Relaciones.Designer.cs">
+      <DependentUpon>202009270336449_ObraSocialTarifas_Relaciones.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DuracionTurnoEspecialidad.cs" />
@@ -205,6 +210,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Medico.cs" />
     <Compile Include="Models\ObraSocial.cs" />
+    <Compile Include="Models\ObraSocialTarifa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\Enums.cs" />
     <Compile Include="Startup.cs" />
@@ -295,6 +301,11 @@
     <Content Include="Views\ObrasSociales\Details.cshtml" />
     <Content Include="Views\ObrasSociales\Edit.cshtml" />
     <Content Include="Views\ObrasSociales\Index.cshtml" />
+    <Content Include="Views\ObraSocialTarifas\Create.cshtml" />
+    <Content Include="Views\ObraSocialTarifas\Delete.cshtml" />
+    <Content Include="Views\ObraSocialTarifas\Details.cshtml" />
+    <Content Include="Views\ObraSocialTarifas\Edit.cshtml" />
+    <Content Include="Views\ObraSocialTarifas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -324,6 +335,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009270303219_ObrasSociales.resx">
       <DependentUpon>202009270303219_ObrasSociales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009270336449_ObraSocialTarifas_Relaciones.resx">
+      <DependentUpon>202009270336449_ObraSocialTarifas_Relaciones.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
