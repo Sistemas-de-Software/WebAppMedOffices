@@ -1,0 +1,66 @@
+﻿@model WebAppMedOffices.Models.AtencionHorario
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AtencionHorario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Consultorio.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Consultorio.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Medico.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Medico.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrabajoTurno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrabajoTurno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HoraInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoraInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HoraFin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoraFin)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

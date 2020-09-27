@@ -23,11 +23,13 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+                    <li>@*@Html.ActionLink("Acerca de", "About", "Home")*@</li>
+                    <li>@*@Html.ActionLink("Contacto", "Contact", "Home")*@</li>
                     <li>@Html.ActionLink("Médicos", "Index", "Medicos")</li>
+                    <li>@Html.ActionLink("Consultorios", "Index", "Consultorios")</li>
                     <li>@Html.ActionLink("Especialidades", "Index", "Especialidades")</li>
-                    <li>@Html.ActionLink("Duración de Especialidades para un Médico", "Index", "DuracionTurnoEspecialidades")</li>
+                    <li>@Html.ActionLink("Duración Turnos", "Index", "DuracionTurnoEspecialidades")</li>
+                    <li>@Html.ActionLink("Atención Horarios", "Index", "AtencionHorarios")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

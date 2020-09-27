@@ -7,13 +7,13 @@ namespace WebAppMedOffices.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class AtencionHorarios_Relaciones : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AtencionHorarios_Relaciones));
         
         string IMigrationMetadata.Id
         {
-            get { return "202009262303463_InitialCreate"; }
+            get { return "202009270216063_AtencionHorarios_Relaciones"; }
         }
         
         string IMigrationMetadata.Source

@@ -43,5 +43,7 @@ namespace WebAppMedOffices.Models
 
         public virtual ICollection<DuracionTurnoEspecialidad> DuracionTurnoEspecialidades { get; set; }
 
+        public virtual ICollection<AtencionHorario> AtencionHorarios { get; set; }
+
     }
 }

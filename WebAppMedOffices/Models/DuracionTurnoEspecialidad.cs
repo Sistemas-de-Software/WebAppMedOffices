@@ -14,9 +14,11 @@ namespace WebAppMedOffices.Models
         public int Id { get; set; }
 
         [Index("DuracionTurnoEspecialidad_MedicoId_EspecialidadId_Index", IsUnique = true, Order = 1)]
+        [Display(Name = "Médico")]
         public int MedicoId { get; set; }
 
         [Index("DuracionTurnoEspecialidad_MedicoId_EspecialidadId_Index", IsUnique = true, Order = 2)]
+        [Display(Name = "Especialidad")]
         public int EspecialidadId { get; set; }
 
         [Required(ErrorMessage = "Debes introducir una {0}")]

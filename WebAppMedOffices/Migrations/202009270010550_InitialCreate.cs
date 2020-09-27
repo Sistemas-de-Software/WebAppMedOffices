@@ -8,13 +8,14 @@ namespace WebAppMedOffices.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Consultorio",
+                "dbo.Consultorios",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(),
+                        Nombre = c.String(nullable: false, maxLength: 30),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Nombre, unique: true, name: "Consultorio_Nombre_Index");
             
             CreateTable(
                 "dbo.DuracionTurnoEspecialidades",
@@ -139,6 +140,7 @@ namespace WebAppMedOffices.Migrations
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.Medicos", "Medico_Matricula_Index");
             DropIndex("dbo.DuracionTurnoEspecialidades", "DuracionTurnoEspecialidad_MedicoId_EspecialidadId_Index");
+            DropIndex("dbo.Consultorios", "Consultorio_Nombre_Index");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
@@ -147,7 +149,7 @@ namespace WebAppMedOffices.Migrations
             DropTable("dbo.Medicos");
             DropTable("dbo.Especialidades");
             DropTable("dbo.DuracionTurnoEspecialidades");
-            DropTable("dbo.Consultorio");
+            DropTable("dbo.Consultorios");
         }
     }
 }
