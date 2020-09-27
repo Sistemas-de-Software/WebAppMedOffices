@@ -18,6 +18,8 @@ namespace WebAppMedOffices.Models
         [Display(Name = "Especialidad")]
         public string Nombre { get; set; }
 
-        public ICollection<DuracionTurnoEspecialidad> DuracionTurnoEspecialidades { get; set; }
+        public virtual ICollection<DuracionTurnoEspecialidad> DuracionTurnoEspecialidades { get; set; }
+
+        public virtual ICollection<ObraSocialTarifa> Tarifas { get; set; }
     }
 }
