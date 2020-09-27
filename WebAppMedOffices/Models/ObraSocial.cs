@@ -32,5 +32,7 @@ namespace WebAppMedOffices.Models
         public string Email { get; set; }
 
         public virtual ICollection<ObraSocialTarifa> Tarifas { get; set; }
+        
+        public virtual ICollection<Turno> Turnos { get; set; }
     }
 }
