@@ -8,6 +8,30 @@ namespace WebAppMedOffices.Migrations
         public override void Up()
         {
             CreateTable(
+                "dbo.Consultorios",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Nombre = c.String(nullable: false, maxLength: 30),
+                    })
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.Nombre, unique: true, name: "Consultorio_Nombre_Index");
+            
+            CreateTable(
+                "dbo.DuracionTurnoEspecialidades",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        MedicoId = c.Int(nullable: false),
+                        EspecialidadId = c.Int(nullable: false),
+                        Duracion = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Especialidades", t => t.EspecialidadId, cascadeDelete: true)
+                .ForeignKey("dbo.Medicos", t => t.MedicoId, cascadeDelete: true)
+                .Index(t => new { t.MedicoId, t.EspecialidadId }, unique: true, name: "DuracionTurnoEspecialidad_MedicoId_EspecialidadId_Index");
+            
+            CreateTable(
                 "dbo.Especialidades",
                 c => new
                     {
@@ -106,6 +130,8 @@ namespace WebAppMedOffices.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.DuracionTurnoEspecialidades", "MedicoId", "dbo.Medicos");
+            DropForeignKey("dbo.DuracionTurnoEspecialidades", "EspecialidadId", "dbo.Especialidades");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
@@ -113,6 +139,8 @@ namespace WebAppMedOffices.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.Medicos", "Medico_Matricula_Index");
+            DropIndex("dbo.DuracionTurnoEspecialidades", "DuracionTurnoEspecialidad_MedicoId_EspecialidadId_Index");
+            DropIndex("dbo.Consultorios", "Consultorio_Nombre_Index");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
@@ -120,6 +148,8 @@ namespace WebAppMedOffices.Migrations
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Medicos");
             DropTable("dbo.Especialidades");
+            DropTable("dbo.DuracionTurnoEspecialidades");
+            DropTable("dbo.Consultorios");
         }
     }
 }

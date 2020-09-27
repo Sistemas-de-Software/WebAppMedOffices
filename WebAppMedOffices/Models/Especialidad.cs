@@ -17,5 +17,7 @@ namespace WebAppMedOffices.Models
         [StringLength(30, ErrorMessage = "El campo {0} puede contener un máximo de {1} y un mínimo de {2} caracteres", MinimumLength = 3)]
         [Display(Name = "Especialidad")]
         public string Nombre { get; set; }
+
+        public ICollection<DuracionTurnoEspecialidad> DuracionTurnoEspecialidades { get; set; }
     }
 }
