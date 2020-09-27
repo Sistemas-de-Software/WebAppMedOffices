@@ -178,6 +178,7 @@
     <Compile Include="Controllers\MedicosController.cs" />
     <Compile Include="Controllers\ObraSocialTarifasController.cs" />
     <Compile Include="Controllers\ObrasSocialesController.cs" />
+    <Compile Include="Controllers\PacientesController.cs" />
     <Compile Include="Controllers\TipoEnfermedadesController.cs" />
     <Compile Include="Controllers\TurnosController.cs" />
     <Compile Include="Global.asax.cs">
@@ -219,6 +220,10 @@
     <Compile Include="Migrations\202009272313443_Enfermedades_Table1.Designer.cs">
       <DependentUpon>202009272313443_Enfermedades_Table1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009272343098_Pacientes_Table.cs" />
+    <Compile Include="Migrations\202009272343098_Pacientes_Table.Designer.cs">
+      <DependentUpon>202009272343098_Pacientes_Table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DuracionTurnoEspecialidad.cs" />
@@ -231,6 +236,7 @@
     <Compile Include="Models\Medico.cs" />
     <Compile Include="Models\ObraSocial.cs" />
     <Compile Include="Models\ObraSocialTarifa.cs" />
+    <Compile Include="Models\Paciente.cs" />
     <Compile Include="Models\TipoEnfermedad.cs" />
     <Compile Include="Models\Turno.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -343,6 +349,11 @@
     <Content Include="Views\Enfermedades\Details.cshtml" />
     <Content Include="Views\Enfermedades\Edit.cshtml" />
     <Content Include="Views\Enfermedades\Index.cshtml" />
+    <Content Include="Views\Pacientes\Create.cshtml" />
+    <Content Include="Views\Pacientes\Delete.cshtml" />
+    <Content Include="Views\Pacientes\Details.cshtml" />
+    <Content Include="Views\Pacientes\Edit.cshtml" />
+    <Content Include="Views\Pacientes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -387,6 +398,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009272313443_Enfermedades_Table1.resx">
       <DependentUpon>202009272313443_Enfermedades_Table1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009272343098_Pacientes_Table.resx">
+      <DependentUpon>202009272343098_Pacientes_Table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -40,6 +40,7 @@ namespace WebAppMedOffices.Models
         public DbSet<Turno> Turnos { get; set; }
         public DbSet<TipoEnfermedad> TipoEnfermedades { get; set; }
         public DbSet<Enfermedad> Enfermedades { get; set; }
+        public DbSet<Paciente> Pacientes { get; set; }
         
     }
 }
