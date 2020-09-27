@@ -38,6 +38,7 @@ namespace WebAppMedOffices.Models
         public DbSet<ObraSocial> ObrasSociales { get; set; }
         public DbSet<ObraSocialTarifa> ObraSocialTarifas { get; set; }
         public DbSet<Turno> Turnos { get; set; }
+        public DbSet<TipoEnfermedad> TipoEnfermedades { get; set; }
         
     }
 }

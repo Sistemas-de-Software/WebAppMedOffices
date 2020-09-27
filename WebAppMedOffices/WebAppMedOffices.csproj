@@ -177,6 +177,7 @@
     <Compile Include="Controllers\MedicosController.cs" />
     <Compile Include="Controllers\ObraSocialTarifasController.cs" />
     <Compile Include="Controllers\ObrasSocialesController.cs" />
+    <Compile Include="Controllers\TipoEnfermedadesController.cs" />
     <Compile Include="Controllers\TurnosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -205,6 +206,10 @@
     <Compile Include="Migrations\202009271943297_Turno.Designer.cs">
       <DependentUpon>202009271943297_Turno.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009272247410_TipoEnfermedad_Table.cs" />
+    <Compile Include="Migrations\202009272247410_TipoEnfermedad_Table.Designer.cs">
+      <DependentUpon>202009272247410_TipoEnfermedad_Table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DuracionTurnoEspecialidad.cs" />
@@ -216,6 +221,7 @@
     <Compile Include="Models\Medico.cs" />
     <Compile Include="Models\ObraSocial.cs" />
     <Compile Include="Models\ObraSocialTarifa.cs" />
+    <Compile Include="Models\TipoEnfermedad.cs" />
     <Compile Include="Models\Turno.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\Enums.cs" />
@@ -317,6 +323,11 @@
     <Content Include="Views\Turnos\Details.cshtml" />
     <Content Include="Views\Turnos\Edit.cshtml" />
     <Content Include="Views\Turnos\Index.cshtml" />
+    <Content Include="Views\TipoEnfermedades\Create.cshtml" />
+    <Content Include="Views\TipoEnfermedades\Delete.cshtml" />
+    <Content Include="Views\TipoEnfermedades\Details.cshtml" />
+    <Content Include="Views\TipoEnfermedades\Edit.cshtml" />
+    <Content Include="Views\TipoEnfermedades\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -352,6 +363,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009271943297_Turno.resx">
       <DependentUpon>202009271943297_Turno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009272247410_TipoEnfermedad_Table.resx">
+      <DependentUpon>202009272247410_TipoEnfermedad_Table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
