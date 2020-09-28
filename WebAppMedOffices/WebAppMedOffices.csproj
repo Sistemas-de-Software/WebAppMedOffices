@@ -234,6 +234,10 @@
     <Compile Include="Migrations\202009280215414_PacienteTurnos_Table.Designer.cs">
       <DependentUpon>202009280215414_PacienteTurnos_Table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009281404185_addColumn_FechaHoraFin_a_Turnos.cs" />
+    <Compile Include="Migrations\202009281404185_addColumn_FechaHoraFin_a_Turnos.Designer.cs">
+      <DependentUpon>202009281404185_addColumn_FechaHoraFin_a_Turnos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DuracionTurnoEspecialidad.cs" />
@@ -430,6 +434,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009280215414_PacienteTurnos_Table.resx">
       <DependentUpon>202009280215414_PacienteTurnos_Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009281404185_addColumn_FechaHoraFin_a_Turnos.resx">
+      <DependentUpon>202009281404185_addColumn_FechaHoraFin_a_Turnos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

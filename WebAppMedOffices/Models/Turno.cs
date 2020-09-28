@@ -35,6 +35,12 @@ namespace WebAppMedOffices.Models
         [Display(Name = "Fecha y Hora")]
         public DateTime FechaHora { get; set; }
 
+        [Required(ErrorMessage = "Debes introducir una {0}")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Fecha y Hora Fin")]
+        public DateTime FechaHoraFin { get; set; }
+
         [Display(Name = "Costo")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal? Costo { get; set; }
