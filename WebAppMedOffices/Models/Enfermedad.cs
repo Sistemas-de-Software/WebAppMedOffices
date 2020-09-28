@@ -24,5 +24,7 @@ namespace WebAppMedOffices.Models
         public int TipoEnfermedadId { get; set; }
 
         public virtual TipoEnfermedad TipoEnfermedad { get; set; }
+
+        public virtual ICollection<PacienteEnfermedad> Pacientes { get; set; }
     }
 }
