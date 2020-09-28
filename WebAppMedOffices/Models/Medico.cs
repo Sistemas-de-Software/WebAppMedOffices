@@ -41,11 +41,21 @@ namespace WebAppMedOffices.Models
         [Display(Name = "Matrícula")]
         public string Matricula { get; set; }
 
+        [Display(Name = "Nombre y Apellido")]
+        public virtual string NombreCompleto
+        {
+            get
+            {
+                return Nombre + " " + Apellido;
+            }
+        }
+
         public virtual ICollection<DuracionTurnoEspecialidad> DuracionTurnoEspecialidades { get; set; }
 
         public virtual ICollection<AtencionHorario> AtencionHorarios { get; set; }
         
         public virtual ICollection<Turno> Turnos { get; set; }
+        
 
     }
 }

@@ -41,7 +41,7 @@ namespace WebAppMedOffices.Controllers
         public ActionResult Create()
         {
             ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre");
-            ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "Nombre");
+            ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "NombreCompleto");
             return View();
         }
 

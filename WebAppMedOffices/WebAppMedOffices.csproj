@@ -173,6 +173,7 @@
     <Compile Include="Controllers\EnfermedadesController.cs" />
     <Compile Include="Controllers\EspecialidadesController.cs" />
     <Compile Include="Controllers\ConsultoriosController.cs" />
+    <Compile Include="Controllers\GestionTurnosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MedicosController.cs" />
@@ -381,6 +382,11 @@
     <Content Include="Views\PacienteTurnos\Edit.cshtml" />
     <Content Include="Views\PacienteTurnos\Index.cshtml" />
     <Content Include="Views\TipoEnfermedades\CreateEnfermedad.cshtml" />
+    <Content Include="Views\GestionTurnos\Create.cshtml" />
+    <Content Include="Views\GestionTurnos\Delete.cshtml" />
+    <Content Include="Views\GestionTurnos\Details.cshtml" />
+    <Content Include="Views\GestionTurnos\Edit.cshtml" />
+    <Content Include="Views\GestionTurnos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
