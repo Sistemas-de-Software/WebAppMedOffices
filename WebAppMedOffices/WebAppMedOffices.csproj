@@ -200,6 +200,10 @@
     <Compile Include="Migrations\202009270336449_ObraSocialTarifas_Relaciones.Designer.cs">
       <DependentUpon>202009270336449_ObraSocialTarifas_Relaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009272203470_CargarBase.cs" />
+    <Compile Include="Migrations\202009272203470_CargarBase.Designer.cs">
+      <DependentUpon>202009272203470_CargarBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DuracionTurnoEspecialidad.cs" />
@@ -338,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009270336449_ObraSocialTarifas_Relaciones.resx">
       <DependentUpon>202009270336449_ObraSocialTarifas_Relaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009272203470_CargarBase.resx">
+      <DependentUpon>202009272203470_CargarBase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
