@@ -64,5 +64,7 @@ namespace WebAppMedOffices.Models
         public string TelefonoContactoEmergencia { get; set; }
 
         public virtual ICollection<PacienteEnfermedad> Enfermedades { get; set; }
+        
+        public virtual ICollection<PacienteTurno> Turnos { get; set; }
     }
 }

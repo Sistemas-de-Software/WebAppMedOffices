@@ -50,5 +50,7 @@ namespace WebAppMedOffices.Models
         public virtual Especialidad Especialidad { get; set; }
         
         public virtual ObraSocial ObraSocial { get; set; }
+        
+        public virtual ICollection<PacienteTurno> PacienteTurno { get; set; }
     }
 }
