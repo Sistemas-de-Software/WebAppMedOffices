@@ -124,5 +124,39 @@ namespace WebAppMedOffices.Controllers
             }
             base.Dispose(disposing);
         }
+
+        // Enfermedades
+
+        public async Task<ActionResult> CreateEnfermedad(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            TipoEnfermedad tipoEnfermedad = await db.TipoEnfermedades.FindAsync(id);
+            
+            if (tipoEnfermedad == null)
+            {
+                return HttpNotFound();
+            }
+
+            var view = new Enfermedad { TipoEnfermedadId = tipoEnfermedad.Id };
+            return View(view);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateEnfermedad(Enfermedad enfermedad)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Enfermedades.Add(enfermedad);
+                await db.SaveChangesAsync();
+                return RedirectToAction(string.Format("Details/{0}", enfermedad.TipoEnfermedadId));
+            }
+
+            return View(enfermedad);
+        }
     }
 }

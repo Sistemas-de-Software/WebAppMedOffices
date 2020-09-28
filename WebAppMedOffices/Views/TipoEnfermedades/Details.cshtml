@@ -1,13 +1,13 @@
 ﻿@model WebAppMedOffices.Models.TipoEnfermedad
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalle";
 }
 
-<h2>Details</h2>
+<h2>Detalle</h2>
 
 <div>
-    <h4>TipoEnfermedad</h4>
+    <h4>Tipo de Enfermedad</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -21,6 +21,38 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar Tipo de Enfermedad", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" }) 
+    @Html.ActionLink("Cargar Enfermedad", "CreateEnfermedad", new { id = Model.Id }, new { @class = "btn btn-primary" }) 
+    @Html.ActionLink("Volver", "Index", new { },new { @class = "btn btn-success" })
 </p>
+
+<h4>Enfermedades</h4>
+@if (Model.Enfermedades.Count == 0)
+{
+    <h5>No hay enfermedades cargadas</h5>
+}
+else { 
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Enfermedades.FirstOrDefault().Nombre)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Enfermedades)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "EditEspecialidad", new { id = item.Id }) |
+                    @Html.ActionLink("Detalle", "DetailsEspecialidad", new { id = item.Id }) |
+                    @Html.ActionLink("Eliminar", "DeleteEspecialidad", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+}

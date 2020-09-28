@@ -376,6 +376,7 @@
     <Content Include="Views\PacienteTurnos\Details.cshtml" />
     <Content Include="Views\PacienteTurnos\Edit.cshtml" />
     <Content Include="Views\PacienteTurnos\Index.cshtml" />
+    <Content Include="Views\TipoEnfermedades\CreateEnfermedad.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
