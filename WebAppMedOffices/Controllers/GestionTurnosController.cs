@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using WebAppMedOffices.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using WebAppMedOffices.Shared;
 
 namespace WebAppMedOffices.Controllers
 {
@@ -63,28 +64,100 @@ namespace WebAppMedOffices.Controllers
             ViewBag.MedicoId = new SelectList(await medicos.ToListAsync(), "Id", "NombreCompleto");
             var duracionTurnoEspecialidades = db.DuracionTurnoEspecialidades.Where(t => t.MedicoId == medicos.FirstOrDefault().Id).Include(t => t.Especialidad).OrderBy(t => t.Especialidad.Nombre);
             ViewBag.EspecialidadId = new SelectList(await duracionTurnoEspecialidades.ToListAsync(), "EspecialidadId", "Especialidad.Nombre");
-            ViewBag.ObraSocialId = new SelectList(db.ObrasSociales, "Id", "Nombre");
             return View();
         }
 
-        // POST: GestionTurnos/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,MedicoId,EspecialidadId,ObraSocialId,Estado,FechaHora,FechaHoraFin,Costo,Sobreturno,TieneObraSocial")] Turno turno)
+        public async Task<ActionResult> Create([Bind(Include = "Id,MedicoId,EspecialidadId,FechaDesde,FechaHasta")] TurnoView turnoView)
         {
             if (ModelState.IsValid)
             {
-                db.Turnos.Add(turno);
-                await db.SaveChangesAsync();
+                if (turnoView.FechaDesde.Date > turnoView.FechaHasta.Date)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                var duracion = db.DuracionTurnoEspecialidades.Where(t => t.MedicoId == turnoView.MedicoId && t.EspecialidadId == turnoView.EspecialidadId).FirstOrDefault();
+                if (duracion == null)
+                {
+                    return HttpNotFound();
+                }
+
+                var diasHorarios = db.AtencionHorarios.Where(t => t.MedicoId == turnoView.MedicoId).ToList();
+                if (diasHorarios == null)
+                {
+                    return HttpNotFound();
+                }
+
+                //creamos el ámbito de la transacción
+                using (var dbContextTransaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        
+                        TimeSpan diferencia = turnoView.FechaHasta - turnoView.FechaDesde;
+                        for (int i = 0; i < diferencia.TotalDays; i++)
+                        {
+                            DateTime fechaActual = new DateTime();
+                            fechaActual = turnoView.FechaDesde.AddDays(i);
+
+                            foreach (var diaHorario in diasHorarios)
+                            {
+                                if ((int) diaHorario.Dia == (int) fechaActual.DayOfWeek)
+                                {
+                                    DateTime horarioActual = diaHorario.HoraInicio;
+                                    while (horarioActual + TimeSpan.FromMinutes(duracion.Duracion) < diaHorario.HoraFin)
+                                    {
+
+                                        //una consulta
+                                        Turno turno = new Turno();
+                                        turno.MedicoId = turnoView.MedicoId;
+                                        turno.EspecialidadId = turnoView.EspecialidadId;
+                                        turno.Estado = Estado.Disponible;
+                                        turno.FechaHora = fechaActual.Date.AddHours(horarioActual.Hour).AddMinutes(horarioActual.Minute); // Horario que comienza a atender
+
+                                        horarioActual += TimeSpan.FromMinutes(duracion.Duracion); // Sumamos minutos
+
+                                        turno.FechaHoraFin = fechaActual.Date.AddHours(horarioActual.Hour).AddMinutes(horarioActual.Minute); // OJO: Posible error a futuro...
+
+                                        //agregamos el elemento
+                                        db.Turnos.Add(turno);
+                                    }
+                                }
+                            }
+                            
+                        }
+
+                        //guardamos en la base de datos
+                        await db.SaveChangesAsync();
+
+                        ////hacemos algo extra a manipulación de datos
+                        ////como enviar un mail, suponiendo que regresa true si es exitoso
+                        //if (!EnviaUnMail())
+                        //{
+                        //    //hacemos rollback si fallo el envio del mail
+                        //    dbContextTransaction.Rollback();
+                        //}
+
+                        //Hacemos commit de todos los datos
+                        dbContextTransaction.Commit();
+
+                    }
+                    catch (Exception)
+                    {
+                        //hacemos rollback si hay excepción
+                        dbContextTransaction.Rollback();
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                }
+
                 return RedirectToAction("Index");
             }
 
-            ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", turno.EspecialidadId);
-            ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "Nombre", turno.MedicoId);
-            ViewBag.ObraSocialId = new SelectList(db.ObrasSociales, "Id", "Nombre", turno.ObraSocialId);
-            return View(turno);
+            ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", turnoView.EspecialidadId);
+            ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "Nombre", turnoView.MedicoId);
+            return View(turnoView);
         }
 
         // GET: GestionTurnos/Edit/5
