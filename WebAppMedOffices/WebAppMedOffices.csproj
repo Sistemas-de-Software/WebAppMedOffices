@@ -181,7 +181,6 @@
     <Compile Include="Controllers\ObrasSocialesController.cs" />
     <Compile Include="Controllers\PacienteEnfermedadesController.cs" />
     <Compile Include="Controllers\PacientesController.cs" />
-    <Compile Include="Controllers\PacienteTurnosController.cs" />
     <Compile Include="Controllers\TipoEnfermedadesController.cs" />
     <Compile Include="Controllers\TurnosController.cs" />
     <Compile Include="Global.asax.cs">
@@ -238,6 +237,10 @@
     <Compile Include="Migrations\202009281404185_addColumn_FechaHoraFin_a_Turnos.cs" />
     <Compile Include="Migrations\202009281404185_addColumn_FechaHoraFin_a_Turnos.Designer.cs">
       <DependentUpon>202009281404185_addColumn_FechaHoraFin_a_Turnos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009292202417_Relacion_Turno_Paciente.cs" />
+    <Compile Include="Migrations\202009292202417_Relacion_Turno_Paciente.Designer.cs">
+      <DependentUpon>202009292202417_Relacion_Turno_Paciente.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -420,17 +423,14 @@
     <Content Include="Views\PacienteEnfermedades\Details.cshtml" />
     <Content Include="Views\PacienteEnfermedades\Edit.cshtml" />
     <Content Include="Views\PacienteEnfermedades\Index.cshtml" />
-    <Content Include="Views\PacienteTurnos\Create.cshtml" />
-    <Content Include="Views\PacienteTurnos\Delete.cshtml" />
-    <Content Include="Views\PacienteTurnos\Details.cshtml" />
-    <Content Include="Views\PacienteTurnos\Edit.cshtml" />
-    <Content Include="Views\PacienteTurnos\Index.cshtml" />
     <Content Include="Views\TipoEnfermedades\CreateEnfermedad.cshtml" />
     <Content Include="Views\GestionTurnos\Create.cshtml" />
     <Content Include="Views\GestionTurnos\Delete.cshtml" />
     <Content Include="Views\GestionTurnos\Details.cshtml" />
     <Content Include="Views\GestionTurnos\Edit.cshtml" />
     <Content Include="Views\GestionTurnos\Index.cshtml" />
+    <Content Include="Views\GestionTurnos\ListaPacientes.cshtml" />
+    <Content Include="Views\GestionTurnos\DetailsPaciente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -487,6 +487,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009281404185_addColumn_FechaHoraFin_a_Turnos.resx">
       <DependentUpon>202009281404185_addColumn_FechaHoraFin_a_Turnos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009292202417_Relacion_Turno_Paciente.resx">
+      <DependentUpon>202009292202417_Relacion_Turno_Paciente.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

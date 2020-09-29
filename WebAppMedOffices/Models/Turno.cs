@@ -22,6 +22,9 @@ namespace WebAppMedOffices.Models
         [Display(Name = "Especialidad")]
         public int EspecialidadId { get; set; }
 
+        [Display(Name = "Paciente")]
+        public int? PacienteId { get; set; }
+
         [Display(Name = "Obra Social")]
         public int? ObraSocialId { get; set; }
 
@@ -54,6 +57,8 @@ namespace WebAppMedOffices.Models
         public virtual Medico Medico { get; set; }
 
         public virtual Especialidad Especialidad { get; set; }
+        
+        public virtual Paciente Paciente { get; set; }
         
         public virtual ObraSocial ObraSocial { get; set; }
         

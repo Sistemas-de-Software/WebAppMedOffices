@@ -65,6 +65,6 @@ namespace WebAppMedOffices.Models
 
         public virtual ICollection<PacienteEnfermedad> Enfermedades { get; set; }
         
-        public virtual ICollection<PacienteTurno> Turnos { get; set; }
+        public virtual ICollection<Turno> Turnos { get; set; }
     }
 }

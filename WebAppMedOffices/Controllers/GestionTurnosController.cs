@@ -11,6 +11,7 @@ using WebAppMedOffices.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WebAppMedOffices.Shared;
+using System.Data.Entity.Core.Objects;
 
 namespace WebAppMedOffices.Controllers
 {
@@ -38,7 +39,7 @@ namespace WebAppMedOffices.Controllers
         // GET: GestionTurnos
         public async Task<ActionResult> Index()
         {
-            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial);
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado && DbFunctions.TruncateTime( t.FechaHora) == DateTime.Now);
             return View(await turnos.ToListAsync());
         }
 
@@ -57,7 +58,6 @@ namespace WebAppMedOffices.Controllers
             return View(turno);
         }
 
-        // GET: GestionTurnos/Create
         public async Task<ActionResult> Create()
         {
             var medicos = db.Medicos.Include(t => t.DuracionTurnoEspecialidades).OrderBy(t => t.Apellido);
@@ -160,7 +160,28 @@ namespace WebAppMedOffices.Controllers
             return View(turnoView);
         }
 
-        // GET: GestionTurnos/Edit/5
+        public async Task<ActionResult> ListaPacientes()
+        {
+            return View(await db.Pacientes.ToListAsync());
+        }
+
+        public async Task<ActionResult> DetailsPaciente(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Paciente paciente = await db.Pacientes.FindAsync(id);
+
+            if (paciente == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(paciente);
+        }
+
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -178,9 +199,6 @@ namespace WebAppMedOffices.Controllers
             return View(turno);
         }
 
-        // POST: GestionTurnos/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,MedicoId,EspecialidadId,ObraSocialId,Estado,FechaHora,FechaHoraFin,Costo,Sobreturno,TieneObraSocial")] Turno turno)
@@ -197,7 +215,6 @@ namespace WebAppMedOffices.Controllers
             return View(turno);
         }
 
-        // GET: GestionTurnos/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
