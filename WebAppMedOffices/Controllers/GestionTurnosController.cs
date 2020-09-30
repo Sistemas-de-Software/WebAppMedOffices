@@ -48,7 +48,7 @@ namespace WebAppMedOffices.Controllers
             return View(await turnos.ToListAsync());
         }
 
-        public async Task<ActionResult> TurnosDisponibles(int id)
+        public async Task<ActionResult> BuscarTurnos(int id)
         {
 
             var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible);
@@ -63,7 +63,41 @@ namespace WebAppMedOffices.Controllers
             return View(await turnos.ToListAsync());
         }
 
-        // GET: GestionTurnos/Details/5
+        public async Task<ActionResult> AsignarTurno(int? id, int? pacienteId)
+        {
+            if (id == null || pacienteId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Turno turno = await db.Turnos.FindAsync(id);
+            
+            if (turno == null)
+            {
+                return HttpNotFound();
+            }
+
+            //ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", turno.EspecialidadId);
+            //ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "Nombre", turno.MedicoId);
+            //ViewBag.ObraSocialId = new SelectList(db.ObrasSociales, "Id", "Nombre", turno.ObraSocialId);
+
+            return View(turno);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AsignarTurno([Bind(Include = "Id,MedicoId,EspecialidadId,ObraSocialId,Estado,FechaHora,FechaHoraFin,Costo,Sobreturno,TieneObraSocial")] Turno turno)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(turno).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            return View(turno);
+        }
+
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)

@@ -450,6 +450,8 @@
     <Content Include="Views\HistoriaClinicas\Details.cshtml" />
     <Content Include="Views\HistoriaClinicas\Edit.cshtml" />
     <Content Include="Views\HistoriaClinicas\Index.cshtml" />
+    <Content Include="Views\GestionTurnos\BuscarTurnos.cshtml" />
+    <Content Include="Views\GestionTurnos\AsignarTurno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
