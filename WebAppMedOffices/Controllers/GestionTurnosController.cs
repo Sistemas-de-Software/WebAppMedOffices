@@ -36,10 +36,15 @@ namespace WebAppMedOffices.Controllers
             }
         }
 
-        // GET: GestionTurnos
         public async Task<ActionResult> Index()
         {
             var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado && DbFunctions.TruncateTime( t.FechaHora) == DateTime.Now);
+            return View(await turnos.ToListAsync());
+        }
+
+        public async Task<ActionResult> TurnosDisponibles()
+        {
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible);
             return View(await turnos.ToListAsync());
         }
 
@@ -152,7 +157,7 @@ namespace WebAppMedOffices.Controllers
                     }
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("TurnosDisponibles");
             }
 
             ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", turnoView.EspecialidadId);

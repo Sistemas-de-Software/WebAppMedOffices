@@ -242,6 +242,10 @@
     <Compile Include="Migrations\202009292202417_Relacion_Turno_Paciente.Designer.cs">
       <DependentUpon>202009292202417_Relacion_Turno_Paciente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009292312023_Eliminar_PacienteTurno.cs" />
+    <Compile Include="Migrations\202009292312023_Eliminar_PacienteTurno.Designer.cs">
+      <DependentUpon>202009292312023_Eliminar_PacienteTurno.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DuracionTurnoEspecialidad.cs" />
@@ -256,7 +260,6 @@
     <Compile Include="Models\ObraSocialTarifa.cs" />
     <Compile Include="Models\Paciente.cs" />
     <Compile Include="Models\PacienteEnfermedad.cs" />
-    <Compile Include="Models\PacienteTurno.cs" />
     <Compile Include="Models\TipoEnfermedad.cs" />
     <Compile Include="Models\Turno.cs" />
     <Compile Include="Models\TurnoView.cs" />
@@ -431,6 +434,7 @@
     <Content Include="Views\GestionTurnos\Index.cshtml" />
     <Content Include="Views\GestionTurnos\ListaPacientes.cshtml" />
     <Content Include="Views\GestionTurnos\DetailsPaciente.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosDisponibles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -490,6 +494,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009292202417_Relacion_Turno_Paciente.resx">
       <DependentUpon>202009292202417_Relacion_Turno_Paciente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009292312023_Eliminar_PacienteTurno.resx">
+      <DependentUpon>202009292312023_Eliminar_PacienteTurno.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

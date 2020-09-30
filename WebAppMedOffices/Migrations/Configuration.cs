@@ -31,9 +31,9 @@ namespace WebAppMedOffices.Migrations
                 new Medico() { Id = 3, Nombre = "Kevin", Apellido = "Ferreyra", Telefono = "442133", Celular = "1130048955", Matricula = "65321" }
                 );
             context.AtencionHorarios.AddOrUpdate(x => x.Id,
-                new AtencionHorario() { Id = 1, ConsultorioId = 1, MedicoId = 1, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.LUN, HoraInicio = new DateTime(2020, 09, 01, 10, 00, 0), HoraFin = new DateTime(2020, 09, 01, 10, 20, 0) },
-                new AtencionHorario() { Id = 2, ConsultorioId = 1, MedicoId = 1, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.LUN, HoraInicio = new DateTime(2020, 09, 01, 10, 20, 0), HoraFin = new DateTime(2020, 09, 01, 10, 40, 0) },
-                new AtencionHorario() { Id = 3, ConsultorioId = 1, MedicoId = 1, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.LUN, HoraInicio = new DateTime(2020, 09, 01, 10, 40, 0), HoraFin = new DateTime(2020, 09, 01, 11, 00, 0) }
+                new AtencionHorario() { Id = 1, ConsultorioId = 1, MedicoId = 1, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.LUN, HoraInicio = new DateTime(2020, 09, 01, 08, 00, 0), HoraFin = new DateTime(2020, 09, 01, 12, 00, 0) },
+                new AtencionHorario() { Id = 2, ConsultorioId = 2, MedicoId = 2, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.MAR, HoraInicio = new DateTime(2020, 09, 01, 13, 00, 0), HoraFin = new DateTime(2020, 09, 01, 18, 00, 0) },
+                new AtencionHorario() { Id = 3, ConsultorioId = 3, MedicoId = 3, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.MIE, HoraInicio = new DateTime(2020, 09, 01, 08, 00, 0), HoraFin = new DateTime(2020, 09, 01, 12, 00, 0) }
                 );
 
             context.Especialidades.AddOrUpdate(x => x.Id,
@@ -57,9 +57,8 @@ namespace WebAppMedOffices.Migrations
                 new ObraSocialTarifa() { Id = 3, Tarifa = new decimal(700.60), ObraSocialId = 1, EspecialidadId = 3 }
                 );
             context.TipoEnfermedades.AddOrUpdate(x => x.Id,
-            new TipoEnfermedad() { Id = 1, Nombre = "Cancer de pulmon" },
-            new TipoEnfermedad() { Id = 2, Nombre = "Cancer de piel" },
-            new TipoEnfermedad() { Id = 3, Nombre = "Carcinoma" }
+            new TipoEnfermedad() { Id = 1, Nombre = "Patologías" },
+            new TipoEnfermedad() { Id = 2, Nombre = "Alergias" }
             );
             context.Pacientes.AddOrUpdate(x => x.Id,
             new Paciente() { Id = 1, Nombre = "Franco", Apellido = "Baez", Documento = "40345671", FechaNacimiento = new DateTime(1998, 10, 01), Direccion = "Oribe 892", Telefono = "442342", Celular = "1143234267", NombreContactoEmergencia = "Fulanito1", TelefonoContactoEmergencia = "432580" },
@@ -67,10 +66,15 @@ namespace WebAppMedOffices.Migrations
             new Paciente() { Id = 3, Nombre = "Jesica", Apellido = "Amodil", Documento = "40314424", FechaNacimiento = new DateTime(2000, 01, 01), Direccion = "Atahualpa 703", Telefono = "443285", Celular = "1162808393", NombreContactoEmergencia = "Fulanito3", TelefonoContactoEmergencia = "441242" }
             );
             context.Enfermedades.AddOrUpdate(x => x.Id,
-                new Enfermedad() { Id = 1, Nombre = "Cancer", TipoEnfermedadId = 1 }
+                new Enfermedad() { Id = 1, Nombre = "ANEMIA", TipoEnfermedadId = 1 },
+                new Enfermedad() { Id = 2, Nombre = "ARTROSIS", TipoEnfermedadId = 1 },
+                new Enfermedad() { Id = 3, Nombre = "AUTISMO", TipoEnfermedadId = 1 },
+                new Enfermedad() { Id = 4, Nombre = "ALERGIA A FÁRMACOS", TipoEnfermedadId = 2 },
+                new Enfermedad() { Id = 5, Nombre = "ALERGIA AL POLEN", TipoEnfermedadId = 2 },
+                new Enfermedad() { Id = 6, Nombre = "ALERGIA A ÁCAROS", TipoEnfermedadId = 2 }
                 );
             context.PacienteEnfermedades.AddOrUpdate(x => x.Id,
-            new PacienteEnfermedad() { Id = 1, PacienteId = 1, EnfermedadId = 1, Descripcion = "Enfermedad cronica"}
+            new PacienteEnfermedad() { Id = 1, PacienteId = 1, EnfermedadId = 1, Descripcion = "Sin descripción"}
             //new PacienteEnfermedad() { Id = 2, PacienteId = 2, EnfermedadId = 2, Descripcion = "Alta colestorol" },
             //new PacienteEnfermedad() { Id = 3, PacienteId = 3, EnfermedadId = 3, Descripcion = "Falta de respiración" }
             );

@@ -62,6 +62,5 @@ namespace WebAppMedOffices.Models
         
         public virtual ObraSocial ObraSocial { get; set; }
         
-        public virtual ICollection<PacienteTurno> PacienteTurno { get; set; }
     }
 }

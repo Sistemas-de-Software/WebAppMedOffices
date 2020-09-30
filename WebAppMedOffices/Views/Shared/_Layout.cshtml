@@ -18,7 +18,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("MedOffices", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("MedOffices", "Index", "GestionTurnos", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -28,7 +28,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestión de Turnos <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Gestion Turnos", "Index", "GestionTurnos")</li>
+                            <li>@Html.ActionLink("Turnos Disponibles", "TurnosDisponibles", "GestionTurnos")</li>
                             <li>@Html.ActionLink("Turnos", "Index", "Turnos")</li>
                             <li>@Html.ActionLink("Lista de Pacientes", "ListaPacientes", "GestionTurnos")</li>
                             <li role="separator" class="divider"></li>

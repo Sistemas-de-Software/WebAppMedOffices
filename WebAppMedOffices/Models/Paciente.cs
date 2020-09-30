@@ -63,6 +63,15 @@ namespace WebAppMedOffices.Models
         [Display(Name = "Teléfono de Emergencia")]
         public string TelefonoContactoEmergencia { get; set; }
 
+        [Display(Name = "Nombre y Apellido")]
+        public virtual string NombreCompleto
+        {
+            get
+            {
+                return Nombre + " " + Apellido;
+            }
+        }
+
         public virtual ICollection<PacienteEnfermedad> Enfermedades { get; set; }
         
         public virtual ICollection<Turno> Turnos { get; set; }
