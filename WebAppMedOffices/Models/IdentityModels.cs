@@ -42,6 +42,7 @@ namespace WebAppMedOffices.Models
         public DbSet<Enfermedad> Enfermedades { get; set; }
         public DbSet<Paciente> Pacientes { get; set; }
         public DbSet<PacienteEnfermedad> PacienteEnfermedades { get; set; }
-        
+        public DbSet<HistoriaClinica> HistoriaClinicas { get; set; }
+
     }
 }
