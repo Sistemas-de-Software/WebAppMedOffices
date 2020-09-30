@@ -53,9 +53,18 @@ namespace WebAppMedOffices.Migrations
                 new ObraSocial() { Id = 4, Nombre = "Swiss Medical", Telefono = "423990", Email = "swiss@gmail.com" }
                 );
             context.ObraSocialTarifas.AddOrUpdate(x => x.Id,
-                new ObraSocialTarifa() { Id = 1, Tarifa = new decimal(400.50), ObraSocialId = 1, EspecialidadId = 1 },
-                new ObraSocialTarifa() { Id = 2, Tarifa = new decimal(500.20), ObraSocialId = 1, EspecialidadId = 2 },
-                new ObraSocialTarifa() { Id = 3, Tarifa = new decimal(700.60), ObraSocialId = 1, EspecialidadId = 3 }
+                new ObraSocialTarifa() { Id = 1, Tarifa = new decimal(4000.50), ObraSocialId = 1, EspecialidadId = 1 },
+                new ObraSocialTarifa() { Id = 2, Tarifa = new decimal(4000.50), ObraSocialId = 1, EspecialidadId = 2 },
+                new ObraSocialTarifa() { Id = 3, Tarifa = new decimal(4000.50), ObraSocialId = 1, EspecialidadId = 3 },
+                new ObraSocialTarifa() { Id = 4, Tarifa = new decimal(500.20), ObraSocialId = 2, EspecialidadId = 1 },
+                new ObraSocialTarifa() { Id = 5, Tarifa = new decimal(500.20), ObraSocialId = 2, EspecialidadId = 2 },
+                new ObraSocialTarifa() { Id = 6, Tarifa = new decimal(500.20), ObraSocialId = 2, EspecialidadId = 3 },
+                new ObraSocialTarifa() { Id = 7, Tarifa = new decimal(700.60), ObraSocialId = 3, EspecialidadId = 1 },
+                new ObraSocialTarifa() { Id = 8, Tarifa = new decimal(700.60), ObraSocialId = 3, EspecialidadId = 2 },
+                new ObraSocialTarifa() { Id = 9, Tarifa = new decimal(700.60), ObraSocialId = 3, EspecialidadId = 3 },
+                new ObraSocialTarifa() { Id = 10, Tarifa = new decimal(700.60), ObraSocialId = 4, EspecialidadId = 1 },
+                new ObraSocialTarifa() { Id = 11, Tarifa = new decimal(700.60), ObraSocialId = 4, EspecialidadId = 2 },
+                new ObraSocialTarifa() { Id = 12, Tarifa = new decimal(700.60), ObraSocialId = 4, EspecialidadId = 3 }
                 );
             context.TipoEnfermedades.AddOrUpdate(x => x.Id,
             new TipoEnfermedad() { Id = 1, Nombre = "Patologías" },

@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WebAppMedOffices.Shared;
 using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Core.Metadata.Edm;
 
 namespace WebAppMedOffices.Controllers
 {
@@ -48,8 +49,18 @@ namespace WebAppMedOffices.Controllers
             return View(await turnos.ToListAsync());
         }
 
-        public async Task<ActionResult> BuscarTurnos(int id)
+        public async Task<ActionResult> TurnosReservados()
         {
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado);
+            return View(await turnos.ToListAsync());
+        }
+
+        public async Task<ActionResult> BuscarTurnos(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
             var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible);
             
@@ -71,17 +82,39 @@ namespace WebAppMedOffices.Controllers
             }
 
             Turno turno = await db.Turnos.FindAsync(id);
+            Paciente paciente = await db.Pacientes.FindAsync(pacienteId);
             
-            if (turno == null)
+            if (turno == null || paciente == null)
             {
                 return HttpNotFound();
             }
+
+            Paciente nuevoPaciente = new Paciente();
+            nuevoPaciente.Id = paciente.Id;
+            
+
+            Turno nuevoTurno = new Turno();
+            nuevoTurno.Id = turno.Id;
+            nuevoTurno.MedicoId = turno.MedicoId;
+            nuevoTurno.EspecialidadId = turno.EspecialidadId;
+            nuevoTurno.PacienteId = nuevoPaciente.Id;
+            nuevoTurno.ObraSocialId = paciente.ObraSocial.Id;
+            nuevoTurno.Estado = Estado.Reservado;
+            nuevoTurno.FechaHora = turno.FechaHora;
+            nuevoTurno.FechaHoraFin = turno.FechaHoraFin;
+            nuevoTurno.Costo = paciente.ObraSocial.Tarifas.Where(t => t.EspecialidadId == turno.EspecialidadId).FirstOrDefault().Tarifa;
+            nuevoTurno.Sobreturno = false;
+            nuevoTurno.TieneObraSocial = false;
+            nuevoTurno.Medico = turno.Medico;
+            nuevoTurno.Especialidad = turno.Especialidad;
+            nuevoTurno.Paciente = paciente;
+            nuevoTurno.ObraSocial = paciente.ObraSocial;
 
             //ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", turno.EspecialidadId);
             //ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "Nombre", turno.MedicoId);
             //ViewBag.ObraSocialId = new SelectList(db.ObrasSociales, "Id", "Nombre", turno.ObraSocialId);
 
-            return View(turno);
+            return View(nuevoTurno);
         }
 
         [HttpPost]
