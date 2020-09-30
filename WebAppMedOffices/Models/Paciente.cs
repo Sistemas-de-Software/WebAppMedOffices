@@ -52,6 +52,9 @@ namespace WebAppMedOffices.Models
         [Display(Name = "Celular")]
         public string Celular { get; set; }
 
+        [Display(Name = "Obra Social")]
+        public int? ObraSocialId { get; set; }
+
         [Required(ErrorMessage = "Debes introducir un {0}")]
         [MaxLength(50, ErrorMessage = "El campo {0} puede contener un máximo de {1} caracteres")]
         [Display(Name = "Contacto de Emergencia")]
@@ -71,6 +74,8 @@ namespace WebAppMedOffices.Models
                 return Nombre + " " + Apellido;
             }
         }
+
+        public virtual ObraSocial ObraSocial { get; set; }
 
         public virtual ICollection<PacienteEnfermedad> Enfermedades { get; set; }
         

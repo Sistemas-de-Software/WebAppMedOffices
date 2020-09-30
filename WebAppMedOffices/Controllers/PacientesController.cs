@@ -39,6 +39,7 @@ namespace WebAppMedOffices.Controllers
         // GET: Pacientes/Create
         public ActionResult Create()
         {
+            ViewBag.ObraSocialId = new SelectList(db.ObrasSociales, "Id", "Nombre");
             return View();
         }
 
@@ -47,7 +48,7 @@ namespace WebAppMedOffices.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Nombre,Apellido,Documento,FechaNacimiento,Direccion,Telefono,Celular,NombreContactoEmergencia,TelefonoContactoEmergencia")] Paciente paciente)
+        public async Task<ActionResult> Create(Paciente paciente)
         {
             if (ModelState.IsValid)
             {
@@ -66,20 +67,21 @@ namespace WebAppMedOffices.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
             Paciente paciente = await db.Pacientes.FindAsync(id);
+            
             if (paciente == null)
             {
                 return HttpNotFound();
             }
+
+            ViewBag.ObraSocialId = new SelectList(db.ObrasSociales, "Id", "Nombre", paciente.ObraSocialId);
             return View(paciente);
         }
 
-        // POST: Pacientes/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Nombre,Apellido,Documento,FechaNacimiento,Direccion,Telefono,Celular,NombreContactoEmergencia,TelefonoContactoEmergencia")] Paciente paciente)
+        public async Task<ActionResult> Edit(Paciente paciente)
         {
             if (ModelState.IsValid)
             {
@@ -87,6 +89,8 @@ namespace WebAppMedOffices.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.ObraSocialId = new SelectList(db.ObrasSociales, "Id", "Nombre", paciente.ObraSocialId);
             return View(paciente);
         }
 

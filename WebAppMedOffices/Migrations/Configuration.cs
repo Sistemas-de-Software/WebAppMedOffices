@@ -47,9 +47,10 @@ namespace WebAppMedOffices.Migrations
                 new DuracionTurnoEspecialidad() { Id = 3, MedicoId = 3, EspecialidadId = 3, Duracion = 20 }
                 );
             context.ObrasSociales.AddOrUpdate(x => x.Id,
-                new ObraSocial() { Id = 1, Nombre = "OsFatun", Telefono = "447800", Email = "osfatun@gmail.com" },
-                new ObraSocial() { Id = 2, Nombre = "OSDE", Telefono = "424500", Email = "osde@gmail.com" },
-                new ObraSocial() { Id = 3, Nombre = "Swiss Medical", Telefono = "423990", Email = "swiss@gmail.com" }
+                new ObraSocial() { Id = 1, Nombre = "Sin Obra Social", Telefono = "0000", Email = "clinica@gmail.com" },
+                new ObraSocial() { Id = 2, Nombre = "OsFatun", Telefono = "447800", Email = "osfatun@gmail.com" },
+                new ObraSocial() { Id = 3, Nombre = "OSDE", Telefono = "424500", Email = "osde@gmail.com" },
+                new ObraSocial() { Id = 4, Nombre = "Swiss Medical", Telefono = "423990", Email = "swiss@gmail.com" }
                 );
             context.ObraSocialTarifas.AddOrUpdate(x => x.Id,
                 new ObraSocialTarifa() { Id = 1, Tarifa = new decimal(400.50), ObraSocialId = 1, EspecialidadId = 1 },

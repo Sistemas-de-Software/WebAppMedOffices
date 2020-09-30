@@ -251,6 +251,10 @@
     <Compile Include="Migrations\202009300128348_HistoriaClinica_Table.Designer.cs">
       <DependentUpon>202009300128348_HistoriaClinica_Table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009300148295_Paciente_ObraSocial.cs" />
+    <Compile Include="Migrations\202009300148295_Paciente_ObraSocial.Designer.cs">
+      <DependentUpon>202009300148295_Paciente_ObraSocial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DuracionTurnoEspecialidad.cs" />
@@ -511,6 +515,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009300128348_HistoriaClinica_Table.resx">
       <DependentUpon>202009300128348_HistoriaClinica_Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009300148295_Paciente_ObraSocial.resx">
+      <DependentUpon>202009300148295_Paciente_ObraSocial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

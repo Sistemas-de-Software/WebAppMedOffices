@@ -48,6 +48,21 @@ namespace WebAppMedOffices.Controllers
             return View(await turnos.ToListAsync());
         }
 
+        public async Task<ActionResult> TurnosDisponibles(int id)
+        {
+
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible);
+            
+            if (turnos == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.PacienteId = id;
+            
+            return View(await turnos.ToListAsync());
+        }
+
         // GET: GestionTurnos/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -234,7 +249,6 @@ namespace WebAppMedOffices.Controllers
             return View(turno);
         }
 
-        // POST: GestionTurnos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
