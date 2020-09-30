@@ -187,73 +187,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202009270010550_InitialCreate.cs" />
-    <Compile Include="Migrations\202009270010550_InitialCreate.Designer.cs">
-      <DependentUpon>202009270010550_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009270202268_AtencionHorarios.cs" />
-    <Compile Include="Migrations\202009270202268_AtencionHorarios.Designer.cs">
-      <DependentUpon>202009270202268_AtencionHorarios.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009270216063_AtencionHorarios_Relaciones.cs" />
-    <Compile Include="Migrations\202009270216063_AtencionHorarios_Relaciones.Designer.cs">
-      <DependentUpon>202009270216063_AtencionHorarios_Relaciones.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009270303219_ObrasSociales.cs" />
-    <Compile Include="Migrations\202009270303219_ObrasSociales.Designer.cs">
-      <DependentUpon>202009270303219_ObrasSociales.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009270336449_ObraSocialTarifas_Relaciones.cs" />
-    <Compile Include="Migrations\202009270336449_ObraSocialTarifas_Relaciones.Designer.cs">
-      <DependentUpon>202009270336449_ObraSocialTarifas_Relaciones.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009271943297_Turno.cs" />
-    <Compile Include="Migrations\202009271943297_Turno.Designer.cs">
-      <DependentUpon>202009271943297_Turno.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009272247410_TipoEnfermedad_Table.cs" />
-    <Compile Include="Migrations\202009272247410_TipoEnfermedad_Table.Designer.cs">
-      <DependentUpon>202009272247410_TipoEnfermedad_Table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009272306223_Enfermedades_Table.cs" />
-    <Compile Include="Migrations\202009272306223_Enfermedades_Table.Designer.cs">
-      <DependentUpon>202009272306223_Enfermedades_Table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009272313443_Enfermedades_Table1.cs" />
-    <Compile Include="Migrations\202009272313443_Enfermedades_Table1.Designer.cs">
-      <DependentUpon>202009272313443_Enfermedades_Table1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009272343098_Pacientes_Table.cs" />
-    <Compile Include="Migrations\202009272343098_Pacientes_Table.Designer.cs">
-      <DependentUpon>202009272343098_Pacientes_Table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009280018439_PacienteEnfermedades_Table.cs" />
-    <Compile Include="Migrations\202009280018439_PacienteEnfermedades_Table.Designer.cs">
-      <DependentUpon>202009280018439_PacienteEnfermedades_Table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009280215414_PacienteTurnos_Table.cs" />
-    <Compile Include="Migrations\202009280215414_PacienteTurnos_Table.Designer.cs">
-      <DependentUpon>202009280215414_PacienteTurnos_Table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009281404185_addColumn_FechaHoraFin_a_Turnos.cs" />
-    <Compile Include="Migrations\202009281404185_addColumn_FechaHoraFin_a_Turnos.Designer.cs">
-      <DependentUpon>202009281404185_addColumn_FechaHoraFin_a_Turnos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009292202417_Relacion_Turno_Paciente.cs" />
-    <Compile Include="Migrations\202009292202417_Relacion_Turno_Paciente.Designer.cs">
-      <DependentUpon>202009292202417_Relacion_Turno_Paciente.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009292312023_Eliminar_PacienteTurno.cs" />
-    <Compile Include="Migrations\202009292312023_Eliminar_PacienteTurno.Designer.cs">
-      <DependentUpon>202009292312023_Eliminar_PacienteTurno.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009300128348_HistoriaClinica_Table.cs" />
-    <Compile Include="Migrations\202009300128348_HistoriaClinica_Table.Designer.cs">
-      <DependentUpon>202009300128348_HistoriaClinica_Table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009300148295_Paciente_ObraSocial.cs" />
-    <Compile Include="Migrations\202009300148295_Paciente_ObraSocial.Designer.cs">
-      <DependentUpon>202009300148295_Paciente_ObraSocial.cs</DependentUpon>
+    <Compile Include="Migrations\202009301505362_Initial-Create.cs" />
+    <Compile Include="Migrations\202009301505362_Initial-Create.Designer.cs">
+      <DependentUpon>202009301505362_Initial-Create.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -471,56 +407,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202009270010550_InitialCreate.resx">
-      <DependentUpon>202009270010550_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009270202268_AtencionHorarios.resx">
-      <DependentUpon>202009270202268_AtencionHorarios.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009270216063_AtencionHorarios_Relaciones.resx">
-      <DependentUpon>202009270216063_AtencionHorarios_Relaciones.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009270303219_ObrasSociales.resx">
-      <DependentUpon>202009270303219_ObrasSociales.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009270336449_ObraSocialTarifas_Relaciones.resx">
-      <DependentUpon>202009270336449_ObraSocialTarifas_Relaciones.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009271943297_Turno.resx">
-      <DependentUpon>202009271943297_Turno.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009272247410_TipoEnfermedad_Table.resx">
-      <DependentUpon>202009272247410_TipoEnfermedad_Table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009272306223_Enfermedades_Table.resx">
-      <DependentUpon>202009272306223_Enfermedades_Table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009272313443_Enfermedades_Table1.resx">
-      <DependentUpon>202009272313443_Enfermedades_Table1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009272343098_Pacientes_Table.resx">
-      <DependentUpon>202009272343098_Pacientes_Table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009280018439_PacienteEnfermedades_Table.resx">
-      <DependentUpon>202009280018439_PacienteEnfermedades_Table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009280215414_PacienteTurnos_Table.resx">
-      <DependentUpon>202009280215414_PacienteTurnos_Table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009281404185_addColumn_FechaHoraFin_a_Turnos.resx">
-      <DependentUpon>202009281404185_addColumn_FechaHoraFin_a_Turnos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009292202417_Relacion_Turno_Paciente.resx">
-      <DependentUpon>202009292202417_Relacion_Turno_Paciente.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009292312023_Eliminar_PacienteTurno.resx">
-      <DependentUpon>202009292312023_Eliminar_PacienteTurno.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009300128348_HistoriaClinica_Table.resx">
-      <DependentUpon>202009300128348_HistoriaClinica_Table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009300148295_Paciente_ObraSocial.resx">
-      <DependentUpon>202009300148295_Paciente_ObraSocial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202009301505362_Initial-Create.resx">
+      <DependentUpon>202009301505362_Initial-Create.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

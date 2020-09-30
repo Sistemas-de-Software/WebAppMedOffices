@@ -6,16 +6,13 @@
 
 <h2>Turnos Disponibles</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary" })
-</p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Especialidad.Nombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Medico.NombreCompleto)
+            Médico
         </th>
         @*<th>
             @Html.DisplayNameFor(model => model.ObraSocial.Nombre)
@@ -23,9 +20,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Paciente.Nombre)
         </th>*@
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Estado)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.FechaHora)
         </th>
@@ -58,9 +55,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.Paciente.Nombre)
         </td>*@
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Estado)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.FechaHora)
         </td>

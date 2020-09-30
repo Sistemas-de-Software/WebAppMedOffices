@@ -12,13 +12,13 @@
             @Html.DisplayNameFor(model => model.Especialidad.Nombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Medico.NombreCompleto)
+            Médico
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ObraSocial.Nombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Paciente.Nombre)
+            Paciente
         </th>
         @*<th>
             @Html.DisplayNameFor(model => model.Estado)
@@ -54,7 +54,7 @@
                 @Html.DisplayFor(modelItem => item.ObraSocial.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Paciente.Nombre)
+                @Html.DisplayFor(modelItem => item.Paciente.NombreCompleto)
             </td>
             @*<td>
                 @Html.DisplayFor(modelItem => item.Estado)

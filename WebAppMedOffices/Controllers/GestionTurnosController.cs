@@ -39,7 +39,8 @@ namespace WebAppMedOffices.Controllers
 
         public async Task<ActionResult> Index()
         {
-            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado && DbFunctions.TruncateTime( t.FechaHora) == DateTime.Now);
+            var hoy = DateTime.Now.Date;
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado && DbFunctions.TruncateTime( t.FechaHora) == hoy);
             return View(await turnos.ToListAsync());
         }
 
@@ -89,16 +90,12 @@ namespace WebAppMedOffices.Controllers
                 return HttpNotFound();
             }
 
-            Paciente nuevoPaciente = new Paciente();
-            nuevoPaciente.Id = paciente.Id;
-            
-
             Turno nuevoTurno = new Turno();
             nuevoTurno.Id = turno.Id;
             nuevoTurno.MedicoId = turno.MedicoId;
             nuevoTurno.EspecialidadId = turno.EspecialidadId;
-            nuevoTurno.PacienteId = nuevoPaciente.Id;
             nuevoTurno.ObraSocialId = paciente.ObraSocial.Id;
+            nuevoTurno.PacienteId = paciente.Id;
             nuevoTurno.Estado = Estado.Reservado;
             nuevoTurno.FechaHora = turno.FechaHora;
             nuevoTurno.FechaHoraFin = turno.FechaHoraFin;
@@ -110,22 +107,18 @@ namespace WebAppMedOffices.Controllers
             nuevoTurno.Paciente = paciente;
             nuevoTurno.ObraSocial = paciente.ObraSocial;
 
-            //ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", turno.EspecialidadId);
-            //ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "Nombre", turno.MedicoId);
-            //ViewBag.ObraSocialId = new SelectList(db.ObrasSociales, "Id", "Nombre", turno.ObraSocialId);
-
             return View(nuevoTurno);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AsignarTurno([Bind(Include = "Id,MedicoId,EspecialidadId,ObraSocialId,Estado,FechaHora,FechaHoraFin,Costo,Sobreturno,TieneObraSocial")] Turno turno)
+        public async Task<ActionResult> AsignarTurno([Bind(Include = "Id,MedicoId,EspecialidadId,ObraSocialId,PacienteId,Estado,FechaHora,FechaHoraFin,Costo,Sobreturno,TieneObraSocial")] Turno turno)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(turno).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("TurnosReservados");
             }
 
             return View(turno);

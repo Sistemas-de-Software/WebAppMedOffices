@@ -6,42 +6,42 @@
 
 <h2>Turnos de Hoy</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Cargar turnos", "Create", new { }, new { @class = "btn btn-primary"})
-</p>
+</p>*@
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Especialidad.Nombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Medico.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Paciente.Nombre)
+            Médico
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ObraSocial.Nombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Estado)
+            Paciente
         </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.FechaHora)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.FechaHoraFin)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Costo)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Sobreturno)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TieneObraSocial)
         </th>
-        <th></th>
+        <th></th>*@
     </tr>
 
 @foreach (var item in Model) {
@@ -50,27 +50,27 @@
         @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Medico.Nombre)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Paciente.Nombre)
+        @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.ObraSocial.Nombre)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Estado)
+        @Html.DisplayFor(modelItem => item.Paciente.NombreCompleto)
     </td>
+    @*<td>
+        @Html.DisplayFor(modelItem => item.Estado)
+    </td>*@
     <td>
         @Html.DisplayFor(modelItem => item.FechaHora)
     </td>
-    <td>
+    @*<td>
         @Html.DisplayFor(modelItem => item.FechaHoraFin)
-    </td>
+    </td>*@
     <td>
         @Html.DisplayFor(modelItem => item.Costo)
     </td>
-    <td>
+    @*<td>
         @Html.DisplayFor(modelItem => item.Sobreturno)
     </td>
     <td>
@@ -80,7 +80,7 @@
         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
         @Html.ActionLink("Details", "Details", new { id = item.Id }) |
         @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-    </td>
+    </td>*@
 </tr>
 }
 

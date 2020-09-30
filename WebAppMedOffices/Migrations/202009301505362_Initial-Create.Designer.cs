@@ -7,13 +7,13 @@ namespace WebAppMedOffices.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class addColumn_FechaHoraFin_a_Turnos : IMigrationMetadata
+    public sealed partial class InitialCreate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addColumn_FechaHoraFin_a_Turnos));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
         
         string IMigrationMetadata.Id
         {
-            get { return "202009281404185_addColumn_FechaHoraFin_a_Turnos"; }
+            get { return "202009301505362_Initial-Create"; }
         }
         
         string IMigrationMetadata.Source
