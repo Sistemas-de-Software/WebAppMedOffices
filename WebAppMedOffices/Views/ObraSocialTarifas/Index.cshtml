@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<WebAppMedOffices.Models.ObraSocialTarifa>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Tarifas";
 }
 
-<h2>Index</h2>
+<h2>Tarifas</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Cargar Tarifa", "Create", new { }, new { @class = "btn btn-success" })
 </p>
 <table class="table">
     <tr>
@@ -23,7 +23,7 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Where(t => t.Id != 1)) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
@@ -35,9 +35,9 @@
             @Html.DisplayFor(modelItem => item.Tarifa)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }, new { @class = "btn btn-warning" })
+            @Html.ActionLink("Detalle", "Details", new { id=item.Id }, new { @class = "btn btn-info" })
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }
