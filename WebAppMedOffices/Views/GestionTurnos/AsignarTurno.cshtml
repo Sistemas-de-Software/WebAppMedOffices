@@ -43,13 +43,13 @@
         @Html.DisplayFor(model => model.Paciente.NombreCompleto)
     </dd>
 
-    <dt>
+    @*<dt>
         @Html.DisplayNameFor(model => model.Estado)
     </dt>
 
     <dd>
         @Html.DisplayFor(model => model.Estado)
-    </dd>
+    </dd>*@
 
     <dt>
         @Html.DisplayNameFor(model => model.FechaHora)
@@ -59,13 +59,13 @@
         @Html.DisplayFor(model => model.FechaHora)
     </dd>
 
-    <dt>
+    @*<dt>
         @Html.DisplayNameFor(model => model.FechaHoraFin)
     </dt>
 
     <dd>
         @Html.DisplayFor(model => model.FechaHoraFin)
-    </dd>
+    </dd>*@
 
     <dt>
         @Html.DisplayNameFor(model => model.Costo)
@@ -75,7 +75,7 @@
         @Html.DisplayFor(model => model.Costo)
     </dd>
 
-    <dt>
+    @*<dt>
         @Html.DisplayNameFor(model => model.Sobreturno)
     </dt>
 
@@ -89,7 +89,7 @@
 
     <dd>
         @Html.DisplayFor(model => model.TieneObraSocial)
-    </dd>
+    </dd>*@
 
 </dl>
 
@@ -121,5 +121,5 @@
 </div>
 }
 <p>
-    @Html.ActionLink("Volver", "BuscarTurnos", new { id = Model.PacienteId }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Volver", "BuscarTurnos", new { id = Model.PacienteId }, new { @class = "btn btn-primary" })
 </p>

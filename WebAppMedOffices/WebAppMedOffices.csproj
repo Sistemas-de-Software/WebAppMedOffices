@@ -389,6 +389,8 @@
     <Content Include="Views\GestionTurnos\BuscarTurnos.cshtml" />
     <Content Include="Views\GestionTurnos\AsignarTurno.cshtml" />
     <Content Include="Views\GestionTurnos\TurnosReservados.cshtml" />
+    <Content Include="Views\GestionTurnos\CreatePaciente.cshtml" />
+    <Content Include="Views\GestionTurnos\EditPaciente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

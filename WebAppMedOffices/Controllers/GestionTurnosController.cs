@@ -24,7 +24,7 @@ namespace WebAppMedOffices.Controllers
         {
             try
             {
-                db.Configuration.ProxyCreationEnabled = false; // para API
+                db.Configuration.ProxyCreationEnabled = false;
                 var especialidades = db.DuracionTurnoEspecialidades.Where(t => t.MedicoId == medicoId).Select(i =>
                     new { i.Id, i.EspecialidadId, i.MedicoId, i.Especialidad.Nombre });
                 var json = JsonConvert.SerializeObject(especialidades);
@@ -37,6 +37,7 @@ namespace WebAppMedOffices.Controllers
             }
         }
 
+        // Turnos de hoy
         public async Task<ActionResult> Index()
         {
             var hoy = DateTime.Now.Date;
@@ -240,28 +241,6 @@ namespace WebAppMedOffices.Controllers
             return View(turnoView);
         }
 
-        public async Task<ActionResult> ListaPacientes()
-        {
-            return View(await db.Pacientes.ToListAsync());
-        }
-
-        public async Task<ActionResult> DetailsPaciente(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            Paciente paciente = await db.Pacientes.FindAsync(id);
-
-            if (paciente == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(paciente);
-        }
-
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -317,6 +296,81 @@ namespace WebAppMedOffices.Controllers
             db.Turnos.Remove(turno);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> ListaPacientes()
+        {
+            return View(await db.Pacientes.ToListAsync());
+        }
+
+        public async Task<ActionResult> DetailsPaciente(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Paciente paciente = await db.Pacientes.FindAsync(id);
+
+            if (paciente == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(paciente);
+        }
+
+        public ActionResult CreatePaciente()
+        {
+            ViewBag.ObraSocialId = new SelectList(db.ObrasSociales, "Id", "Nombre");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreatePaciente(Paciente paciente)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Pacientes.Add(paciente);
+                await db.SaveChangesAsync();
+                return RedirectToAction("ListaPacientes");
+            }
+
+            return View(paciente);
+        }
+
+        public async Task<ActionResult> EditPaciente(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Paciente paciente = await db.Pacientes.FindAsync(id);
+
+            if (paciente == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.ObraSocialId = new SelectList(db.ObrasSociales, "Id", "Nombre", paciente.ObraSocialId);
+            return View(paciente);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditPaciente(Paciente paciente)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(paciente).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("ListaPacientes");
+            }
+
+            ViewBag.ObraSocialId = new SelectList(db.ObrasSociales, "Id", "Nombre", paciente.ObraSocialId);
+            return View(paciente);
         }
 
         protected override void Dispose(bool disposing)

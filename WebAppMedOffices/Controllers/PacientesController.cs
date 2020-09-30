@@ -36,16 +36,12 @@ namespace WebAppMedOffices.Controllers
             return View(paciente);
         }
 
-        // GET: Pacientes/Create
         public ActionResult Create()
         {
             ViewBag.ObraSocialId = new SelectList(db.ObrasSociales, "Id", "Nombre");
             return View();
         }
 
-        // POST: Pacientes/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Paciente paciente)
@@ -60,7 +56,6 @@ namespace WebAppMedOffices.Controllers
             return View(paciente);
         }
 
-        // GET: Pacientes/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)

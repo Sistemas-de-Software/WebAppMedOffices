@@ -85,12 +85,12 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Asignar turno", "CreateTurno", new { id = Model.Id }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Volver", "ListaPacientes", new { }, new { @class = "btn btn-primary" })
     @*@Html.ActionLink("Editar Paciente", "EditPaciente", new { id = Model.Id }, new { @class = "btn btn-warning" })*@
-    @Html.ActionLink("Volver", "ListarPacientes", new { }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Asignar turno", "BuscarTurnos", new { id = Model.Id }, new { @class = "btn btn-success" })
 </p>
 
-<h4>Turnos de paciente</h4>
+<h4>Turnos Reservados</h4>
 @if (Model.Turnos.Count == 0)
 {
     <h5>No hay turnos asignados</h5>
@@ -103,49 +103,49 @@ else
             @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Especialidad.Nombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Medico.Nombre)
+            Médico
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Estado)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().FechaHora)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Costo)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Sobreturno)
         </th>
-        <th></th>
+        <th></th>*@
     </tr>
 
-    @foreach (var item in Model.Turnos)
+    @foreach (var item in Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Reservado))
     {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Medico.Nombre)
+                @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Estado)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.FechaHora)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Costo)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Sobreturno)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
+            </td>*@
         </tr>
     }
 
