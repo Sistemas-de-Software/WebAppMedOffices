@@ -36,15 +36,11 @@ namespace WebAppMedOffices.Controllers
             return View(medico);
         }
 
-        // GET: Medicos/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Medicos/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,Nombre,Apellido,Telefono,Celular,Matricula")] Medico medico)
@@ -74,9 +70,6 @@ namespace WebAppMedOffices.Controllers
             return View(medico);
         }
 
-        // POST: Medicos/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,Nombre,Apellido,Telefono,Celular,Matricula")] Medico medico)

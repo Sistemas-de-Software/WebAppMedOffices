@@ -37,7 +37,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestión de Médicos <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Médicos", "Index", "Medicos")</li>
+                            
                             <li>@Html.ActionLink("Asignar Consultorio", "Index", "AtencionHorarios")</li>
                             <li>@Html.ActionLink("Duración de Turnos", "Index", "DuracionTurnoEspecialidades")</li>
                             <li role="separator" class="divider"></li>
@@ -52,6 +52,23 @@
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Obras Sociales", "Index", "ObrasSociales")</li>
                             <li>@Html.ActionLink("Tarifas por Especialidad", "Index", "ObraSocialTarifas")</li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ABMs <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Médicos", "Index", "Medicos")</li>
+
+                            <li>@Html.ActionLink("Pacientes", "Index", "Pacientes")</li>
+                            <li>@Html.ActionLink("Turnos", "Index", "Turnos")</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Obras Sociales", "Index", "ObrasSociales")</li>
+                            <li>@Html.ActionLink("Tarifas por Especialidad", "Index", "ObraSocialTarifas")</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Enfermedades de Pacientes", "Index", "PacienteEnfermedades")</li>
+                            <li>@Html.ActionLink("Tipos de Enfermedades", "Index", "TipoEnfermedades")</li>
+                            <li>@Html.ActionLink("Enfermedades", "Index", "Enfermedades")</li>
                         </ul>
                     </li>
 
