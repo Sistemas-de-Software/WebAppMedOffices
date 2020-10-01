@@ -11,6 +11,7 @@ using WebAppMedOffices.Models;
 
 namespace WebAppMedOffices.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class MedicosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
