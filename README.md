@@ -1,6 +1,26 @@
 # WebAppMedOffices
 
-Guía de Code First Data Annotations
+## Usuarios y Roles de Prueba
+
+### Roles 
+Medico
+Secretaria
+Admin
+
+### Usuarios y pass
+admin@medoffices.com Admin1234@
+
+secretaria@medoffices.com Secretaria1234@
+
+medico1@medoffices.com Medico11234@
+
+medico2@medoffices.com Medico21234@
+
+medico3@medoffices.com Medico31234@
+
+
+
+> Guía de Code First Data Annotations
 https://docs.microsoft.com/en-us/ef/ef6/modeling/code-first/data-annotations
 
 ## Enable Migrations
