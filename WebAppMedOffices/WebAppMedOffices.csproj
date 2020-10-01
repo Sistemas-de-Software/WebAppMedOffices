@@ -192,6 +192,10 @@
     <Compile Include="Migrations\202009301505362_Initial-Create.Designer.cs">
       <DependentUpon>202009301505362_Initial-Create.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010010243334_Columna_UserName_en_Medicos.cs" />
+    <Compile Include="Migrations\202010010243334_Columna_UserName_en_Medicos.Designer.cs">
+      <DependentUpon>202010010243334_Columna_UserName_en_Medicos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DuracionTurnoEspecialidad.cs" />
@@ -420,6 +424,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202009301505362_Initial-Create.resx">
       <DependentUpon>202009301505362_Initial-Create.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010010243334_Columna_UserName_en_Medicos.resx">
+      <DependentUpon>202010010243334_Columna_UserName_en_Medicos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

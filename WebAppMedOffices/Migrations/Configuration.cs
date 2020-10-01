@@ -1,5 +1,7 @@
 namespace WebAppMedOffices.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -20,15 +22,93 @@ namespace WebAppMedOffices.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
+
+            if (!context.Roles.Any(r => r.Name == "Admin"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Admin" };
+
+                manager.Create(role);
+            }
+
+            if (!context.Roles.Any(r => r.Name == "Secretaria"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Secretaria" };
+
+                manager.Create(role);
+            }
+
+            if (!context.Roles.Any(r => r.Name == "Medico"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Medico" };
+
+                manager.Create(role);
+            }
+
+            if (!context.Users.Any(u => u.UserName == "admin@medoffices.com"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { UserName = "admin@medoffices.com" };
+
+                manager.Create(user, "Admin1234@");
+                manager.AddToRole(user.Id, "Admin");
+            }
+
+            if (!context.Users.Any(u => u.UserName == "secretaria@medoffices.com"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { UserName = "secretaria@medoffices.com" };
+
+                manager.Create(user, "Secretaria1234@");
+                manager.AddToRole(user.Id, "Secretaria");
+            }
+
+            if (!context.Users.Any(u => u.UserName == "medico1@medoffices.com"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { UserName = "medico1@medoffices.com" };
+
+                manager.Create(user, "Medico11234@");
+                manager.AddToRole(user.Id, "Medico");
+            }
+
+            if (!context.Users.Any(u => u.UserName == "medico2@medoffices.com"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { UserName = "medico2@medoffices.com" };
+
+                manager.Create(user, "Medico21234@");
+                manager.AddToRole(user.Id, "Medico");
+            }
+
+            if (!context.Users.Any(u => u.UserName == "medico3@medoffices.com"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { UserName = "medico3@medoffices.com" };
+
+                manager.Create(user, "Medico31234@");
+                manager.AddToRole(user.Id, "Medico");
+            }
+
             context.Consultorios.AddOrUpdate(x => x.Id,
                 new Consultorio() { Id = 1, Nombre = "Sala 1" },
                 new Consultorio() { Id = 2, Nombre = "Sala 2" },
                 new Consultorio() { Id = 3, Nombre = "Sala 3" }
                 );
             context.Medicos.AddOrUpdate(x => x.Id,
-                new Medico() { Id = 1, Nombre = "Roberto", Apellido = "Suarez", Telefono = "443285", Celular = "1160848392", Matricula = "12345" },
-                new Medico() { Id = 2, Nombre = "Juan", Apellido = "Sanchez", Telefono = "446280", Celular = "1180828592", Matricula = "23456" },
-                new Medico() { Id = 3, Nombre = "Kevin", Apellido = "Ferreyra", Telefono = "442133", Celular = "1130048955", Matricula = "65321" }
+                new Medico() { Id = 1, Nombre = "Roberto", Apellido = "Suarez", Telefono = "443285", Celular = "1160848392", Matricula = "12345", UserName = "medico1@medoffices.com" },
+                new Medico() { Id = 2, Nombre = "Juan", Apellido = "Sanchez", Telefono = "446280", Celular = "1180828592", Matricula = "23456", UserName = "medico2@medoffices.com" },
+                new Medico() { Id = 3, Nombre = "Kevin", Apellido = "Ferreyra", Telefono = "442133", Celular = "1130048955", Matricula = "65321", UserName = "medico3@medoffices.com" }
                 );
             context.AtencionHorarios.AddOrUpdate(x => x.Id,
                 new AtencionHorario() { Id = 1, ConsultorioId = 1, MedicoId = 1, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.LUN, HoraInicio = new DateTime(2020, 09, 01, 08, 00, 0), HoraFin = new DateTime(2020, 09, 01, 12, 00, 0) },

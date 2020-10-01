@@ -16,6 +16,7 @@ using System.Data.Entity.Core.Metadata.Edm;
 
 namespace WebAppMedOffices.Controllers
 {
+    [Authorize(Roles = "Secretaria,Admin")]
     public class GestionTurnosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
