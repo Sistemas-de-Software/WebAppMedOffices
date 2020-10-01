@@ -37,8 +37,7 @@ namespace WebAppMedOffices.Controllers
         //Todos los pacientes
         public async Task<ActionResult> ListarTodosPacientes()
         {
-            var pacientes = db.Turnos.Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado);
-            return View(await pacientes.ToListAsync());
+            return View(await db.Pacientes.ToListAsync());
         }
 
         //Pacientes Del Dia

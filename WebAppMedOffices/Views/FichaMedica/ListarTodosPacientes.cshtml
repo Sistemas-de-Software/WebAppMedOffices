@@ -1,36 +1,34 @@
-﻿@model IEnumerable<WebAppMedOffices.Models.Turno>
+﻿@model IEnumerable<WebAppMedOffices.Models.Paciente>
 
 @{
-    ViewBag.Title = "Lista Todos los Pacientes";
+    ViewBag.Title = "Lista de Pacientes";
 }
 
-<h2>Todos los Pacientes</h2>
+<h2>Buscar Paciente</h2>
 
-<p>
-    @Html.ActionLink("Nuevo Paciente", "CreatePaciente", new { }, new { @class = "btn btn-primary" })
-</p>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Paciente.Documento)
+            @Html.DisplayNameFor(model => model.Documento)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Paciente.Nombre)
+            @Html.DisplayNameFor(model => model.Nombre)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Paciente.Apellido)
+            @Html.DisplayNameFor(model => model.Apellido)
         </th>
-        @*<th>
+        <th>
                 @Html.DisplayNameFor(model => model.FechaNacimiento)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Direccion)
             </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.Paciente.Telefono)
+            @Html.DisplayNameFor(model => model.Telefono)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Paciente.Celular)
+            @Html.DisplayNameFor(model => model.Celular)
         </th>
         @*<th>
                 @Html.DisplayNameFor(model => model.NombreContactoEmergencia)
@@ -45,25 +43,25 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Paciente.Documento)
+                @Html.DisplayFor(modelItem => item.Documento)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Paciente.Nombre)
+                @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Paciente.Apellido)
+                @Html.DisplayFor(modelItem => item.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaNacimiento)
             </td>
             @*<td>
-                    @Html.DisplayFor(modelItem => item.FechaNacimiento)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Direccion)
-                </td>*@
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>*@
             <td>
-                @Html.DisplayFor(modelItem => item.Paciente.Telefono)
+                @Html.DisplayFor(modelItem => item.Telefono)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Paciente.Celular)
+                @Html.DisplayFor(modelItem => item.Celular)
             </td>
             @*<td>
                     @Html.DisplayFor(modelItem => item.NombreContactoEmergencia)
@@ -72,10 +70,7 @@
                     @Html.DisplayFor(modelItem => item.TelefonoContactoEmergencia)
                 </td>*@
             <td>
-                @Html.ActionLink("Historia Clinica", "HistoriaClinica", new { id = item.PacienteId }, new { @class = "btn btn-info" })
-                @*@Html.ActionLink("Editar", "EditPaciente", new { id = item.PacienteId }, new { @class = "btn btn-warning" })
-        @Html.ActionLink("Buscar Turnos", "BuscarTurnos", new { id = item.Id }, new { @class = "btn btn-success" })
-            @Html.ActionLink("Eliminar", "DeletePaciante", new { id = item.Id }, new { @class = "btn btn-danger" })*@
+                @Html.ActionLink("Ficha Médica", "FichaMedica", new { id = item.Id }, new { @class = "btn btn-info" })
             </td>
         </tr>
     }
