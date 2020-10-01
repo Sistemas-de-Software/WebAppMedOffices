@@ -4,80 +4,94 @@
     ViewBag.Title = "Turnos Disponibles";
 }
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
 <h2>Buscar Turnos</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Especialidad.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Medico.NombreCompleto)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.ObraSocial.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Paciente.Nombre)
-        </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.Estado)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaHora)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.FechaHoraFin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Costo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Sobreturno)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TieneObraSocial)
-        </th>*@
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
-    </td>
-    @*<td>
-            @Html.DisplayFor(modelItem => item.ObraSocial.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Paciente.Nombre)
-        </td>*@
-    <td>
-        @Html.DisplayFor(modelItem => item.Estado)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.FechaHora)
-    </td>
-    @*<td>
-            @Html.DisplayFor(modelItem => item.FechaHoraFin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Costo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sobreturno)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TieneObraSocial)
-        </td>*@
-    <td>
-        @Html.ActionLink("Asignar Turno", "AsignarTurno", new { id = item.Id, pacienteId = ViewBag.PacienteId }, new { @class = "btn btn-success" })
-    </td>
-</tr>
-    }
-
+<table id="table_id" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Especialidad.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Medico.NombreCompleto)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.ObraSocial.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Paciente.Nombre)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaHora)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.FechaHoraFin)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Costo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sobreturno)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TieneObraSocial)
+                </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.ObraSocial.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Paciente.Nombre)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaHora)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.FechaHoraFin)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Costo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sobreturno)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TieneObraSocial)
+                    </td>*@
+                <td>
+                    @Html.ActionLink("Asignar Turno", "AsignarTurno", new { id = item.Id, pacienteId = ViewBag.PacienteId }, new { @class = "btn btn-success" })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#table_id').DataTable();
+        } );
+    </script>
+}
