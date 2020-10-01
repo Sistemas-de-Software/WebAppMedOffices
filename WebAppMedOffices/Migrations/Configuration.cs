@@ -152,9 +152,9 @@ namespace WebAppMedOffices.Migrations
             new TipoEnfermedad() { Id = 2, Nombre = "Alergias" }
             );
             context.Pacientes.AddOrUpdate(x => x.Id,
-            new Paciente() { Id = 1, Nombre = "Franco", Apellido = "Baez", Documento = "40345671", FechaNacimiento = new DateTime(1998, 10, 01), Direccion = "Oribe 892", Telefono = "442342", Celular = "1143234267", NombreContactoEmergencia = "Fulanito1", TelefonoContactoEmergencia = "432580" },
-            new Paciente() { Id = 2, Nombre = "Soledad", Apellido = "Ibarra", Documento = "30428916", FechaNacimiento = new DateTime(1999, 05, 20), Direccion = "Alvear 1213", Telefono = "425154", Celular = "1165423452", NombreContactoEmergencia = "Fulanito2", TelefonoContactoEmergencia = "425432" },
-            new Paciente() { Id = 3, Nombre = "Jesica", Apellido = "Amodil", Documento = "40314424", FechaNacimiento = new DateTime(2000, 01, 01), Direccion = "Atahualpa 703", Telefono = "443285", Celular = "1162808393", NombreContactoEmergencia = "Fulanito3", TelefonoContactoEmergencia = "441242" }
+            new Paciente() { Id = 1, Nombre = "Franco", Apellido = "Baez", Documento = "40345671", FechaNacimiento = new DateTime(1998, 10, 01), Direccion = "Oribe 892", Telefono = "442342", Celular = "1143234267", NombreContactoEmergencia = "Fulanito1", TelefonoContactoEmergencia = "432580", ObraSocialId = 1 },
+            new Paciente() { Id = 2, Nombre = "Soledad", Apellido = "Ibarra", Documento = "30428916", FechaNacimiento = new DateTime(1999, 05, 20), Direccion = "Alvear 1213", Telefono = "425154", Celular = "1165423452", NombreContactoEmergencia = "Fulanito2", TelefonoContactoEmergencia = "425432", ObraSocialId = 2 },
+            new Paciente() { Id = 3, Nombre = "Jesica", Apellido = "Amodil", Documento = "40314424", FechaNacimiento = new DateTime(2000, 01, 01), Direccion = "Atahualpa 703", Telefono = "443285", Celular = "1162808393", NombreContactoEmergencia = "Fulanito3", TelefonoContactoEmergencia = "441242", ObraSocialId = 3 }
             );
             context.Enfermedades.AddOrUpdate(x => x.Id,
                 new Enfermedad() { Id = 1, Nombre = "ANEMIA", TipoEnfermedadId = 1 },
