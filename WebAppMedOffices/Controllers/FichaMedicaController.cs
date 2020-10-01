@@ -72,6 +72,9 @@ namespace WebAppMedOffices.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.TipoEnfermedades = await db.TipoEnfermedades.ToListAsync();
+            ViewBag.TurnoId = db.PacienteEnfermedades.Include(t => t.Enfermedad).Where(t => t.PacienteId == paciente.Id);
+
             return View(paciente);
         }
 
