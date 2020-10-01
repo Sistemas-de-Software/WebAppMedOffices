@@ -404,6 +404,7 @@
     <Content Include="Views\FichaMedica\ListarPacientesHoy.cshtml" />
     <Content Include="Views\FichaMedica\ListarTodosPacientes.cshtml" />
     <Content Include="Views\FichaMedica\HistoriaClinica.cshtml" />
+    <Content Include="Views\FichaMedica\FichaMedica.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

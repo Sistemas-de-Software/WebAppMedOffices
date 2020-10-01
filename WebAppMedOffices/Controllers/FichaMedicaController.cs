@@ -58,6 +58,23 @@ namespace WebAppMedOffices.Controllers
             return View(enfermedades);
         }
 
+        public async Task<ActionResult> FichaMedica(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Paciente paciente = await db.Pacientes.FindAsync(id);
+
+            if (paciente == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(paciente);
+        }
+
         [HttpGet]
         public JsonResult Medico(int IdEspecialidad)
         {
