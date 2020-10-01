@@ -113,7 +113,8 @@ namespace WebAppMedOffices.Migrations
             context.AtencionHorarios.AddOrUpdate(x => x.Id,
                 new AtencionHorario() { Id = 1, ConsultorioId = 1, MedicoId = 1, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.LUN, HoraInicio = new DateTime(2020, 09, 01, 08, 00, 0), HoraFin = new DateTime(2020, 09, 01, 12, 00, 0) },
                 new AtencionHorario() { Id = 2, ConsultorioId = 2, MedicoId = 2, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.MAR, HoraInicio = new DateTime(2020, 09, 01, 13, 00, 0), HoraFin = new DateTime(2020, 09, 01, 18, 00, 0) },
-                new AtencionHorario() { Id = 3, ConsultorioId = 3, MedicoId = 3, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.MIE, HoraInicio = new DateTime(2020, 09, 01, 08, 00, 0), HoraFin = new DateTime(2020, 09, 01, 12, 00, 0) }
+                new AtencionHorario() { Id = 3, ConsultorioId = 3, MedicoId = 3, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.MIE, HoraInicio = new DateTime(2020, 09, 01, 08, 00, 0), HoraFin = new DateTime(2020, 09, 01, 12, 00, 0) },
+                new AtencionHorario() { Id = 4, ConsultorioId = 3, MedicoId = 3, TrabajoTurno = Shared.TrabajoTurno.T, Dia = Shared.Dia.JUE, HoraInicio = new DateTime(2020, 09, 01, 14, 00, 0), HoraFin = new DateTime(2020, 09, 01, 21, 00, 0) }
                 );
 
             context.Especialidades.AddOrUpdate(x => x.Id,
@@ -161,12 +162,16 @@ namespace WebAppMedOffices.Migrations
                 new Enfermedad() { Id = 3, Nombre = "AUTISMO", TipoEnfermedadId = 1 },
                 new Enfermedad() { Id = 4, Nombre = "ALERGIA A FÁRMACOS", TipoEnfermedadId = 2 },
                 new Enfermedad() { Id = 5, Nombre = "ALERGIA AL POLEN", TipoEnfermedadId = 2 },
-                new Enfermedad() { Id = 6, Nombre = "ALERGIA A ÁCAROS", TipoEnfermedadId = 2 }
+                new Enfermedad() { Id = 6, Nombre = "ALERGIA A ÁCAROS", TipoEnfermedadId = 2 },
+                new Enfermedad() { Id = 7, Nombre = "PENICILINA", TipoEnfermedadId = 2 },
+                new Enfermedad() { Id = 8, Nombre = "ASPIRINA", TipoEnfermedadId = 2 },
+                new Enfermedad() { Id = 9, Nombre = "DIABETES TIPO 1", TipoEnfermedadId = 1 }
                 );
             context.PacienteEnfermedades.AddOrUpdate(x => x.Id,
-            new PacienteEnfermedad() { Id = 1, PacienteId = 1, EnfermedadId = 1, Descripcion = "Sin descripción"}
-            //new PacienteEnfermedad() { Id = 2, PacienteId = 2, EnfermedadId = 2, Descripcion = "Alta colestorol" },
-            //new PacienteEnfermedad() { Id = 3, PacienteId = 3, EnfermedadId = 3, Descripcion = "Falta de respiración" }
+            new PacienteEnfermedad() { Id = 1, PacienteId = 1, EnfermedadId = 1, Descripcion = "Sin descripción"},
+            new PacienteEnfermedad() { Id = 2, PacienteId = 2, EnfermedadId = 9, Descripcion = "Detectada en el año 2015" },
+            new PacienteEnfermedad() { Id = 3, PacienteId = 2, EnfermedadId = 7, Descripcion = "Sin descripción" },
+            new PacienteEnfermedad() { Id = 4, PacienteId = 2, EnfermedadId = 8, Descripcion = "Sin descripción" }
             );
             /*
             context.PacienteTurnos.AddOrUpdate(x => x.Id,

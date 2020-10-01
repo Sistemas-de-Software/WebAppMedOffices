@@ -86,6 +86,12 @@ namespace WebAppMedOffices.Controllers
 
             Turno turno = await db.Turnos.FindAsync(id);
             Paciente paciente = await db.Pacientes.FindAsync(pacienteId);
+            ObraSocial obraSocial = new ObraSocial();
+            if(paciente.ObraSocial == null)
+            {
+                obraSocial = await db.ObrasSociales.FindAsync(1);
+                paciente.ObraSocial = obraSocial;
+            }
             
             if (turno == null || paciente == null)
             {
