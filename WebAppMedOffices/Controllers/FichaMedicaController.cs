@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebAppMedOffices.Models;
+using WebAppMedOffices.Shared;
 
 namespace WebAppMedOffices.Controllers
 {
@@ -32,6 +33,30 @@ namespace WebAppMedOffices.Controllers
             }
 
             return View(lst);
+        }
+        //Todos los pacientes
+        public async Task<ActionResult> ListarTodosPacientes()
+        {
+            var pacientes = db.Turnos.Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado);
+            return View(await pacientes.ToListAsync());
+        }
+
+        //Pacientes Del Dia
+        public async Task<ActionResult> ListarPacientesHoy()
+        {
+            var hoy = DateTime.Now.Date;
+            var pacientes = db.Turnos.Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado && DbFunctions.TruncateTime(t.FechaHora) == hoy);
+            return View(await pacientes.ToListAsync());            
+        }
+
+        public ActionResult HistoriaClinica(int idPaciente)
+        {
+
+            List<SelectListItem> lst = new List<SelectListItem>();
+            var enfermedades = db.PacienteEnfermedades.Include(t => t.Enfermedad).Include(t => t.EnfermedadId).Where(t => t.PacienteId == idPaciente);
+            ViewBag.detalle = db.HistoriaClinicas.Where(t => t.PacienteId == idPaciente);
+            ViewBag.comentario = db.HistoriaClinicas.Where(t => t.PacienteId == idPaciente);
+            return View(enfermedades);
         }
 
         [HttpGet]
