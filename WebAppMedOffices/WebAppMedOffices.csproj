@@ -170,47 +170,50 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AtencionHorariosController.cs" />
     <Compile Include="Controllers\DuracionTurnoEspecialidadesController.cs" />
+    <Compile Include="Controllers\EnfermedadesController.cs" />
     <Compile Include="Controllers\EspecialidadesController.cs" />
     <Compile Include="Controllers\ConsultoriosController.cs" />
+    <Compile Include="Controllers\FichaMedicaController.cs" />
+    <Compile Include="Controllers\GestionTurnosController.cs" />
+    <Compile Include="Controllers\HistoriaClinicasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MedicosController.cs" />
     <Compile Include="Controllers\ObraSocialTarifasController.cs" />
     <Compile Include="Controllers\ObrasSocialesController.cs" />
+    <Compile Include="Controllers\PacienteEnfermedadesController.cs" />
+    <Compile Include="Controllers\PacientesController.cs" />
+    <Compile Include="Controllers\TipoEnfermedadesController.cs" />
+    <Compile Include="Controllers\TurnosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202009270010550_InitialCreate.cs" />
-    <Compile Include="Migrations\202009270010550_InitialCreate.Designer.cs">
-      <DependentUpon>202009270010550_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202009301505362_Initial-Create.cs" />
+    <Compile Include="Migrations\202009301505362_Initial-Create.Designer.cs">
+      <DependentUpon>202009301505362_Initial-Create.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202009270202268_AtencionHorarios.cs" />
-    <Compile Include="Migrations\202009270202268_AtencionHorarios.Designer.cs">
-      <DependentUpon>202009270202268_AtencionHorarios.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009270216063_AtencionHorarios_Relaciones.cs" />
-    <Compile Include="Migrations\202009270216063_AtencionHorarios_Relaciones.Designer.cs">
-      <DependentUpon>202009270216063_AtencionHorarios_Relaciones.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009270303219_ObrasSociales.cs" />
-    <Compile Include="Migrations\202009270303219_ObrasSociales.Designer.cs">
-      <DependentUpon>202009270303219_ObrasSociales.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009270336449_ObraSocialTarifas_Relaciones.cs" />
-    <Compile Include="Migrations\202009270336449_ObraSocialTarifas_Relaciones.Designer.cs">
-      <DependentUpon>202009270336449_ObraSocialTarifas_Relaciones.cs</DependentUpon>
+    <Compile Include="Migrations\202010010243334_Columna_UserName_en_Medicos.cs" />
+    <Compile Include="Migrations\202010010243334_Columna_UserName_en_Medicos.Designer.cs">
+      <DependentUpon>202010010243334_Columna_UserName_en_Medicos.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DuracionTurnoEspecialidad.cs" />
+    <Compile Include="Models\Enfermedad.cs" />
     <Compile Include="Models\Especialidad.cs" />
     <Compile Include="Models\Consultorio.cs" />
     <Compile Include="Models\AtencionHorario.cs" />
+    <Compile Include="Models\HistoriaClinica.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Medico.cs" />
     <Compile Include="Models\ObraSocial.cs" />
     <Compile Include="Models\ObraSocialTarifa.cs" />
+    <Compile Include="Models\Paciente.cs" />
+    <Compile Include="Models\PacienteEnfermedad.cs" />
+    <Compile Include="Models\TipoEnfermedad.cs" />
+    <Compile Include="Models\Turno.cs" />
+    <Compile Include="Models\TurnoView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\Enums.cs" />
     <Compile Include="Startup.cs" />
@@ -220,6 +223,47 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -232,6 +276,8 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -306,6 +352,59 @@
     <Content Include="Views\ObraSocialTarifas\Details.cshtml" />
     <Content Include="Views\ObraSocialTarifas\Edit.cshtml" />
     <Content Include="Views\ObraSocialTarifas\Index.cshtml" />
+    <Content Include="Views\Turnos\Create.cshtml" />
+    <Content Include="Views\Turnos\Delete.cshtml" />
+    <Content Include="Views\Turnos\Details.cshtml" />
+    <Content Include="Views\Turnos\Edit.cshtml" />
+    <Content Include="Views\Turnos\Index.cshtml" />
+    <Content Include="Views\TipoEnfermedades\Create.cshtml" />
+    <Content Include="Views\TipoEnfermedades\Delete.cshtml" />
+    <Content Include="Views\TipoEnfermedades\Details.cshtml" />
+    <Content Include="Views\TipoEnfermedades\Edit.cshtml" />
+    <Content Include="Views\TipoEnfermedades\Index.cshtml" />
+    <Content Include="Views\Enfermedades\Create.cshtml" />
+    <Content Include="Views\Enfermedades\Delete.cshtml" />
+    <Content Include="Views\Enfermedades\Details.cshtml" />
+    <Content Include="Views\Enfermedades\Edit.cshtml" />
+    <Content Include="Views\Enfermedades\Index.cshtml" />
+    <Content Include="Views\Pacientes\Create.cshtml" />
+    <Content Include="Views\Pacientes\Delete.cshtml" />
+    <Content Include="Views\Pacientes\Details.cshtml" />
+    <Content Include="Views\Pacientes\Edit.cshtml" />
+    <Content Include="Views\Pacientes\Index.cshtml" />
+    <Content Include="Views\PacienteEnfermedades\Create.cshtml" />
+    <Content Include="Views\PacienteEnfermedades\Delete.cshtml" />
+    <Content Include="Views\PacienteEnfermedades\Details.cshtml" />
+    <Content Include="Views\PacienteEnfermedades\Edit.cshtml" />
+    <Content Include="Views\PacienteEnfermedades\Index.cshtml" />
+    <Content Include="Views\TipoEnfermedades\CreateEnfermedad.cshtml" />
+    <Content Include="Views\GestionTurnos\Create.cshtml" />
+    <Content Include="Views\GestionTurnos\Delete.cshtml" />
+    <Content Include="Views\GestionTurnos\Details.cshtml" />
+    <Content Include="Views\GestionTurnos\Edit.cshtml" />
+    <Content Include="Views\GestionTurnos\Index.cshtml" />
+    <Content Include="Views\GestionTurnos\ListaPacientes.cshtml" />
+    <Content Include="Views\GestionTurnos\DetailsPaciente.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosDisponibles.cshtml" />
+    <Content Include="Views\HistoriaClinicas\Create.cshtml" />
+    <Content Include="Views\HistoriaClinicas\Delete.cshtml" />
+    <Content Include="Views\HistoriaClinicas\Details.cshtml" />
+    <Content Include="Views\HistoriaClinicas\Edit.cshtml" />
+    <Content Include="Views\HistoriaClinicas\Index.cshtml" />
+    <Content Include="Views\GestionTurnos\BuscarTurnos.cshtml" />
+    <Content Include="Views\GestionTurnos\AsignarTurno.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosReservados.cshtml" />
+    <Content Include="Views\GestionTurnos\CreatePaciente.cshtml" />
+    <Content Include="Views\GestionTurnos\EditPaciente.cshtml" />
+    <Content Include="Views\FichaMedica\Create.cshtml" />
+    <Content Include="Views\FichaMedica\Delete.cshtml" />
+    <Content Include="Views\FichaMedica\Details.cshtml" />
+    <Content Include="Views\FichaMedica\Edit.cshtml" />
+    <Content Include="Views\FichaMedica\Index.cshtml" />
+    <Content Include="Views\FichaMedica\ListarPacientesHoy.cshtml" />
+    <Content Include="Views\FichaMedica\ListarTodosPacientes.cshtml" />
+    <Content Include="Views\FichaMedica\HistoriaClinica.cshtml" />
+    <Content Include="Views\FichaMedica\FichaMedica.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -324,20 +423,11 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202009270010550_InitialCreate.resx">
-      <DependentUpon>202009270010550_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202009301505362_Initial-Create.resx">
+      <DependentUpon>202009301505362_Initial-Create.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009270202268_AtencionHorarios.resx">
-      <DependentUpon>202009270202268_AtencionHorarios.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009270216063_AtencionHorarios_Relaciones.resx">
-      <DependentUpon>202009270216063_AtencionHorarios_Relaciones.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009270303219_ObrasSociales.resx">
-      <DependentUpon>202009270303219_ObrasSociales.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009270336449_ObraSocialTarifas_Relaciones.resx">
-      <DependentUpon>202009270336449_ObraSocialTarifas_Relaciones.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010010243334_Columna_UserName_en_Medicos.resx">
+      <DependentUpon>202010010243334_Columna_UserName_en_Medicos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -37,6 +37,12 @@ namespace WebAppMedOffices.Models
         public DbSet<AtencionHorario> AtencionHorarios { get; set; }
         public DbSet<ObraSocial> ObrasSociales { get; set; }
         public DbSet<ObraSocialTarifa> ObraSocialTarifas { get; set; }
-        
+        public DbSet<Turno> Turnos { get; set; }
+        public DbSet<TipoEnfermedad> TipoEnfermedades { get; set; }
+        public DbSet<Enfermedad> Enfermedades { get; set; }
+        public DbSet<Paciente> Pacientes { get; set; }
+        public DbSet<PacienteEnfermedad> PacienteEnfermedades { get; set; }
+        public DbSet<HistoriaClinica> HistoriaClinicas { get; set; }
+
     }
 }

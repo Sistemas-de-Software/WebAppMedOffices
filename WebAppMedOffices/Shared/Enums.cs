@@ -25,10 +25,19 @@ namespace WebAppMedOffices.Shared
         G = 2, // Guardia
     }
 
+    // Estado para Turno
     public enum Estado
     {
         Disponible = 0, 
         Reservado = 1, 
         Atendido = 2, 
+    }
+
+    // Motivo para Historia Clínica
+    public enum Motivo
+    {
+        CONSULTA = 0,
+        INTERNACION = 1,
+        ESTUDIO = 2,
     }
 }

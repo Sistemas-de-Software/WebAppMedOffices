@@ -16,7 +16,7 @@ namespace WebAppMedOffices.Models
         [Required(ErrorMessage = "Debes introducir un {0}")]
         [MaxLength(50, ErrorMessage = "El campo {0} puede contener un máximo de {1} caracteres")]
         [Index("ObraSocial_Nombre_Index", IsUnique = true)]
-        [Display(Name = "Nombre de Obra Social")]
+        [Display(Name = "Obra Social")]
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = "Debes introducir un {0}")]
@@ -32,5 +32,9 @@ namespace WebAppMedOffices.Models
         public string Email { get; set; }
 
         public virtual ICollection<ObraSocialTarifa> Tarifas { get; set; }
+        
+        public virtual ICollection<Turno> Turnos { get; set; }
+        
+        public virtual ICollection<Paciente> Pacientes { get; set; }
     }
 }
