@@ -69,13 +69,18 @@
                         </li>
                     }
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Médicos <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Buscar Pacientes", "ListarTodosPacientes", "FichaMedica")</li>
-                            <li>@Html.ActionLink("Pacientes del Día", "ListarPacientesHoy", "FichaMedica")</li>
-                        </ul>
-                    </li>
+
+                    @if (User.IsInRole("Medico"))
+                    {
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Médicos <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Buscar Pacientes", "ListarTodosPacientes", "FichaMedica")</li>
+                                <li>@Html.ActionLink("Pacientes del Día", "ListarPacientesHoy", "FichaMedica")</li>
+                            </ul>
+                        </li>
+                    }
 
                     @if (User.IsInRole("SuperAdmin"))
                     {
@@ -110,7 +115,7 @@
                         </li>
                     }
 
-                </ul>
+                    </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
