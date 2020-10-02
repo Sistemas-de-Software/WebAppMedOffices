@@ -26,7 +26,8 @@ namespace WebAppMedOffices.Models
         [Required(ErrorMessage = "Debes introducir un {0}")]
         [StringLength(30, ErrorMessage = "El campo {0} puede contener un máximo de {1} y un mínimo de {2} caracteres", MinimumLength = 3)]
         [Index("Medico_UserName_Index", IsUnique = true)]
-        [Display(Name = "Nombre de Usuario")]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "E-mail")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Debes introducir un {0}")]
