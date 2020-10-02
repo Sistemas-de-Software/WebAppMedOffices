@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using WebAppMedOffices.Migrations;
 
 namespace WebAppMedOffices.Models
 {
@@ -29,5 +30,19 @@ namespace WebAppMedOffices.Models
         {
             return new ApplicationDbContext();
         }
+        public DbSet<Especialidad> Especialidades { get; set; }
+        public DbSet<Medico> Medicos { get; set; }
+        public DbSet<Consultorio> Consultorios { get; set; }
+        public DbSet<DuracionTurnoEspecialidad> DuracionTurnoEspecialidades { get; set; }
+        public DbSet<AtencionHorario> AtencionHorarios { get; set; }
+        public DbSet<ObraSocial> ObrasSociales { get; set; }
+        public DbSet<ObraSocialTarifa> ObraSocialTarifas { get; set; }
+        public DbSet<Turno> Turnos { get; set; }
+        public DbSet<TipoEnfermedad> TipoEnfermedades { get; set; }
+        public DbSet<Enfermedad> Enfermedades { get; set; }
+        public DbSet<Paciente> Pacientes { get; set; }
+        public DbSet<PacienteEnfermedad> PacienteEnfermedades { get; set; }
+        public DbSet<HistoriaClinica> HistoriaClinicas { get; set; }
+
     }
 }

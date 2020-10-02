@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -18,13 +18,98 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Nombre de la aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("MedOffices", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+                    <li>@*@Html.ActionLink("Inicio", "Index", "Home")*@</li>
+                    <li>@*@Html.ActionLink("Acerca de", "About", "Home")*@</li>
+                    <li>@*@Html.ActionLink("Contacto", "Contact", "Home")*@</li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestión de Turnos <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Turnos de Hoy", "Index", "GestionTurnos")</li>
+                                <li>@Html.ActionLink("Cargar Turnos", "Create", "GestionTurnos")</li>
+                                <li>@Html.ActionLink("Asignar Turno", "ListaPacientes", "GestionTurnos")</li>
+                                <li>@Html.ActionLink("Turnos Disponibles", "TurnosDisponibles", "GestionTurnos")</li>
+                                <li>@Html.ActionLink("Turnos Reservados", "TurnosReservados", "GestionTurnos")</li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Obras Sociales <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Obras Sociales", "Index", "ObrasSociales")</li>
+                                <li>@Html.ActionLink("Tarifas por Especialidad", "Index", "ObraSocialTarifas")</li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ABMs <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Médicos", "Index", "Medicos")</li>
+                                <li>@Html.ActionLink("Asignar Consultorio", "Create", "AtencionHorarios")</li>
+                            </ul>
+                        </li>
+                    }
+
+                    @if (User.IsInRole("Secretaria"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestión de Turnos <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Turnos de Hoy", "Index", "GestionTurnos")</li>
+                                <li>@Html.ActionLink("Cargar Turnos", "Create", "GestionTurnos")</li>
+                                <li>@Html.ActionLink("Asignar Turno", "ListaPacientes", "GestionTurnos")</li>
+                                <li>@Html.ActionLink("Turnos Disponibles", "TurnosDisponibles", "GestionTurnos")</li>
+                                <li>@Html.ActionLink("Turnos Reservados", "TurnosReservados", "GestionTurnos")</li>
+                            </ul>
+                        </li>
+                    }
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Médicos <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Buscar Pacientes", "ListarTodosPacientes", "FichaMedica")</li>
+                            <li>@Html.ActionLink("Pacientes del Día", "ListarPacientesHoy", "FichaMedica")</li>
+                        </ul>
+                    </li>
+
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">OCULTO <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Ficha Medica", "Index", "FichaMedica")</li>
+                                <li>@Html.ActionLink("Pacientes", "Index", "Pacientes")</li>
+                                <li>@Html.ActionLink("Turnos", "Index", "Turnos")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Obras Sociales", "Index", "ObrasSociales")</li>
+                                <li>@Html.ActionLink("Tarifas por Especialidad", "Index", "ObraSocialTarifas")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Enfermedades de Pacientes", "Index", "PacienteEnfermedades")</li>
+                                <li>@Html.ActionLink("Tipos de Enfermedades", "Index", "TipoEnfermedades")</li>
+                                <li>@Html.ActionLink("Enfermedades", "Index", "Enfermedades")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Pacientes", "Index", "Pacientes")</li>
+                                <li>@Html.ActionLink("Turnos", "Index", "Turnos")</li>
+                                <li>@Html.ActionLink("Obras Sociales", "Index", "ObrasSociales")</li>
+                                <li>@Html.ActionLink("Tarifas por Especialidad", "Index", "ObraSocialTarifas")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Enfermedades de Pacientes", "Index", "PacienteEnfermedades")</li>
+                                <li>@Html.ActionLink("Tipos de Enfermedades", "Index", "TipoEnfermedades")</li>
+                                <li>@Html.ActionLink("Enfermedades", "Index", "Enfermedades")</li>
+                                <li>@Html.ActionLink("Duración de Turnos", "Index", "DuracionTurnoEspecialidades")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Consultorios", "Index", "Consultorios")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Especialidades", "Index", "Especialidades")</li>
+                            </ul>
+                        </li>
+                    }
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -34,7 +119,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
+            <p>&copy; @DateTime.Now.Year - Proyecto de Software</p>
         </footer>
     </div>
 
