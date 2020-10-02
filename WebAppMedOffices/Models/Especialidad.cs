@@ -21,5 +21,7 @@ namespace WebAppMedOffices.Models
         public virtual ICollection<DuracionTurnoEspecialidad> DuracionTurnoEspecialidades { get; set; }
 
         public virtual ICollection<ObraSocialTarifa> Tarifas { get; set; }
+        
+        public virtual ICollection<Turno> Turnos { get; set; }
     }
 }

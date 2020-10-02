@@ -1,0 +1,125 @@
+﻿@model WebAppMedOffices.Models.Turno
+
+@{
+    ViewBag.Title = "Turno";
+}
+
+<h2>Turno para @Model.Especialidad.Nombre</h2>
+
+<h4>@Model.Paciente.NombreCompleto</h4>
+<hr />
+
+<dl class="dl-horizontal">
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Especialidad.Nombre)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Especialidad.Nombre)
+    </dd>
+
+    <dt>
+        Nombre Médico
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Medico.NombreCompleto)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.ObraSocial.Nombre)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.ObraSocial.Nombre)
+    </dd>
+
+    <dt>
+        Nombre Paciente
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Paciente.NombreCompleto)
+    </dd>
+
+    @*<dt>
+        @Html.DisplayNameFor(model => model.Estado)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Estado)
+    </dd>*@
+
+    <dt>
+        @Html.DisplayNameFor(model => model.FechaHora)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.FechaHora)
+    </dd>
+
+    @*<dt>
+        @Html.DisplayNameFor(model => model.FechaHoraFin)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.FechaHoraFin)
+    </dd>*@
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Costo)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Costo)
+    </dd>
+
+    @*<dt>
+        @Html.DisplayNameFor(model => model.Sobreturno)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Sobreturno)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.TieneObraSocial)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.TieneObraSocial)
+    </dd>*@
+
+</dl>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.MedicoId)
+    @Html.HiddenFor(model => model.EspecialidadId)
+    @Html.HiddenFor(model => model.PacienteId)
+    @Html.HiddenFor(model => model.ObraSocialId)
+    @Html.HiddenFor(model => model.Estado)
+    @Html.HiddenFor(model => model.FechaHora)
+    @Html.HiddenFor(model => model.FechaHoraFin)
+    @Html.HiddenFor(model => model.Costo)
+    @Html.HiddenFor(model => model.Sobreturno)
+    @Html.HiddenFor(model => model.TieneObraSocial)
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Asignar" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}
+<p>
+    @Html.ActionLink("Volver", "BuscarTurnos", new { id = Model.PacienteId }, new { @class = "btn btn-primary" })
+</p>

@@ -24,6 +24,13 @@ namespace WebAppMedOffices.Models
         public string Apellido { get; set; }
 
         [Required(ErrorMessage = "Debes introducir un {0}")]
+        [StringLength(30, ErrorMessage = "El campo {0} puede contener un máximo de {1} y un mínimo de {2} caracteres", MinimumLength = 3)]
+        [Index("Medico_UserName_Index", IsUnique = true)]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "E-mail")]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Debes introducir un {0}")]
         [StringLength(30, ErrorMessage = "El campo {0} debe contener entre {2} y {1} caracteres", MinimumLength = 3)]
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Teléfono")]
@@ -41,9 +48,21 @@ namespace WebAppMedOffices.Models
         [Display(Name = "Matrícula")]
         public string Matricula { get; set; }
 
+        [Display(Name = "Nombre y Apellido")]
+        public virtual string NombreCompleto
+        {
+            get
+            {
+                return Nombre + " " + Apellido;
+            }
+        }
+
         public virtual ICollection<DuracionTurnoEspecialidad> DuracionTurnoEspecialidades { get; set; }
 
         public virtual ICollection<AtencionHorario> AtencionHorarios { get; set; }
+        
+        public virtual ICollection<Turno> Turnos { get; set; }
+        
 
     }
 }
