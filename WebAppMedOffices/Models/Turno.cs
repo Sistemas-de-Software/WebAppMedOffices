@@ -65,6 +65,15 @@ namespace WebAppMedOffices.Models
             }
         }
 
+        public virtual bool TieneOS
+        {
+            get
+            {
+                bool tieneObraSocial = ObraSocialId != 1;
+                return tieneObraSocial;
+            }
+        }
+
         public virtual Medico Medico { get; set; }
 
         public virtual Especialidad Especialidad { get; set; }

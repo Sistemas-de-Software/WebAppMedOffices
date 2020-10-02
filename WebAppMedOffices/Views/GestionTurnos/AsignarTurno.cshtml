@@ -28,28 +28,12 @@
     </dd>
 
     <dt>
-        @Html.DisplayNameFor(model => model.ObraSocial.Nombre)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.ObraSocial.Nombre)
-    </dd>
-
-    <dt>
         Nombre Paciente
     </dt>
 
     <dd>
         @Html.DisplayFor(model => model.Paciente.NombreCompleto)
     </dd>
-
-    @*<dt>
-        @Html.DisplayNameFor(model => model.Estado)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.Estado)
-    </dd>*@
 
     <dt>
         @Html.DisplayNameFor(model => model.FechaHora)
@@ -59,37 +43,27 @@
         @Html.DisplayFor(model => model.FechaHora)
     </dd>
 
-    @*<dt>
-        @Html.DisplayNameFor(model => model.FechaHoraFin)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.FechaHoraFin)
-    </dd>*@
-
     <dt>
-        @Html.DisplayNameFor(model => model.Costo)
+        @Html.DisplayNameFor(model => model.ObraSocial.Nombre)
     </dt>
 
     <dd>
-        @Html.DisplayFor(model => model.Costo)
+        @Html.DisplayFor(model => model.ObraSocial.Nombre)
     </dd>
 
-    @*<dt>
-        @Html.DisplayNameFor(model => model.Sobreturno)
-    </dt>
+    @if (!Model.TieneOS)
+    {
+    
+        <dt>
+            @Html.DisplayNameFor(model => model.Costo)
+        </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.Sobreturno)
-    </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Costo)
+        </dd>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.TieneObraSocial)
-    </dt>
+    }
 
-    <dd>
-        @Html.DisplayFor(model => model.TieneObraSocial)
-    </dd>*@
 
 </dl>
 
