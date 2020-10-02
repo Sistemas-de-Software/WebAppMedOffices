@@ -9,9 +9,11 @@ using System.Web;
 using System.Web.Mvc;
 using WebAppMedOffices.Models;
 using WebAppMedOffices.Shared;
+using Microsoft.AspNet.Identity;
 
 namespace WebAppMedOffices.Controllers
 {
+    [Authorize(Roles = "Medico")]
     public class FichaMedicaController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -40,12 +42,18 @@ namespace WebAppMedOffices.Controllers
             return View(await db.Pacientes.ToListAsync());
         }
 
-        //Pacientes Del Dia
+        //Turnos del Dia
         public async Task<ActionResult> ListarPacientesHoy()
         {
+            var userName = User.Identity.GetUserName();
             var hoy = DateTime.Now.Date;
-            var pacientes = db.Turnos.Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado && DbFunctions.TruncateTime(t.FechaHora) == hoy);
-            return View(await pacientes.ToListAsync());            
+            var turnos = db.Turnos.Include(t => t.Medico).Include(t => t.ObraSocial)
+                .Where(t => 
+                    t.Estado == Estado.Reservado && 
+                    DbFunctions.TruncateTime(t.FechaHora) == hoy &&
+                    t.Medico.UserName == userName);
+            
+            return View(await turnos.ToListAsync());            
         }
 
         public ActionResult HistoriaClinica(int idPaciente)
