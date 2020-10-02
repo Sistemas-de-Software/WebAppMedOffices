@@ -11,7 +11,7 @@ using WebAppMedOffices.Models;
 
 namespace WebAppMedOffices.Controllers
 {
-    [Authorize(Roles = "Secretaria,Admin")]
+    [Authorize(Roles = "Admin")]
     public class ObrasSocialesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
