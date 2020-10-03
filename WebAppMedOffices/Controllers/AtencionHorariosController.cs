@@ -53,11 +53,25 @@ namespace WebAppMedOffices.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,ConsultorioId,MedicoId,TrabajoTurno,Dia,HoraInicio,HoraFin")] AtencionHorario atencionHorario)
         {
+            var todosHorarios = db.AtencionHorarios.Include(a => a.Consultorio).Include(a => a.Medico)
+                .Where(a => a.Dia == atencionHorario.Dia && 
+                a.HoraInicio.Hour <= atencionHorario.HoraInicio.Hour && a.HoraFin.Hour>atencionHorario.HoraInicio.Hour ||
+                a.Dia == atencionHorario.Dia && a.HoraInicio.Hour <= atencionHorario.HoraFin.Hour && a.HoraFin.Hour>=atencionHorario.HoraFin.Hour);
+
+            List<AtencionHorario> horas = await todosHorarios.ToListAsync();
+
             if (ModelState.IsValid)
             {
-                db.AtencionHorarios.Add(atencionHorario);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if(horas.Count == 0)
+                {
+                    db.AtencionHorarios.Add(atencionHorario);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("Create");
+                }
             }
 
             ViewBag.ConsultorioId = new SelectList(db.Consultorios, "Id", "Nombre", atencionHorario.ConsultorioId);
