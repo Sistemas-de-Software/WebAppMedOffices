@@ -54,9 +54,10 @@ namespace WebAppMedOffices.Controllers
         public async Task<ActionResult> Create([Bind(Include = "Id,ConsultorioId,MedicoId,TrabajoTurno,Dia,HoraInicio,HoraFin")] AtencionHorario atencionHorario)
         {
             var todosHorarios = db.AtencionHorarios.Include(a => a.Consultorio).Include(a => a.Medico)
-                .Where(a => a.Dia == atencionHorario.Dia && 
+                .Where(a => a.Dia == atencionHorario.Dia && a.ConsultorioId == atencionHorario.ConsultorioId &&
                 a.HoraInicio.Hour <= atencionHorario.HoraInicio.Hour && a.HoraFin.Hour>atencionHorario.HoraInicio.Hour ||
-                a.Dia == atencionHorario.Dia && a.HoraInicio.Hour <= atencionHorario.HoraFin.Hour && a.HoraFin.Hour>=atencionHorario.HoraFin.Hour);
+                a.Dia == atencionHorario.Dia && a.ConsultorioId == atencionHorario.ConsultorioId && 
+                a.HoraInicio.Hour <= atencionHorario.HoraFin.Hour && a.HoraFin.Hour>=atencionHorario.HoraFin.Hour);
 
             List<AtencionHorario> horas = await todosHorarios.ToListAsync();
 

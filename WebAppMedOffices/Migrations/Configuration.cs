@@ -112,9 +112,17 @@ namespace WebAppMedOffices.Migrations
                 );
             context.AtencionHorarios.AddOrUpdate(x => x.Id,
                 new AtencionHorario() { Id = 1, ConsultorioId = 1, MedicoId = 1, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.LUN, HoraInicio = new DateTime(2020, 09, 01, 08, 00, 0), HoraFin = new DateTime(2020, 09, 01, 12, 00, 0) },
-                new AtencionHorario() { Id = 2, ConsultorioId = 2, MedicoId = 2, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.MAR, HoraInicio = new DateTime(2020, 09, 01, 13, 00, 0), HoraFin = new DateTime(2020, 09, 01, 18, 00, 0) },
-                new AtencionHorario() { Id = 3, ConsultorioId = 3, MedicoId = 3, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.MIE, HoraInicio = new DateTime(2020, 09, 01, 08, 00, 0), HoraFin = new DateTime(2020, 09, 01, 12, 00, 0) },
-                new AtencionHorario() { Id = 4, ConsultorioId = 3, MedicoId = 3, TrabajoTurno = Shared.TrabajoTurno.T, Dia = Shared.Dia.JUE, HoraInicio = new DateTime(2020, 09, 01, 14, 00, 0), HoraFin = new DateTime(2020, 09, 01, 21, 00, 0) }
+                new AtencionHorario() { Id = 2, ConsultorioId = 1, MedicoId = 1, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.MAR, HoraInicio = new DateTime(2020, 09, 01, 08, 00, 0), HoraFin = new DateTime(2020, 09, 01, 12, 00, 0) },
+                new AtencionHorario() { Id = 3, ConsultorioId = 1, MedicoId = 1, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.MIE, HoraInicio = new DateTime(2020, 09, 01, 08, 00, 0), HoraFin = new DateTime(2020, 09, 01, 12, 00, 0) },
+                new AtencionHorario() { Id = 4, ConsultorioId = 1, MedicoId = 1, TrabajoTurno = Shared.TrabajoTurno.T, Dia = Shared.Dia.JUE, HoraInicio = new DateTime(2020, 09, 01, 08, 00, 0), HoraFin = new DateTime(2020, 09, 01, 12, 00, 0) },
+                new AtencionHorario() { Id = 5, ConsultorioId = 1, MedicoId = 1, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.VIE, HoraInicio = new DateTime(2020, 09, 01, 08, 00, 0), HoraFin = new DateTime(2020, 09, 01, 12, 00, 0) },
+                new AtencionHorario() { Id = 6, ConsultorioId = 2, MedicoId = 2, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.LUN, HoraInicio = new DateTime(2020, 09, 01, 13, 00, 0), HoraFin = new DateTime(2020, 09, 01, 19, 00, 0) },
+                new AtencionHorario() { Id = 7, ConsultorioId = 2, MedicoId = 2, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.MAR, HoraInicio = new DateTime(2020, 09, 01, 13, 00, 0), HoraFin = new DateTime(2020, 09, 01, 19, 00, 0) },
+                new AtencionHorario() { Id = 8, ConsultorioId = 2, MedicoId = 2, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.MIE, HoraInicio = new DateTime(2020, 09, 01, 13, 00, 0), HoraFin = new DateTime(2020, 09, 01, 19, 00, 0) },
+                new AtencionHorario() { Id = 9, ConsultorioId = 2, MedicoId = 2, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.JUE, HoraInicio = new DateTime(2020, 09, 01, 13, 00, 0), HoraFin = new DateTime(2020, 09, 01, 19, 00, 0) },
+                new AtencionHorario() { Id = 10, ConsultorioId = 2, MedicoId = 2, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.VIE, HoraInicio = new DateTime(2020, 09, 01, 13, 00, 0), HoraFin = new DateTime(2020, 09, 01, 19, 00, 0) },
+                new AtencionHorario() { Id = 11, ConsultorioId = 3, MedicoId = 3, TrabajoTurno = Shared.TrabajoTurno.T, Dia = Shared.Dia.SAB, HoraInicio = new DateTime(2020, 09, 01, 09, 00, 0), HoraFin = new DateTime(2020, 09, 01, 12, 00, 0) },
+                new AtencionHorario() { Id = 12, ConsultorioId = 3, MedicoId = 3, TrabajoTurno = Shared.TrabajoTurno.M, Dia = Shared.Dia.DOM, HoraInicio = new DateTime(2020, 09, 01, 09, 00, 0), HoraFin = new DateTime(2020, 09, 01, 12, 00, 0) }                
                 );
 
             context.Especialidades.AddOrUpdate(x => x.Id,
