@@ -76,10 +76,28 @@ namespace WebAppMedOffices.Controllers
             // No cuenta los errores de inicio de sesión para el bloqueo de la cuenta
             // Para permitir que los errores de contraseña desencadenen el bloqueo de la cuenta, cambie a shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            ApplicationUser user = await UserManager.FindAsync(model.Email, model.Password);
+
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    {
+                        if ((UserManager.IsInRole(user.Id, "Secretaria")))
+                        {
+                            //return RedirectToAction("Index", "User");
+                            return RedirectToAction("TurnosReservados", "GestionTurnos");
+                        }
+                        if ((UserManager.IsInRole(user.Id, "Admin")))
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                        if ((UserManager.IsInRole(user.Id, "Medico")))
+                        {
+                            return RedirectToAction("ListarPAcientesHoy","FichaMedica");
+                        }
+                        return RedirectToLocal(returnUrl);
+                    }
+                    //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -450,6 +468,7 @@ namespace WebAppMedOffices.Controllers
                 return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "Home");
+                     
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult
