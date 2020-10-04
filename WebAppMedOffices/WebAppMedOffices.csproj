@@ -167,6 +167,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Constants\Application.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AtencionHorariosController.cs" />
     <Compile Include="Controllers\DuracionTurnoEspecialidadesController.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="Models\Especialidad.cs" />
     <Compile Include="Models\Consultorio.cs" />
     <Compile Include="Models\AtencionHorario.cs" />
+    <Compile Include="Models\GenericMessageViewModel.cs" />
     <Compile Include="Models\HistoriaClinica.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -409,6 +411,7 @@
     <Content Include="Views\FichaMedica\ListarTodosPacientes.cshtml" />
     <Content Include="Views\FichaMedica\HistoriaClinica.cshtml" />
     <Content Include="Views\FichaMedica\FichaMedica.cshtml" />
+    <Content Include="Views\Shared\_GenericMessage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
