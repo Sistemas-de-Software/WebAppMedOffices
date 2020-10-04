@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebAppMedOffices.Models;
+using WebAppMedOffices.Constants;
 
 namespace WebAppMedOffices.Controllers
 {
@@ -42,16 +43,42 @@ namespace WebAppMedOffices.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Nombre,Telefono,Email")] ObraSocial obraSocial)
+        public async Task<ActionResult> Create(ObraSocial obraSocial)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.ObrasSociales.Add(obraSocial);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.ObrasSociales.Add(obraSocial);
+                    await db.SaveChangesAsync();
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Registro agregado a la base de datos.",
+                        MessageType = GenericMessages.success
+                    };
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "El modelo no es válido",
+                        MessageType = GenericMessages.danger
+                    };
+                    return View(obraSocial);
+                }
             }
+            catch (Exception ex)
+            {
 
-            return View(obraSocial);
+                var err = $"No se puede agregar el registro: {ex.Message}";
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = err,
+                    MessageType = GenericMessages.danger
+                };
+                return View(obraSocial);
+            }
         }
 
         public async Task<ActionResult> Edit(int? id)
@@ -85,12 +112,22 @@ namespace WebAppMedOffices.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
             }
             ObraSocial obraSocial = await db.ObrasSociales.FindAsync(id);
             if (obraSocial == null)
             {
-                return HttpNotFound();
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
             }
             return View(obraSocial);
         }
@@ -99,10 +136,35 @@ namespace WebAppMedOffices.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            ObraSocial obraSocial = await db.ObrasSociales.FindAsync(id);
-            db.ObrasSociales.Remove(obraSocial);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            try
+            {
+                ObraSocial obraSocial = await db.ObrasSociales.FindAsync(id);
+                Paciente paciente = await db.Pacientes.FirstOrDefaultAsync(t => t.ObraSocialId == obraSocial.Id);
+                
+                if (paciente != null)
+                {
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "No se puede eliminar el registro relacionado.",
+                        MessageType = GenericMessages.danger
+                    };
+                    return RedirectToAction("Index");
+                }
+
+                db.ObrasSociales.Remove(obraSocial);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                var err = $"No se puede eliminar el registro: {ex.Message}";
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = err,
+                    MessageType = GenericMessages.danger
+                };
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)
