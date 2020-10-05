@@ -175,6 +175,7 @@
     <Compile Include="Controllers\EspecialidadesController.cs" />
     <Compile Include="Controllers\ConsultoriosController.cs" />
     <Compile Include="Controllers\FichaMedicaController.cs" />
+    <Compile Include="Controllers\GestionMedicosController.cs" />
     <Compile Include="Controllers\GestionTurnosController.cs" />
     <Compile Include="Controllers\HistoriaClinicasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -412,6 +413,11 @@
     <Content Include="Views\FichaMedica\HistoriaClinica.cshtml" />
     <Content Include="Views\FichaMedica\FichaMedica.cshtml" />
     <Content Include="Views\Shared\_GenericMessage.cshtml" />
+    <Content Include="Views\GestionMedicos\Index.cshtml" />
+    <Content Include="Views\GestionMedicos\Details.cshtml" />
+    <Content Include="Views\GestionMedicos\Create.cshtml" />
+    <Content Include="Views\GestionMedicos\Edit.cshtml" />
+    <Content Include="Views\GestionMedicos\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

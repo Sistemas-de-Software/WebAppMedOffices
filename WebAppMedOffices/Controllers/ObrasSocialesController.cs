@@ -119,7 +119,9 @@ namespace WebAppMedOffices.Controllers
                 };
                 return RedirectToAction("Index");
             }
+
             ObraSocial obraSocial = await db.ObrasSociales.FindAsync(id);
+            
             if (obraSocial == null)
             {
                 TempData[Application.MessageViewBagName] = new GenericMessageViewModel
