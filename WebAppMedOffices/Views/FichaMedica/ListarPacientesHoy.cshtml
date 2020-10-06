@@ -58,7 +58,7 @@
                 @Html.DisplayFor(modelItem => item.Paciente.Celular)
             </td>
             <td>
-                @Html.ActionLink("Ficha Medica", "FichaMedica", new { id = item.PacienteId }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Ficha Medica", "FichaMedicaConAgregarHistoriaClinica", new { pacienteId = item.PacienteId, turnoId = item.Id }, new { @class = "btn btn-info" })
             </td>
         </tr>
     }

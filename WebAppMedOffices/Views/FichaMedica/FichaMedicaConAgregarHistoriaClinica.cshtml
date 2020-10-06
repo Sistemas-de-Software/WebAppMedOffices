@@ -87,8 +87,8 @@
 
         </dl>
         <p>
-            @Html.ActionLink("Volver", "ListarTodosPacientes", new { }, new { @class = "btn btn-primary" })
-            @*@Html.ActionLink("Agregar Historia Clínica", "CrearHistoriaClinica", new { id = Model.Id }, new { @class = "btn btn-success" })*@
+            @Html.ActionLink("Volver", "ListarPacientesHoy", new { }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Agregar Historia Clínica", "AgregarHistoriaClinica", new { id = ViewBag.Turno.Id }, new { @class = "btn btn-success" })
         </p>
 
     </div>
@@ -127,7 +127,7 @@
                 }
 
             }
-         }
+        }
     </div>
 </div>
 

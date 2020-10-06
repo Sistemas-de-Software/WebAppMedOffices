@@ -50,8 +50,9 @@ namespace WebAppMedOffices.Controllers
             var userName = User.Identity.GetUserName();
             var hoy = DateTime.Now.Date;
             var turnos = db.Turnos.Include(t => t.Medico).Include(t => t.ObraSocial)
-                .Where(t => 
-                    t.Estado == Estado.Reservado && 
+                .Where(t =>
+                    t.Estado == Estado.Reservado ||
+                    t.Estado == Estado.Atendido &&
                     DbFunctions.TruncateTime(t.FechaHora) == hoy &&
                     t.Medico.UserName == userName);
             
@@ -96,6 +97,80 @@ namespace WebAppMedOffices.Controllers
             ViewBag.TipoEnfermedades = await db.TipoEnfermedades.ToListAsync();
 
             return View(paciente);
+        }
+
+        public async Task<ActionResult> FichaMedicaConAgregarHistoriaClinica(int? pacienteId, int? turnoId)
+        {
+            if (pacienteId == null || turnoId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("ListarPacientesHoy");
+            }
+
+            Paciente paciente = await db.Pacientes.FindAsync(pacienteId);
+            Turno turno = await db.Turnos.FirstOrDefaultAsync(t => t.Id == turnoId && t.PacienteId == pacienteId);
+
+            if (paciente == null || turno == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("ListarPacientesHoy");
+            }
+
+            ViewBag.TipoEnfermedades = await db.TipoEnfermedades.ToListAsync();
+            ViewBag.Turno = turno;
+
+            return View(paciente);
+        }
+
+        public async Task<ActionResult> AgregarHistoriaClinica(int? id)
+        {
+            if (id == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("ListarPacientesHoy");
+            }
+
+            Turno turno = await db.Turnos.FindAsync(id);
+            
+            if (turno == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("ListarPacientesHoy");
+            }
+
+            turno.Estado = Estado.Atendido;
+
+            return View(turno);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AgregarHistoriaClinica(Turno turno)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(turno).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("FichaMedicaConAgregarHistoriaClinica", new { pacienteId = turno.PacienteId, turnoId = turno.Id });
+            }
+
+            return View(turno);
         }
 
         [HttpGet]
