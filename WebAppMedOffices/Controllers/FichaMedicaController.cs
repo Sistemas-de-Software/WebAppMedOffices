@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using WebAppMedOffices.Models;
 using WebAppMedOffices.Shared;
 using Microsoft.AspNet.Identity;
+using WebAppMedOffices.Constants;
 
 namespace WebAppMedOffices.Controllers
 {
@@ -57,6 +58,7 @@ namespace WebAppMedOffices.Controllers
             return View(await turnos.ToListAsync());            
         }
 
+        // NO SE USA
         public ActionResult HistoriaClinica(int idPaciente)
         {
 
@@ -71,18 +73,27 @@ namespace WebAppMedOffices.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("ListarTodosPacientes");
             }
 
             Paciente paciente = await db.Pacientes.FindAsync(id);
 
             if (paciente == null)
             {
-                return HttpNotFound();
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("ListarTodosPacientes");
             }
 
             ViewBag.TipoEnfermedades = await db.TipoEnfermedades.ToListAsync();
-            ViewBag.TurnoId = db.PacienteEnfermedades.Include(t => t.Enfermedad).Where(t => t.PacienteId == paciente.Id);
 
             return View(paciente);
         }

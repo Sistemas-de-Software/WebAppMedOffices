@@ -87,8 +87,8 @@
 
         </dl>
         <p>
-            @Html.ActionLink("Volver a incio", "ListarPacientesHoy", new { }, new { @class = "btn btn-primary" })
-            @Html.ActionLink("Agregar Historia Clínica", "CrearHistoriaClinica", new { id = Model.Id }, new { @class = "btn btn-success" })
+            @Html.ActionLink("Volver a incio", "ListarTodosPacientes", new { }, new { @class = "btn btn-primary" })
+            @*@Html.ActionLink("Agregar Historia Clínica", "CrearHistoriaClinica", new { id = Model.Id }, new { @class = "btn btn-success" })*@
         </p>
 
     </div>
@@ -150,10 +150,12 @@ else
             <th>
                 @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().FechaHora)
             </th>
-            @*<th></th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Comentario)
+            </th>
         </tr>
 
-        @foreach (var item in Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Reservado))
+        @foreach (var item in Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Atendido))
         {
             <tr>
                 <td>
@@ -165,11 +167,9 @@ else
                 <td>
                     @Html.DisplayFor(modelItem => item.FechaHora)
                 </td>
-                @*<td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comentario)
+                </td>
             </tr>
         }
 
