@@ -202,6 +202,10 @@
     <Compile Include="Migrations\202009272203470_CargarBase.Designer.cs">
       <DependentUpon>202009272203470_CargarBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010061814052_Agregar_Comentario_en_Turno.cs" />
+    <Compile Include="Migrations\202010061814052_Agregar_Comentario_en_Turno.Designer.cs">
+      <DependentUpon>202010061814052_Agregar_Comentario_en_Turno.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DuracionTurnoEspecialidad.cs" />
@@ -444,6 +448,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009272203470_CargarBase.resx">
       <DependentUpon>202009272203470_CargarBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010061814052_Agregar_Comentario_en_Turno.resx">
+      <DependentUpon>202010061814052_Agregar_Comentario_en_Turno.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -54,6 +54,10 @@ namespace WebAppMedOffices.Models
         [Display(Name = "Tiene Obra Social")]
         public bool? TieneObraSocial { get; set; }
 
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Comentario")]
+        public string Comentario { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:HH:mm}")]
         [Display(Name = "Hora")]

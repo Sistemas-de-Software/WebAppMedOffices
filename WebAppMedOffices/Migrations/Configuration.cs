@@ -168,18 +168,18 @@ namespace WebAppMedOffices.Migrations
                 new Enfermedad() { Id = 1, Nombre = "ANEMIA", TipoEnfermedadId = 1 },
                 new Enfermedad() { Id = 2, Nombre = "ARTROSIS", TipoEnfermedadId = 1 },
                 new Enfermedad() { Id = 3, Nombre = "AUTISMO", TipoEnfermedadId = 1 },
-                new Enfermedad() { Id = 4, Nombre = "ALERGIA A F�RMACOS", TipoEnfermedadId = 2 },
-                new Enfermedad() { Id = 5, Nombre = "ALERGIA AL POLEN", TipoEnfermedadId = 2 },
-                new Enfermedad() { Id = 6, Nombre = "ALERGIA A �CAROS", TipoEnfermedadId = 2 },
-                new Enfermedad() { Id = 7, Nombre = "PENICILINA", TipoEnfermedadId = 2 },
-                new Enfermedad() { Id = 8, Nombre = "ASPIRINA", TipoEnfermedadId = 2 },
-                new Enfermedad() { Id = 9, Nombre = "DIABETES TIPO 1", TipoEnfermedadId = 1 }
+                new Enfermedad() { Id = 4, Nombre = "DIABETES TIPO 1", TipoEnfermedadId = 1 },
+                new Enfermedad() { Id = 5, Nombre = "ALERGIA A FÁRMACOS", TipoEnfermedadId = 2 },
+                new Enfermedad() { Id = 6, Nombre = "ALERGIA AL POLEN", TipoEnfermedadId = 2 },
+                new Enfermedad() { Id = 7, Nombre = "ALERGIA A ÁCAROS", TipoEnfermedadId = 2 },
+                new Enfermedad() { Id = 8, Nombre = "PENICILINA", TipoEnfermedadId = 2 },
+                new Enfermedad() { Id = 9, Nombre = "ASPIRINA", TipoEnfermedadId = 2 }
                 );
             context.PacienteEnfermedades.AddOrUpdate(x => x.Id,
-            new PacienteEnfermedad() { Id = 1, PacienteId = 1, EnfermedadId = 1, Descripcion = "Sin descripci�n"},
-            new PacienteEnfermedad() { Id = 2, PacienteId = 2, EnfermedadId = 9, Descripcion = "Detectada en el a�o 2015" },
-            new PacienteEnfermedad() { Id = 3, PacienteId = 2, EnfermedadId = 7, Descripcion = "Sin descripci�n" },
-            new PacienteEnfermedad() { Id = 4, PacienteId = 2, EnfermedadId = 8, Descripcion = "Sin descripci�n" }
+            new PacienteEnfermedad() { Id = 1, PacienteId = 1, EnfermedadId = 1, Descripcion = "Sin descripción"},
+            new PacienteEnfermedad() { Id = 2, PacienteId = 2, EnfermedadId = 9, Descripcion = "Detectada en el año 2015" },
+            new PacienteEnfermedad() { Id = 3, PacienteId = 2, EnfermedadId = 7, Descripcion = "Sin descripción" },
+            new PacienteEnfermedad() { Id = 4, PacienteId = 2, EnfermedadId = 8, Descripcion = "Sin descripción" }
             );
             /*
             context.PacienteTurnos.AddOrUpdate(x => x.Id,

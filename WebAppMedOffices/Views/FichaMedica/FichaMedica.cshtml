@@ -6,173 +6,173 @@
 
 <h2>Ficha Médica</h2>
 
-<div>
-    <h4>Paciente</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Apellido)
-        </dt>
+<div class="row">
+    <div class="col-md-6">
+        <h4>Paciente</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Apellido)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Documento)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Documento)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Apellido)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FechaNacimiento)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Documento)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.FechaNacimiento)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Documento)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Direccion)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.FechaNacimiento)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Direccion)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.FechaNacimiento)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Telefono)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Telefono)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Direccion)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Celular)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Celular)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Telefono)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NombreContactoEmergencia)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Celular)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.NombreContactoEmergencia)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Celular)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TelefonoContactoEmergencia)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.NombreContactoEmergencia)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TelefonoContactoEmergencia)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.NombreContactoEmergencia)
+            </dd>
 
-    </dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.TelefonoContactoEmergencia)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TelefonoContactoEmergencia)
+            </dd>
+
+        </dl>
+        <p>
+            @Html.ActionLink("Volver a incio", "ListarPacientesHoy", new { }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Agregar Historia Clínica", "CrearHistoriaClinica", new { id = Model.Id }, new { @class = "btn btn-success" })
+        </p>
+
+    </div>
+
+    <div class="col-md-6">
+        <h4>Enfermedades</h4>
+        <hr />
+        @if (ViewBag.TipoEnfermedades.Count == 0)
+        {
+            <h5>No hay nada para mostrar</h5>
+        }
+        else
+        {
+            foreach (var tipoEnfermedad in ViewBag.TipoEnfermedades)
+            {
+                <h5>@tipoEnfermedad.Nombre</h5>
+                if (Model.Enfermedades.Where(t => t.Enfermedad.TipoEnfermedadId == tipoEnfermedad.Id).ToList().Count == 0)
+                {
+                    <ul>
+                        <li>
+                            <h5>Ninguna</h5>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <ul>
+                        @foreach (var item in Model.Enfermedades.Where(t => t.Enfermedad.TipoEnfermedadId == tipoEnfermedad.Id))
+                        {
+                            <li>
+                                @Html.DisplayFor(modelItem => item.Enfermedad.Nombre)
+                            </li>
+
+                        }
+                    </ul>
+                }
+
+            }
+         }
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Volver", "ListarPacientesHoy", new { }, new { @class = "btn btn-primary" })
-    @*@Html.ActionLink("Editar Paciente", "EditPaciente", new { id = Model.Id }, new { @class = "btn btn-warning" })*@
-    @Html.ActionLink("Agregar Historia Clínica", "CrearHistoriaClinica", new { id = Model.Id }, new { @class = "btn btn-success" })
-</p>
 
-<h4>Enfermedades</h4>
-@if (ViewBag.TipoEnfermedades.Count == 0)
+
+<h4>Historia Clínica</h4>
+@if (Model.Turnos.Count == 0)
 {
-    <h5>No hay nada para mostrar</h5>
+    <h5>No hay historia clínica</h5>
 }
 else
 {
-    foreach (var tipoEnfermedad in ViewBag.TipoEnfermedades)
-    {
-        <h5>@tipoEnfermedad.Nombre</h5>
-        <ul>
-            @foreach (var item in Model.Enfermedades.Where(t => t.Enfermedad.TipoEnfermedadId == tipoEnfermedad.Id))
-            {
-                <li>
-                    @Html.DisplayFor(modelItem => item.Enfermedad.Nombre)
-                </li> 
-            }
-        </ul>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Especialidad.Nombre)
+            </th>
+            <th>
+                Médico
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().FechaHora)
+            </th>
+            @*<th></th>*@
+        </tr>
 
-    }
-}
-
-
-    <h4>Historia Clínica</h4>
-    @if (Model.Turnos.Count == 0)
-    {
-        <h5>No hay historia clínica</h5>
-    }
-    else
-    {
-        <table class="table">
+        @foreach (var item in Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Reservado))
+        {
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Especialidad.Nombre)
-                </th>
-                <th>
-                    Médico
-                </th>
-                @*<th>
-                        @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Estado)
-                    </th>*@
-                <th>
-                    @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().FechaHora)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Costo)
-                </th>
-                @*<th>
-                        @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Sobreturno)
-                    </th>
-                    <th></th>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaHora)
+                </td>
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>*@
             </tr>
+        }
 
-            @foreach (var item in Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Reservado))
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
-                    </td>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.Estado)
-                        </td>*@
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FechaHora)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Costo)
-                    </td>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.Sobreturno)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                        </td>*@
-                </tr>
-            }
+    </table>
 
-        </table>
-
-
-    }
+}
