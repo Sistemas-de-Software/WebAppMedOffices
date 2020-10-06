@@ -10,6 +10,21 @@ namespace WebAppMedOffices.Controllers
     {
         public ActionResult Index()
         {
+            if (User.IsInRole("Admin"))
+            {
+                return View();
+            }
+
+            if (User.IsInRole("Secretaria"))
+            {
+                return RedirectToAction("Index", "GestionTurnos");
+            }
+
+            if (User.IsInRole("Medico"))
+            {
+                return RedirectToAction("ListarPacientesHoy", "FichaMedica");
+            }
+
             return View();
         }
 
