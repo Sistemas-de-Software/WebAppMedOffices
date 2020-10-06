@@ -156,7 +156,7 @@ namespace WebAppMedOffices.Migrations
                 new ObraSocialTarifa() { Id = 12, Tarifa = new decimal(700.60), ObraSocialId = 4, EspecialidadId = 3 }
                 );
             context.TipoEnfermedades.AddOrUpdate(x => x.Id,
-            new TipoEnfermedad() { Id = 1, Nombre = "Patolog�as" },
+            new TipoEnfermedad() { Id = 1, Nombre = "Patologías" },
             new TipoEnfermedad() { Id = 2, Nombre = "Alergias" }
             );
             context.Pacientes.AddOrUpdate(x => x.Id,
