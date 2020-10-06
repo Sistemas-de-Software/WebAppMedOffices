@@ -36,6 +36,7 @@ namespace WebAppMedOffices.Controllers
 
             return View(lst);
         }
+
         //Todos los pacientes
         public async Task<ActionResult> ListarTodosPacientes()
         {

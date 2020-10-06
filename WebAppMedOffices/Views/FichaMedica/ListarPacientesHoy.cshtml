@@ -4,7 +4,7 @@
     ViewBag.Title = "Lista de Pacientes de Hoy";
 }
 
-<h2>Paciente del Día</h2>
+<h2>Pacientes del Día</h2>
 
 
 <table class="table">
@@ -24,64 +24,43 @@
         <th>
             @Html.DisplayNameFor(model => model.Paciente.FechaNacimiento)
         </th>
-        @*    <th>
-            @Html.DisplayNameFor(model => model.Direccion)
-        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Paciente.Telefono)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Paciente.Celular)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.NombreContactoEmergencia)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TelefonoContactoEmergencia)
-        </th>*@
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Hora)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Paciente.Documento)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Paciente.Nombre)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Paciente.Apellido)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Paciente.FechaNacimiento)
-    </td>
-    @*<td>
-            @Html.DisplayFor(modelItem => item.Direccion)
-        </td>*@
-    <td>
-        @Html.DisplayFor(modelItem => item.Paciente.Telefono)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Paciente.Celular)
-    </td>
-    @*<td>
-            @Html.DisplayFor(modelItem => item.NombreContactoEmergencia)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TelefonoContactoEmergencia)
-        </td>*@
-    <td>
-        @Html.ActionLink("Ficha Medica", "FichaMedica", new { id = item.PacienteId }, new { @class = "btn btn-info" })
-        @*@Html.ActionLink("Editar", "EditPaciente", new { id = item.PacienteId }, new { @class = "btn btn-warning" })
-                    @Html.ActionLink("Buscar Turnos", "BuscarTurnos", new { id = item.Id }, new { @class = "btn btn-success" })
-            @Html.ActionLink("Eliminar", "DeletePaciante", new { id = item.Id }, new { @class = "btn btn-danger" })*@
-    </td>
-</tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hora)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paciente.Documento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paciente.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paciente.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paciente.FechaNacimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paciente.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paciente.Celular)
+            </td>
+            <td>
+                @Html.ActionLink("Ficha Medica", "FichaMedica", new { id = item.PacienteId }, new { @class = "btn btn-info" })
+            </td>
+        </tr>
     }
 
 </table>
