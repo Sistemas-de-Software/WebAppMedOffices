@@ -54,6 +54,26 @@ namespace WebAppMedOffices.Models
         [Display(Name = "Tiene Obra Social")]
         public bool? TieneObraSocial { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:HH:mm}")]
+        [Display(Name = "Hora")]
+        public virtual DateTime Hora
+        {
+            get
+            {
+                return FechaHora;
+            }
+        }
+
+        public virtual bool TieneOS
+        {
+            get
+            {
+                bool tieneObraSocial = ObraSocialId != 1;
+                return tieneObraSocial;
+            }
+        }
+
         public virtual Medico Medico { get; set; }
 
         public virtual Especialidad Especialidad { get; set; }
