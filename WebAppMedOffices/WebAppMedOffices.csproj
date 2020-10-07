@@ -202,6 +202,10 @@
     <Compile Include="Migrations\202009272203470_CargarBase.Designer.cs">
       <DependentUpon>202009272203470_CargarBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010061814052_Agregar_Comentario_en_Turno.cs" />
+    <Compile Include="Migrations\202010061814052_Agregar_Comentario_en_Turno.Designer.cs">
+      <DependentUpon>202010061814052_Agregar_Comentario_en_Turno.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DuracionTurnoEspecialidad.cs" />
@@ -359,11 +363,6 @@
     <Content Include="Views\ObraSocialTarifas\Details.cshtml" />
     <Content Include="Views\ObraSocialTarifas\Edit.cshtml" />
     <Content Include="Views\ObraSocialTarifas\Index.cshtml" />
-    <Content Include="Views\Turnos\Create.cshtml" />
-    <Content Include="Views\Turnos\Delete.cshtml" />
-    <Content Include="Views\Turnos\Details.cshtml" />
-    <Content Include="Views\Turnos\Edit.cshtml" />
-    <Content Include="Views\Turnos\Index.cshtml" />
     <Content Include="Views\TipoEnfermedades\Create.cshtml" />
     <Content Include="Views\TipoEnfermedades\Delete.cshtml" />
     <Content Include="Views\TipoEnfermedades\Details.cshtml" />
@@ -418,6 +417,9 @@
     <Content Include="Views\GestionMedicos\Create.cshtml" />
     <Content Include="Views\GestionMedicos\Edit.cshtml" />
     <Content Include="Views\GestionMedicos\Delete.cshtml" />
+    <Content Include="Views\FichaMedica\FichaMedicaConAgregarHistoriaClinica.cshtml" />
+    <Content Include="Views\FichaMedica\AgregarHistoriaClinica.cshtml" />
+    <Content Include="Views\Turnos\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -444,6 +446,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009272203470_CargarBase.resx">
       <DependentUpon>202009272203470_CargarBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010061814052_Agregar_Comentario_en_Turno.resx">
+      <DependentUpon>202010061814052_Agregar_Comentario_en_Turno.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
