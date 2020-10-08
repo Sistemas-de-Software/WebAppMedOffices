@@ -56,7 +56,9 @@ namespace WebAppMedOffices.Controllers
         {
             var todosHorarios = db.AtencionHorarios.Include(a => a.Consultorio).Include(a => a.Medico)
                 .Where(a => a.Dia == atencionHorario.Dia && a.ConsultorioId == atencionHorario.ConsultorioId &&
+                a.MedicoId == atencionHorario.MedicoId &&
                 a.HoraInicio.Hour <= atencionHorario.HoraInicio.Hour && a.HoraFin.Hour>atencionHorario.HoraInicio.Hour ||
+                a.MedicoId == atencionHorario.MedicoId &&
                 a.Dia == atencionHorario.Dia && a.ConsultorioId == atencionHorario.ConsultorioId && 
                 a.HoraInicio.Hour <= atencionHorario.HoraFin.Hour && a.HoraFin.Hour>=atencionHorario.HoraFin.Hour);
 
