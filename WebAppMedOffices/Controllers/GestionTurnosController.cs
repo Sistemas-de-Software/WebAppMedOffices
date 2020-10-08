@@ -363,7 +363,13 @@ namespace WebAppMedOffices.Controllers
                     }
                 }
 
-                return RedirectToAction("TurnosDisponibles");
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "Turno creados exitosamante.",
+                    MessageType = GenericMessages.success
+                };
+
+                return RedirectToAction("TurnosDisponiblesInicio");
             }
 
             ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", turnoView.EspecialidadId);
