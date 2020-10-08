@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebAppMedOffices.Models;
+using WebAppMedOffices.Constants;
 
 namespace WebAppMedOffices.Controllers
 {
@@ -51,7 +52,7 @@ namespace WebAppMedOffices.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,ConsultorioId,MedicoId,TrabajoTurno,Dia,HoraInicio,HoraFin")] AtencionHorario atencionHorario)
+        public async Task<ActionResult> Create([Bind(Include = "Id,ConsultorioId,MedicoId,Dia,HoraInicio,HoraFin")] AtencionHorario atencionHorario)
         {
             var todosHorarios = db.AtencionHorarios.Include(a => a.Consultorio).Include(a => a.Medico)
                 .Where(a => a.Dia == atencionHorario.Dia && a.ConsultorioId == atencionHorario.ConsultorioId &&
@@ -67,10 +68,20 @@ namespace WebAppMedOffices.Controllers
                 {
                     db.AtencionHorarios.Add(atencionHorario);
                     await db.SaveChangesAsync();
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Registrado agregado a la base de datos.",
+                        MessageType = GenericMessages.success
+                    };
                     return RedirectToAction("Index");
                 }
                 else
                 {
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "El modelo no es válido",
+                        MessageType = GenericMessages.danger
+                    };
                     return RedirectToAction("Create");
                 }
             }
@@ -102,7 +113,7 @@ namespace WebAppMedOffices.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,ConsultorioId,MedicoId,TrabajoTurno,Dia,HoraInicio,HoraFin")] AtencionHorario atencionHorario)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,ConsultorioId,MedicoId,Dia,HoraInicio,HoraFin")] AtencionHorario atencionHorario)
         {
             if (ModelState.IsValid)
             {
