@@ -29,6 +29,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Costo)
             </th>
+            <th>
+                Combrobante
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -53,6 +56,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Costo)
                 </td>
+                <td>
+                    <button id="descargar" class="btn btn-danger">Descargar Comprobante</button>
+                </td>
             </tr>
         }
     </tbody>
@@ -63,9 +69,28 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#table_id').DataTable();
-        } );
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var doc = new jsPDF();
+            //var specialElementHandlers = {
+            //    '#editor': function (element, renderer) {
+            //        return true;
+            //    }
+            //};
+
+
+            $('#descargar').click(function () {
+                doc.fromHTML($('#table_id').html(), 15, 15, {
+                    'width': 170,
+                    //'elementHandlers': specialElementHandlers
+                });
+                doc.save('comprobante.pdf');
+            });
+        });
     </script>
 }
 
