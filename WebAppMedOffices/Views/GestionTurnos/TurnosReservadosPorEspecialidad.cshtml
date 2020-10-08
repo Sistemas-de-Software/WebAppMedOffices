@@ -23,25 +23,12 @@
             <th>
                 Paciente
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Estado)
-                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.FechaHora)
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.FechaHoraFin)
-                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Costo)
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Sobreturno)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TieneObraSocial)
-                </th>
-                <th></th>*@
         </tr>
     </thead>
     <tbody>
@@ -60,29 +47,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Paciente.NombreCompleto)
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Estado)
-                    </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.FechaHora)
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.FechaHoraFin)
-                    </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Costo)
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Sobreturno)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TieneObraSocial)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                        @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-                    </td>*@
             </tr>
         }
     </tbody>
