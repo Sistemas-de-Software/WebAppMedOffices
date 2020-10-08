@@ -43,12 +43,14 @@ namespace WebAppMedOffices.Models
         [Required(ErrorMessage = "Debes introducir un {0}")]
         [StringLength(30, ErrorMessage = "El campo {0} debe contener entre {2} y {1} caracteres", MinimumLength = 3)]
         [DataType(DataType.PhoneNumber)]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "No es un número de teléfono válido")]
         [Display(Name = "Teléfono")]
         public string Telefono { get; set; }
 
         [Required(ErrorMessage = "Debes introducir un {0}")]
         [StringLength(30, ErrorMessage = "El campo {0} debe contener entre {2} y {1} caracteres", MinimumLength = 3)]
         [DataType(DataType.PhoneNumber)]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "No es un número de teléfono válido")]
         [Display(Name = "Celular")]
         public string Celular { get; set; }
 
