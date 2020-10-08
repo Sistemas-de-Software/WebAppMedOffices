@@ -13,6 +13,7 @@ using Newtonsoft.Json.Linq;
 using WebAppMedOffices.Shared;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Core.Metadata.Edm;
+using WebAppMedOffices.Constants;
 
 namespace WebAppMedOffices.Controllers
 {
@@ -52,9 +53,71 @@ namespace WebAppMedOffices.Controllers
             return View(await turnos.ToListAsync());
         }
 
-        public async Task<ActionResult> TurnosReservados()
+        public ActionResult TurnosReservadosInicio()
         {
-            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado);
+            return View();
+        }
+
+        public async Task<ActionResult> ListaDeMedicos()
+        {
+            return View(await db.Medicos.ToListAsync());
+        }
+        
+        public async Task<ActionResult> ListaDeEspecialidades()
+        {
+            return View(await db.Especialidades.ToListAsync());
+        }
+        
+        public async Task<ActionResult> ListaDePacientes()
+        {
+            return View(await db.Pacientes.ToListAsync());
+        }
+
+        public async Task<ActionResult> TurnosReservadosPorMedico(int? medicoId)
+        {
+            if (medicoId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("ListaDeMedicos");
+            }
+
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado && t.MedicoId == medicoId);
+            return View(await turnos.ToListAsync());
+        }
+
+        public async Task<ActionResult> TurnosReservadosPorEspecialidad(int? especialidadId)
+        {
+            if (especialidadId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("ListaDeEspecialidades");
+            }
+
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado && t.EspecialidadId == especialidadId);
+            return View(await turnos.ToListAsync());
+        }
+
+        public async Task<ActionResult> TurnosReservadosPorPaciente(int? pacienteId)
+        {
+            if (pacienteId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("ListaDePacientes");
+            }
+
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado && t.PacienteId == pacienteId);
             return View(await turnos.ToListAsync());
         }
 
@@ -62,14 +125,24 @@ namespace WebAppMedOffices.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
             }
 
             var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible);
             
             if (turnos == null)
             {
-                return HttpNotFound();
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
             }
 
             ViewBag.PacienteId = id;
@@ -81,7 +154,12 @@ namespace WebAppMedOffices.Controllers
         {
             if (id == null || pacienteId == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
             }
 
             Turno turno = await db.Turnos.FindAsync(id);
@@ -126,7 +204,12 @@ namespace WebAppMedOffices.Controllers
             {
                 db.Entry(turno).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("TurnosReservados");
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "Turno reservado exitosamante.",
+                    MessageType = GenericMessages.success
+                };
+                return RedirectToAction("TurnosReservadosInicio");
             }
 
             return View(turno);
