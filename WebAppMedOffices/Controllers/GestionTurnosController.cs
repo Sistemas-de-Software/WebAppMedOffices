@@ -47,22 +47,62 @@ namespace WebAppMedOffices.Controllers
             return View(await turnos.ToListAsync());
         }
 
-        public async Task<ActionResult> TurnosDisponibles()
+        public ActionResult TurnosDisponiblesInicio()
         {
-            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible);
-            return View(await turnos.ToListAsync());
+            return View();
         }
 
         public ActionResult TurnosReservadosInicio()
         {
             return View();
         }
+        public async Task<ActionResult> TurnosDisponiblesListaDeMedicos()
+        {
+            return View(await db.Medicos.ToListAsync());
+        }
+
+        public async Task<ActionResult> TurnosDisponiblesListaDeEspecialidades()
+        {
+            return View(await db.Especialidades.ToListAsync());
+        }
+
+        public async Task<ActionResult> TurnosDisponiblesPorMedico(int? medicoId)
+        {
+            if (medicoId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("ListaDeMedicos");
+            }
+
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible && t.MedicoId == medicoId);
+            return View(await turnos.ToListAsync());
+        }
+
+        public async Task<ActionResult> TurnosDisponiblesPorEspecialidad(int? especialidadId)
+        {
+            if (especialidadId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("ListaDeEspecialidades");
+            }
+
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible && t.EspecialidadId == especialidadId);
+            return View(await turnos.ToListAsync());
+        }
 
         public async Task<ActionResult> ListaDeMedicos()
         {
             return View(await db.Medicos.ToListAsync());
         }
-        
+
         public async Task<ActionResult> ListaDeEspecialidades()
         {
             return View(await db.Especialidades.ToListAsync());

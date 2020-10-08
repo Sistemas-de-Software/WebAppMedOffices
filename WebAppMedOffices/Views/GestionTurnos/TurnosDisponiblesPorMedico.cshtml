@@ -1,32 +1,34 @@
-﻿@model IEnumerable<WebAppMedOffices.Models.Medico>
+﻿@model IEnumerable<WebAppMedOffices.Models.Turno>
 
 @{
-    ViewBag.Title = "Médicos";
+    ViewBag.Title = "Turnos Disponibles";
 }
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
 
-<h2>Médicos</h2>
+<h2>Turnos Disponibles</h2>
 
 <table id="table_id" class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nombre)
+                @Html.DisplayNameFor(model => model.Especialidad.Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Apellido)
+                Médico
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Telefono)
+                @Html.DisplayNameFor(model => model.ObraSocial.Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Celular)
+                Paciente
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Matricula)
+                @Html.DisplayNameFor(model => model.FechaHora)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Costo)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -34,22 +36,22 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
+                    @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Apellido)
+                    @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Telefono)
+                    @Html.DisplayFor(modelItem => item.ObraSocial.Nombre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Celular)
+                    @Html.DisplayFor(modelItem => item.Paciente.NombreCompleto)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Matricula)
+                    @Html.DisplayFor(modelItem => item.FechaHora)
                 </td>
                 <td>
-                    @Html.ActionLink("Turnos reservados", "TurnosReservadosPorMedico", new { medicoId = item.Id }, new { @class = "btn btn-success" })
+                    @Html.DisplayFor(modelItem => item.Costo)
                 </td>
             </tr>
         }
@@ -66,3 +68,4 @@
         } );
     </script>
 }
+

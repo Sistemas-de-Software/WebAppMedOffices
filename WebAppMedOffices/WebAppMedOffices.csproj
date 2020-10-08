@@ -391,7 +391,6 @@
     <Content Include="Views\GestionTurnos\Index.cshtml" />
     <Content Include="Views\GestionTurnos\ListaPacientes.cshtml" />
     <Content Include="Views\GestionTurnos\DetailsPaciente.cshtml" />
-    <Content Include="Views\GestionTurnos\TurnosDisponibles.cshtml" />
     <Content Include="Views\HistoriaClinicas\Create.cshtml" />
     <Content Include="Views\HistoriaClinicas\Delete.cshtml" />
     <Content Include="Views\HistoriaClinicas\Details.cshtml" />
@@ -426,6 +425,11 @@
     <Content Include="Views\GestionTurnos\TurnosReservadosPorEspecialidad.cshtml" />
     <Content Include="Views\GestionTurnos\ListaDePacientes.cshtml" />
     <Content Include="Views\GestionTurnos\TurnosReservadosPorPaciente.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosDisponiblesInicio.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosDisponiblesListaDeMedicos.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosDisponiblesPorMedico.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosDisponiblesListaDeEspecialidades.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosDisponiblesPorEspecialidad.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

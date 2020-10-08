@@ -49,7 +49,7 @@
                     @Html.DisplayFor(modelItem => item.Matricula)
                 </td>
                 <td>
-                    @Html.ActionLink("Turnos reservados", "TurnosReservadosPorMedico", new { medicoId = item.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Turnos disponibles", "TurnosDisponiblesPorMedico", new { medicoId = item.Id }, new { @class = "btn btn-success" })
                 </td>
             </tr>
         }
