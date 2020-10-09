@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -30,6 +31,14 @@ namespace WebAppMedOffices.Models
         {
             return new ApplicationDbContext();
         }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            // Dahabilitar el borrado en cascada
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+        }
+
         public DbSet<Especialidad> Especialidades { get; set; }
         public DbSet<Medico> Medicos { get; set; }
         public DbSet<Consultorio> Consultorios { get; set; }
