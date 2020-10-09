@@ -85,7 +85,7 @@ namespace WebAppMedOffices.Controllers
                         if ((UserManager.IsInRole(user.Id, "Secretaria")))
                         {
                             //return RedirectToAction("Index", "User");
-                            return RedirectToAction("TurnosReservados", "GestionTurnos");
+                            return RedirectToAction("Index", "GestionTurnos");
                         }
                         if ((UserManager.IsInRole(user.Id, "Admin")))
                         {
