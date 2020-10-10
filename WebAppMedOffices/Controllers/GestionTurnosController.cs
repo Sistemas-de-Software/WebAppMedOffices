@@ -161,6 +161,34 @@ namespace WebAppMedOffices.Controllers
             return View(await turnos.ToListAsync());
         }
 
+        public async Task<ActionResult> Comprobante(int? pacienteId, int? turnoId)
+        {
+            if (pacienteId == null || turnoId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("TurnosReservadosInicio");
+            }
+
+   
+            Turno turno = await db.Turnos.FirstOrDefaultAsync(t => t.Id == turnoId && t.PacienteId == pacienteId);
+
+            if (turno == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("TurnosReservadosInicio");
+            }
+            
+            return View(turno);
+        }
+
         public async Task<ActionResult> BuscarTurnos(int? id)
         {
             if (id == null)

@@ -57,7 +57,7 @@
                     @Html.DisplayFor(modelItem => item.Costo)
                 </td>
                 <td>
-                    <button id="descargar" class="btn btn-danger">Descargar Comprobante</button>
+                    @Html.ActionLink("Ver Comprobante", "Comprobante", new { pacienteId = item.PacienteId, turnoId = item.Id }, new { @class = "btn btn-success" })
                 </td>
             </tr>
         }
