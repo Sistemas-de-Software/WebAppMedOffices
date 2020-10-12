@@ -222,6 +222,7 @@
     <Compile Include="Models\ObraSocialTarifa.cs" />
     <Compile Include="Models\Paciente.cs" />
     <Compile Include="Models\PacienteEnfermedad.cs" />
+    <Compile Include="Models\PacienteEnfermedadView.cs" />
     <Compile Include="Models\TipoEnfermedad.cs" />
     <Compile Include="Models\Turno.cs" />
     <Compile Include="Models\TurnoView.cs" />
@@ -431,6 +432,9 @@
     <Content Include="Views\GestionTurnos\TurnosDisponiblesListaDeEspecialidades.cshtml" />
     <Content Include="Views\GestionTurnos\TurnosDisponiblesPorEspecialidad.cshtml" />
     <Content Include="Views\GestionTurnos\Comprobante.cshtml" />
+    <Content Include="Views\FichaMedica\PacienteEnfermedades.cshtml" />
+    <Content Include="Views\FichaMedica\CreatePacienteEnfermedades.cshtml" />
+    <Content Include="Views\FichaMedica\EditPacienteEnfermedades.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
