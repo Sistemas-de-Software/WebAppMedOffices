@@ -17,18 +17,18 @@
             <th>
                 Médico
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.ObraSocial.Nombre)
             </th>
             <th>
                 Paciente
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.FechaHora)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Costo)
-            </th>
+            </th>*@
         </tr>
     </thead>
     <tbody>
@@ -41,18 +41,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.ObraSocial.Nombre)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Paciente.NombreCompleto)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.FechaHora)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Costo)
-                </td>
+                </td>*@
             </tr>
         }
     </tbody>
