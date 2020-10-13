@@ -218,6 +218,35 @@ namespace WebAppMedOffices.Controllers
             return View(await turnos.ToListAsync());
         }
 
+        public async Task<ActionResult> BuscarSobreturnos(int? id)
+        {
+            if (id == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible || t.Estado == Estado.Reservado);
+
+            if (turnos == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.PacienteId = id;
+
+            return View(await turnos.ToListAsync());
+        }
+
         public async Task<ActionResult> AsignarTurno(int? id, int? pacienteId)
         {
             if (id == null || pacienteId == null)
@@ -278,6 +307,81 @@ namespace WebAppMedOffices.Controllers
                     MessageType = GenericMessages.success
                 };
                 return RedirectToAction("TurnosReservadosInicio");
+            }
+
+            return View(turno);
+        }
+
+        public async Task<ActionResult> AsignarSobreturno(int? id, int? pacienteId)
+        {
+            if (id == null || pacienteId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            Turno turno = await db.Turnos.FindAsync(id);
+            Paciente paciente = await db.Pacientes.FindAsync(pacienteId);
+
+            if (turno == null || paciente == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            Turno nuevoTurno = new Turno();
+            nuevoTurno.MedicoId = turno.MedicoId;
+            nuevoTurno.EspecialidadId = turno.EspecialidadId;
+            nuevoTurno.ObraSocialId = paciente.ObraSocial.Id;
+            nuevoTurno.PacienteId = paciente.Id;
+            nuevoTurno.Estado = Estado.Reservado;
+            nuevoTurno.FechaHora = turno.FechaHora;
+            nuevoTurno.FechaHoraFin = turno.FechaHoraFin;
+            nuevoTurno.Costo = paciente.ObraSocial.Tarifas.Where(t => t.EspecialidadId == turno.EspecialidadId).FirstOrDefault().Tarifa;
+            nuevoTurno.Sobreturno = true;
+            nuevoTurno.TieneObraSocial = false;
+            nuevoTurno.Medico = turno.Medico;
+            nuevoTurno.Especialidad = turno.Especialidad;
+            nuevoTurno.Paciente = paciente;
+            nuevoTurno.ObraSocial = paciente.ObraSocial;
+
+            return View(nuevoTurno);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AsignarSobreturno([Bind(Include = "MedicoId,EspecialidadId,ObraSocialId,PacienteId,Estado,FechaHora,FechaHoraFin,Costo,Sobreturno,TieneObraSocial")] Turno turno)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Turnos.Add(turno);
+                    await db.SaveChangesAsync();
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Sobreturno reservado exitosamante.",
+                        MessageType = GenericMessages.success
+                    };
+                    return RedirectToAction("TurnosReservadosInicio");
+                }
+            }
+            catch (Exception ex)
+            {
+                var err = $"Error al asignar el sobreturno: {ex.Message}";
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = err,
+                    MessageType = GenericMessages.danger
+                };
             }
 
             return View(turno);

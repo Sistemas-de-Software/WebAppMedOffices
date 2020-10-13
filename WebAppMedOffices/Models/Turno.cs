@@ -78,6 +78,17 @@ namespace WebAppMedOffices.Models
             }
         }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [Display(Name = "Fecha")]
+        public virtual DateTime Fecha
+        {
+            get
+            {
+                return FechaHora;
+            }
+        }
+
         public virtual Medico Medico { get; set; }
 
         public virtual Especialidad Especialidad { get; set; }
