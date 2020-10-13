@@ -42,7 +42,7 @@ namespace WebAppMedOffices.Controllers
         // GET: AtencionHorarios/Create
         public ActionResult Create()
         {
-            ViewBag.ConsultorioId = new SelectList(db.Consultorios, "Id", "Nombre");
+            ViewBag.ConsultorioId = new SelectList(db.Consultorios.Where(t => t.BaseEstado == Shared.BaseEstado.CREADO), "Id", "Nombre");
             ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "NombreCompleto");
             return View();
         }

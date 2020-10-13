@@ -40,4 +40,11 @@ namespace WebAppMedOffices.Shared
         INTERNACION = 1,
         ESTUDIO = 2,
     }
+
+    public enum BaseEstado
+    {
+        CREADO = 0,
+        MODIFICADO = 1,
+        ELIMINADO = 2,
+    }
 }

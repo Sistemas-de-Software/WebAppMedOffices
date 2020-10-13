@@ -102,9 +102,9 @@ namespace WebAppMedOffices.Migrations
             }
 
             context.Consultorios.AddOrUpdate(x => x.Id,
-                new Consultorio() { Id = 1, Nombre = "Sala 1" },
-                new Consultorio() { Id = 2, Nombre = "Sala 2" },
-                new Consultorio() { Id = 3, Nombre = "Sala 3" }
+                new Consultorio() { Id = 1, Nombre = "Sala 1", BaseEstado = Shared.BaseEstado.CREADO },
+                new Consultorio() { Id = 2, Nombre = "Sala 2", BaseEstado = Shared.BaseEstado.CREADO },
+                new Consultorio() { Id = 3, Nombre = "Sala 3", BaseEstado = Shared.BaseEstado.CREADO }
                 );
             context.Medicos.AddOrUpdate(x => x.Id,
                 new Medico() { Id = 1, Nombre = "Roberto", Apellido = "Suarez", Telefono = "443285", Celular = "1160848392", Matricula = "12345", UserName = "medico1@medoffices.com" },
