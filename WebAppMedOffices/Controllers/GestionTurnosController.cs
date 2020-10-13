@@ -314,19 +314,66 @@ namespace WebAppMedOffices.Controllers
             {
                 if (turnoView.FechaDesde.Date > turnoView.FechaHasta.Date)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "La fecha Desde no puede ser mayor que la fecha Hasta.",
+                        MessageType = GenericMessages.warning
+                    };
+                    ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", turnoView.EspecialidadId);
+                    ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "Nombre", turnoView.MedicoId);
+                    return View(turnoView);
+                }
+
+                var hoy = DateTime.Now.Date;
+                if (turnoView.FechaDesde.Date < hoy)
+                {
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "La fecha Desde no puede ser menor que la fecha de Hoy.",
+                        MessageType = GenericMessages.warning
+                    };
+                    ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", turnoView.EspecialidadId);
+                    ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "Nombre", turnoView.MedicoId);
+                    return View(turnoView);
                 }
 
                 var duracion = db.DuracionTurnoEspecialidades.Where(t => t.MedicoId == turnoView.MedicoId && t.EspecialidadId == turnoView.EspecialidadId).FirstOrDefault();
                 if (duracion == null)
                 {
-                    return HttpNotFound();
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "No existe la especialidad del Médico.",
+                        MessageType = GenericMessages.warning
+                    };
+                    ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", turnoView.EspecialidadId);
+                    ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "Nombre", turnoView.MedicoId);
+                    return View(turnoView);
                 }
 
                 var diasHorarios = db.AtencionHorarios.Where(t => t.MedicoId == turnoView.MedicoId).ToList();
                 if (diasHorarios == null)
                 {
-                    return HttpNotFound();
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "El Médico no tiene horario de atención cargados.",
+                        MessageType = GenericMessages.warning
+                    };
+                    ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", turnoView.EspecialidadId);
+                    ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "Nombre", turnoView.MedicoId);
+                    return View(turnoView);
+                }
+
+                Turno hayTurnoCreado = await db.Turnos.Where(t => DbFunctions.TruncateTime(t.FechaHora) >= turnoView.FechaDesde && DbFunctions.TruncateTime(t.FechaHora) <= turnoView.FechaHasta && t.MedicoId == turnoView.MedicoId && t.EspecialidadId == turnoView.EspecialidadId).FirstOrDefaultAsync();
+                if (hayTurnoCreado != null)
+                {
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Ya hay turnos cargados dentro del rango de fechas elegido.",
+                        MessageType = GenericMessages.warning
+                    };
+                    ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", turnoView.EspecialidadId);
+                    ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "Nombre", turnoView.MedicoId);
+                    return View(turnoView);
                 }
 
                 //creamos el ámbito de la transacción
