@@ -67,16 +67,6 @@ namespace WebAppMedOffices.Controllers
                 a.HoraInicio.Hour <= atencionHorario.HoraFin.Hour && a.HoraFin.Hour >= atencionHorario.HoraFin.Hour ||
                 a.Dia == atencionHorario.Dia && a.ConsultorioId == atencionHorario.ConsultorioId &&
                 a.HoraInicio.Hour <= atencionHorario.HoraFin.Hour && a.HoraFin.Hour >= atencionHorario.HoraFin.Hour).ToList();
-            /*
-                .Select(r => new
-                 {
-                     medico = r.MedicoId,
-                     consultorio = r.ConsultorioId,
-                     dia = r.Dia,
-                     horainicio = r.HoraInicio,
-                     horafin = r.HoraFin
-                 }
-                 */
 
             if (ModelState.IsValid)
             {
@@ -95,7 +85,7 @@ namespace WebAppMedOffices.Controllers
                 {
                     TempData[Application.MessageViewBagName] = new GenericMessageViewModel
                     {
-                        Message = "El modelo no es válido",
+                        Message = "El medico o el consultorio se encuentra ocupado",
                         MessageType = GenericMessages.danger
                     };
                     return RedirectToAction("Create");
