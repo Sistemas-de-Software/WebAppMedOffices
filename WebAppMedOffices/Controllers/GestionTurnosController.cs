@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -543,6 +543,16 @@ namespace WebAppMedOffices.Controllers
         {
             if (ModelState.IsValid)
             {
+                var hoy = DateTime.Now.Date;
+                if (paciente.FechaNacimiento.Date > hoy)
+                {
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "La fecha de nacimiento no puede ser menor que la fecha de Hoy.",
+                        MessageType = GenericMessages.warning
+                    };
+                    return RedirectToAction("CreatePaciente");
+                }
                 db.Pacientes.Add(paciente);
                 await db.SaveChangesAsync();
                 return RedirectToAction("ListaPacientes");
