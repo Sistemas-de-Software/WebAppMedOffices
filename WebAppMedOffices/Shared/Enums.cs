@@ -30,7 +30,9 @@ namespace WebAppMedOffices.Shared
     {
         Disponible = 0, 
         Reservado = 1, 
-        Atendido = 2, 
+        Atendido = 2,
+        CANCELADOXMEDICO = 3,
+        CANCELADOXPACIENTE = 4,
     }
 
     // Motivo para Historia Clínica

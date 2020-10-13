@@ -33,6 +33,7 @@
             <th>
                 Combrobante
             </th>
+            <th>Cancelación</th>
         </tr>
     </thead>
     <tbody>
@@ -72,6 +73,9 @@
             </td>
             <td>
                 @Html.ActionLink("Ver Comprobante", "Comprobante", new { pacienteId = item.PacienteId, turnoId = item.Id }, new { @class = "btn btn-success" })
+            </td>
+            <td>
+                @Html.ActionLink("Cancelar Turno", "CancelarTurno", new { medicoId = item.MedicoId}, new { @class = "btn btn-danger" })
             </td>
         </tr>
         }

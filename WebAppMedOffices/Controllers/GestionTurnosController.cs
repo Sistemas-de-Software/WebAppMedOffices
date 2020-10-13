@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -633,6 +633,56 @@ namespace WebAppMedOffices.Controllers
             }
 
             return View(paciente);
+        }
+
+        public ActionResult CancelarTurno(int? medicoId)
+        {
+            if (medicoId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("TurnosReservadosInicio");
+            }
+
+            DateTime hoy = DateTime.Now;
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible && t.MedicoId == medicoId && DbFunctions.TruncateTime(t.FechaHora) == hoy);
+            List<Turno> nuevoTurno = new List<Turno>();
+            if (turnos == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("TurnosReservadosInicio");
+            }
+
+            foreach (var item in turnos)
+            {
+                Turno t = new Turno();
+                t.Id = item.Id;
+                t.MedicoId = item.MedicoId;
+                t.EspecialidadId = item.EspecialidadId;
+                t.ObraSocialId = item.Paciente.ObraSocialId;
+                t.PacienteId = item.PacienteId;
+                t.Estado = Estado.CANCELADOXMEDICO;
+                t.FechaHora = item.FechaHora;
+                t.FechaHoraFin = item.FechaHoraFin;
+                t.Costo = item.Paciente.ObraSocial.Tarifas.Where(a => a.EspecialidadId == item.EspecialidadId).FirstOrDefault().Tarifa;
+                t.Sobreturno = false;
+                t.TieneObraSocial = false;
+                t.Medico = item.Medico;
+                t.Especialidad = item.Especialidad;
+                t.Paciente = item.Paciente;
+                t.ObraSocial = item.Paciente.ObraSocial;
+                nuevoTurno.Add(t);
+            }
+
+            ViewBag.MedicoId = medicoId;
+            return View(nuevoTurno);
         }
 
         public ActionResult CreatePaciente()
