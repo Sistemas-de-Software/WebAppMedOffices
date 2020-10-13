@@ -29,6 +29,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Costo)
             </th>
+            <th></th>
             <th>
                 Combrobante
             </th>
@@ -51,10 +52,23 @@
                 @Html.DisplayFor(modelItem => item.Paciente.NombreCompleto)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FechaHora)
+                @if (item.Sobreturno == true)
+                {
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.FechaHora)
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Costo)
+            </td>
+            <td>
+                @if (item.Sobreturno == true)
+                {
+                    <span class="label label-danger">Sobreturno</span>
+                }
             </td>
             <td>
                 @Html.ActionLink("Ver Comprobante", "Comprobante", new { pacienteId = item.PacienteId, turnoId = item.Id }, new { @class = "btn btn-success" })
