@@ -105,14 +105,11 @@
          @Html.HiddenFor(model => turnos.Sobreturno)
          @Html.HiddenFor(model => turnos.TieneObraSocial)        
     }
-
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Cancelar Turnos" class="btn btn-success" />
+            @Html.ActionLink("Volver", "TurnosReservadosPorMedico", new { medicoId = ViewBag.MedicoId }, new { @class = "btn btn-primary" })
+            <input type="submit" value="Cancelar Turnos" class="btn btn-danger" />
         </div>
     </div>
 </div>
 }
-<p>
-    @Html.ActionLink("Volver", "TurnosReservadosPorMedico", new { medicoId = ViewBag.MedicoId }, new { @class = "btn btn-primary" })
-</p>
