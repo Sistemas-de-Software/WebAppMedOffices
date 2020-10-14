@@ -225,6 +225,7 @@
     <Compile Include="Models\PacienteEnfermedadView.cs" />
     <Compile Include="Models\TipoEnfermedad.cs" />
     <Compile Include="Models\Turno.cs" />
+    <Compile Include="Models\TurnoCambiarView.cs" />
     <Compile Include="Models\TurnoView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\Enums.cs" />
@@ -437,6 +438,8 @@
     <Content Include="Views\FichaMedica\EditPacienteEnfermedades.cshtml" />
     <Content Include="Views\GestionTurnos\BuscarSobreturnos.cshtml" />
     <Content Include="Views\GestionTurnos\AsignarSobreturno.cshtml" />
+    <Content Include="Views\GestionTurnos\ListaCambiarTurno.cshtml" />
+    <Content Include="Views\GestionTurnos\CambiarTurno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
