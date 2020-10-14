@@ -51,7 +51,7 @@
         @Html.DisplayFor(model => model.TurnoAntes.ObraSocial.Nombre)
     </dd>
 
-    @*@if (!Model.TurnoAntes.TieneOS)
+    @if (ViewBag.TieneOS == false)
     {
 
         <dt>
@@ -62,7 +62,7 @@
             @Html.DisplayFor(model => model.TurnoAntes.Costo)
         </dd>
 
-    }*@
+    }
 
 
 </dl>
@@ -112,7 +112,7 @@
         @Html.DisplayFor(model => model.TurnoAntes.ObraSocial.Nombre)
     </dd>
 
-    @*@if (!Model.TurnoAntes.TieneOS)
+    @if (ViewBag.TieneOS == false)
     {
 
         <dt>
@@ -123,7 +123,7 @@
             @Html.DisplayFor(model => model.TurnoAntes.Paciente.ObraSocial.Tarifas.Where(t => t.EspecialidadId == Model.TurnoDespues.EspecialidadId).FirstOrDefault().Tarifa)
         </dd>
 
-    }*@
+    }
 
 
 </dl>
@@ -138,21 +138,11 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.TurnoAntes.Id)
     @Html.HiddenFor(model => model.TurnoDespues.Id)
-    @*@Html.HiddenFor(model => model.TurnoAntes.MedicoId)*@
-    @*@Html.HiddenFor(model => model.TurnoAntes.EspecialidadId)
-        @Html.HiddenFor(model => model.TurnoAntes.PacienteId)
-        @Html.HiddenFor(model => model.TurnoAntes.ObraSocialId)
-        @Html.HiddenFor(model => model.TurnoAntes.Estado)
-        @Html.HiddenFor(model => model.TurnoAntes.FechaHora)
-        @Html.HiddenFor(model => model.TurnoAntes.FechaHoraFin)
-        @Html.HiddenFor(model => model.TurnoAntes.Costo)
-        @Html.HiddenFor(model => model.TurnoAntes.Sobreturno)
-        @Html.HiddenFor(model => model.TurnoAntes.TieneObraSocial)*@
 
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Cambiar" class="btn btn-success" />
+            <input type="submit" value="Confirmar" class="btn btn-success" />
         </div>
     </div>
 </div>

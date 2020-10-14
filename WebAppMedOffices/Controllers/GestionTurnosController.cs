@@ -247,25 +247,13 @@ namespace WebAppMedOffices.Controllers
                 return RedirectToAction("Index");
             }
 
+
             TurnoCambiarView turnoAntesYDespues = new TurnoCambiarView();
             turnoAntesYDespues.TurnoAntes = turnoAntes;
             turnoAntesYDespues.TurnoDespues = turnoDespues;
-            //nuevoTurno.Id = turno.Id;
-            //nuevoTurno.MedicoId = turno.MedicoId;
-            //nuevoTurno.EspecialidadId = turno.EspecialidadId;
-            //nuevoTurno.ObraSocialId = paciente.ObraSocial.Id;
-            //nuevoTurno.PacienteId = paciente.Id;
-            //nuevoTurno.Estado = Estado.Reservado;
-            //nuevoTurno.FechaHora = turno.FechaHora;
-            //nuevoTurno.FechaHoraFin = turno.FechaHoraFin;
-            //nuevoTurno.Costo = paciente.ObraSocial.Tarifas.Where(t => t.EspecialidadId == turno.EspecialidadId).FirstOrDefault().Tarifa;
-            //nuevoTurno.Sobreturno = false;
-            //nuevoTurno.TieneObraSocial = false;
-            //nuevoTurno.Medico = turno.Medico;
-            //nuevoTurno.Especialidad = turno.Especialidad;
-            //nuevoTurno.Paciente = paciente;
-            //nuevoTurno.ObraSocial = paciente.ObraSocial;
 
+            ViewBag.TieneOS = turnoAntes.TieneOS;
+            
             return View(turnoAntesYDespues);
         }
 
@@ -277,41 +265,47 @@ namespace WebAppMedOffices.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Turno nuevoTurno = new Turno();
-                    nuevoTurno.Id = turno.TurnoDespues.Id;
-                    nuevoTurno.MedicoId = turno.TurnoDespues.MedicoId;
-                    nuevoTurno.EspecialidadId = turno.TurnoDespues.EspecialidadId;
-                    nuevoTurno.ObraSocialId = turno.TurnoAntes.Paciente.ObraSocial.Id; // lo saco del turno anterior
-                    nuevoTurno.PacienteId = turno.TurnoAntes.PacienteId; // lo saco del turno anterior
-                    nuevoTurno.Estado = Estado.Reservado;
-                    nuevoTurno.FechaHora = turno.TurnoDespues.FechaHora;
-                    nuevoTurno.FechaHoraFin = turno.TurnoDespues.FechaHoraFin;
-                    nuevoTurno.Costo = turno.TurnoAntes.Paciente.ObraSocial.Tarifas.Where(t => t.EspecialidadId == turno.TurnoDespues.EspecialidadId).FirstOrDefault().Tarifa;
-                    nuevoTurno.Sobreturno = false;
-                    nuevoTurno.TieneObraSocial = false;
+                    Turno turnoAntes = await db.Turnos.FindAsync(turno.TurnoAntes.Id);
+                    Turno turnoDespues = await db.Turnos.FindAsync(turno.TurnoDespues.Id);
 
-                    Turno viejoTurno = new Turno();
-                    viejoTurno.Id = turno.TurnoAntes.Id;
-                    viejoTurno.MedicoId = turno.TurnoAntes.MedicoId;
-                    viejoTurno.EspecialidadId = turno.TurnoAntes.EspecialidadId;
-                    viejoTurno.ObraSocialId = null;
-                    viejoTurno.PacienteId = null;
-                    viejoTurno.Estado = Estado.Disponible;
-                    viejoTurno.FechaHora = turno.TurnoAntes.FechaHora;
-                    viejoTurno.FechaHoraFin = turno.TurnoAntes.FechaHoraFin;
-                    viejoTurno.Costo = null;
-                    viejoTurno.Sobreturno = null;
-                    viejoTurno.TieneObraSocial = null;
+                    if (turnoAntes == null || turnoDespues == null)
+                    {
+                        TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = "No se encontró turno.",
+                            MessageType = GenericMessages.danger
+                        };
+                        return RedirectToAction("Index");
+                    }
 
 
-                    db.Entry(nuevoTurno).State = EntityState.Modified;
-                    db.Entry(viejoTurno).State = EntityState.Modified;
+                    turnoDespues.ObraSocialId = turnoAntes.Paciente.ObraSocial.Id; // lo saco del turno anterior
+                    turnoDespues.PacienteId = turnoAntes.PacienteId; // lo saco del turno anterior
+                    turnoDespues.Estado = Estado.Reservado;
+                    turnoDespues.Costo = turnoAntes.Paciente.ObraSocial.Tarifas.Where(t => t.EspecialidadId == turnoDespues.EspecialidadId).FirstOrDefault().Tarifa;
+
+
+                    db.Entry(turnoDespues).State = EntityState.Modified;
                     await db.SaveChangesAsync();
+
+                    turnoAntes.ObraSocialId = null;
+                    turnoAntes.PacienteId = null;
+                    turnoAntes.Estado = Estado.Disponible;
+                    turnoAntes.Costo = null;
+                    turnoAntes.Sobreturno = null;
+                    turnoAntes.TieneObraSocial = null;
+
+
+
+                    db.Entry(turnoAntes).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+
                     TempData[Application.MessageViewBagName] = new GenericMessageViewModel
                     {
                         Message = "Turno cambiado exitosamante.",
                         MessageType = GenericMessages.success
                     };
+                    
                     return RedirectToAction("TurnosReservadosInicio");
                 }
                 else
