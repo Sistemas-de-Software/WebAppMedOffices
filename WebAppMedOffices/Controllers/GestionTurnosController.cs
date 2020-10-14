@@ -204,7 +204,8 @@ namespace WebAppMedOffices.Controllers
                 return RedirectToAction("Index");
             }
 
-            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible);
+            var hoy = DateTime.Now.Date;
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible && DbFunctions.TruncateTime(t.FechaHora) >= hoy);
             Turno turnoAntes = await db.Turnos.FindAsync(turnoId);
 
             if (turnos == null || turnoAntes == null)
