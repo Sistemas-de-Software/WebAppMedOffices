@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -125,6 +125,7 @@ namespace WebAppMedOffices.Controllers
                 return RedirectToAction("ListaDeMedicos");
             }
 
+            ViewBag.medicoId = medicoId;
             var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado && t.MedicoId == medicoId);
             return View(await turnos.ToListAsync());
         }
@@ -782,6 +783,76 @@ namespace WebAppMedOffices.Controllers
             return View(paciente);
         }
 
+        public ActionResult CancelarTurno(int? medicoId)
+        {
+            if (medicoId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("TurnosReservadosInicio");
+            }
+
+            DateTime hoy = DateTime.Now.Date;
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado && t.MedicoId == medicoId && DbFunctions.TruncateTime(t.FechaHora) == hoy);
+            List<Turno> nuevoTurno = new List<Turno>();
+            if (turnos == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("TurnosReservadosInicio");
+            }
+            foreach (var item in turnos)
+            {
+                Turno t = new Turno();
+                t.Id = item.Id;
+                t.MedicoId = item.MedicoId;
+                t.EspecialidadId = item.EspecialidadId;
+                    //t.ObraSocialId = item.Paciente.ObraSocialId;
+                    //t.PacienteId = item.PacienteId;
+                t.Estado = Estado.CANCELADOXMEDICO;
+                t.FechaHora = item.FechaHora;
+                t.FechaHoraFin = item.FechaHoraFin;
+                    //t.Costo = item.Paciente.ObraSocial.Tarifas.Where(a => a.EspecialidadId == item.EspecialidadId).FirstOrDefault().Tarifa;
+                t.Sobreturno = false;
+                t.TieneObraSocial = false;
+                t.Medico = item.Medico;
+                t.Especialidad = item.Especialidad;
+                    //t.Paciente = item.Paciente;
+                    //t.ObraSocial = item.Paciente.ObraSocial;
+                nuevoTurno.Add(t);
+            }
+           
+            ViewBag.MedicoId = medicoId;
+            return View(nuevoTurno);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CancelarTurno(List<Turno> turno)
+        {
+            if (ModelState.IsValid)
+            {                
+                for(int t=0; t < turno.Count; t++)
+                {
+                    db.Entry(turno[t]).State = EntityState.Modified;                  
+                }
+                
+                await db.SaveChangesAsync();
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "Turno cancelado exitosamante.",
+                    MessageType = GenericMessages.success
+                };                 
+            }            
+                 
+            return View(turno);
+        }
         public ActionResult CreatePaciente()
         {
             ViewBag.ObraSocialId = new SelectList(db.ObrasSociales, "Id", "Nombre");
@@ -853,5 +924,6 @@ namespace WebAppMedOffices.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }

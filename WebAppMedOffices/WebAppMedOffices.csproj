@@ -438,6 +438,7 @@
     <Content Include="Views\FichaMedica\EditPacienteEnfermedades.cshtml" />
     <Content Include="Views\GestionTurnos\BuscarSobreturnos.cshtml" />
     <Content Include="Views\GestionTurnos\AsignarSobreturno.cshtml" />
+    <Content Include="Views\GestionTurnos\CancelarTurno.cshtml" />
     <Content Include="Views\GestionTurnos\ListaCambiarTurno.cshtml" />
     <Content Include="Views\GestionTurnos\CambiarTurno.cshtml" />
   </ItemGroup>
