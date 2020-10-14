@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebAppMedOffices.Models;
+using WebAppMedOffices.Constants;
 
 namespace WebAppMedOffices.Controllers
 {
@@ -16,48 +17,83 @@ namespace WebAppMedOffices.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Consultorios
         public async Task<ActionResult> Index()
         {
-            return View(await db.Consultorios.ToListAsync());
+            var consultorios = await db.Consultorios.Where(t => t.BaseEstado == Shared.BaseEstado.CREADO).ToListAsync();
+            return View(consultorios);
         }
 
-        // GET: Consultorios/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
             }
+
             Consultorio consultorio = await db.Consultorios.FindAsync(id);
+
             if (consultorio == null)
             {
-                return HttpNotFound();
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
             }
+
             return View(consultorio);
         }
 
-        // GET: Consultorios/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Consultorios/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,Nombre")] Consultorio consultorio)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Consultorios.Add(consultorio);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    consultorio.BaseEstado = Shared.BaseEstado.CREADO;
+                    db.Consultorios.Add(consultorio);
+                    await db.SaveChangesAsync();
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Consultorio creado exitosamente.",
+                        MessageType = GenericMessages.success
+                    };
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Faltan campos de Consultorio.",
+                        MessageType = GenericMessages.warning
+                    };
+                    return View(consultorio);
+                }
             }
+            catch (Exception ex)
+            {
 
-            return View(consultorio);
+                var err = $"Error al crear consultorio: {ex.Message}";
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = err,
+                    MessageType = GenericMessages.danger
+                };
+                return View(consultorio);
+            }
         }
 
         // GET: Consultorios/Edit/5
@@ -65,19 +101,29 @@ namespace WebAppMedOffices.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
             }
+
             Consultorio consultorio = await db.Consultorios.FindAsync(id);
+            
             if (consultorio == null)
             {
-                return HttpNotFound();
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
             }
+
             return View(consultorio);
         }
 
-        // POST: Consultorios/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,Nombre")] Consultorio consultorio)
@@ -86,35 +132,83 @@ namespace WebAppMedOffices.Controllers
             {
                 db.Entry(consultorio).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "Consultorio editado exitosamente.",
+                    MessageType = GenericMessages.success
+                };
                 return RedirectToAction("Index");
             }
             return View(consultorio);
         }
 
-        // GET: Consultorios/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
             }
+
             Consultorio consultorio = await db.Consultorios.FindAsync(id);
+            
             if (consultorio == null)
             {
-                return HttpNotFound();
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
             }
+            
             return View(consultorio);
         }
 
-        // POST: Consultorios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Consultorio consultorio = await db.Consultorios.FindAsync(id);
-            db.Consultorios.Remove(consultorio);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            try
+            {
+                AtencionHorario consultorioAsociado = await db.AtencionHorarios.FirstOrDefaultAsync(t => t.ConsultorioId == id);
+
+                if (consultorioAsociado != null)
+                {
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "No se puede eliminar consultorio, está asignado a un Médico.",
+                        MessageType = GenericMessages.warning
+                    };
+                    return RedirectToAction("Index");
+                }
+
+                Consultorio consultorio = await db.Consultorios.FindAsync(id);
+                //db.Consultorios.Remove(consultorio);
+                consultorio.BaseEstado = Shared.BaseEstado.ELIMINADO;
+                await db.SaveChangesAsync();
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "Consultorio eliminado exitosamente.",
+                    MessageType = GenericMessages.success
+                };
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+
+                var err = $"Error al eliminar consultorio: {ex.Message}";
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = err,
+                    MessageType = GenericMessages.danger
+                };
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)

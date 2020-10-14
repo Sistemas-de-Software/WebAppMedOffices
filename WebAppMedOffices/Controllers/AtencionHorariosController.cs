@@ -42,7 +42,7 @@ namespace WebAppMedOffices.Controllers
         // GET: AtencionHorarios/Create
         public ActionResult Create()
         {
-            ViewBag.ConsultorioId = new SelectList(db.Consultorios, "Id", "Nombre");
+            ViewBag.ConsultorioId = new SelectList(db.Consultorios.Where(t => t.BaseEstado == Shared.BaseEstado.CREADO), "Id", "Nombre");
             ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "NombreCompleto");
             return View();
         }
@@ -54,19 +54,23 @@ namespace WebAppMedOffices.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,ConsultorioId,MedicoId,Dia,HoraInicio,HoraFin")] AtencionHorario atencionHorario)
         {
-            var todosHorarios = db.AtencionHorarios.Include(a => a.Consultorio).Include(a => a.Medico)
-                .Where(a => a.Dia == atencionHorario.Dia && a.ConsultorioId == atencionHorario.ConsultorioId &&
-                a.MedicoId == atencionHorario.MedicoId &&
+            var todosHorarios = db.AtencionHorarios
+                .Join(db.Consultorios, a => a.ConsultorioId, c => c.Id, 
+                (a,c) => new { a.MedicoId, a.ConsultorioId, a.Dia, horaInicio = a.HoraInicio, horaFin = a.HoraFin})
+                .Join(db.Medicos, a => a.MedicoId, m => m.Id, 
+                (a,m) => new { a.MedicoId, a.ConsultorioId, a.Dia, HoraInicio = a.horaInicio, HoraFin = a.horaFin})
+                .Where(a => a.Dia == atencionHorario.Dia && a.MedicoId == atencionHorario.MedicoId &&
                 a.HoraInicio.Hour <= atencionHorario.HoraInicio.Hour && a.HoraFin.Hour>atencionHorario.HoraInicio.Hour ||
-                a.MedicoId == atencionHorario.MedicoId &&
-                a.Dia == atencionHorario.Dia && a.ConsultorioId == atencionHorario.ConsultorioId && 
-                a.HoraInicio.Hour <= atencionHorario.HoraFin.Hour && a.HoraFin.Hour>=atencionHorario.HoraFin.Hour);
-
-            List<AtencionHorario> horas = await todosHorarios.ToListAsync();
+                a.Dia == atencionHorario.Dia &&  a.MedicoId == atencionHorario.MedicoId &&
+                a.HoraInicio.Hour <= atencionHorario.HoraFin.Hour && a.HoraFin.Hour>=atencionHorario.HoraFin.Hour ||
+                a.Dia == atencionHorario.Dia && a.ConsultorioId == atencionHorario.ConsultorioId &&
+                a.HoraInicio.Hour <= atencionHorario.HoraFin.Hour && a.HoraFin.Hour >= atencionHorario.HoraFin.Hour ||
+                a.Dia == atencionHorario.Dia && a.ConsultorioId == atencionHorario.ConsultorioId &&
+                a.HoraInicio.Hour <= atencionHorario.HoraFin.Hour && a.HoraFin.Hour >= atencionHorario.HoraFin.Hour).ToList();
 
             if (ModelState.IsValid)
             {
-                if(horas.Count == 0)
+                if(todosHorarios.Count == 0)
                 {
                     db.AtencionHorarios.Add(atencionHorario);
                     await db.SaveChangesAsync();
@@ -81,7 +85,7 @@ namespace WebAppMedOffices.Controllers
                 {
                     TempData[Application.MessageViewBagName] = new GenericMessageViewModel
                     {
-                        Message = "El modelo no es válido",
+                        Message = "El medico o el consultorio se encuentra ocupado",
                         MessageType = GenericMessages.danger
                     };
                     return RedirectToAction("Create");

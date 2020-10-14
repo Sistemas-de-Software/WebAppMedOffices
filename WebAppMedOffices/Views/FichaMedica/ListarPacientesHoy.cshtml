@@ -37,7 +37,14 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Hora)
+                @if (item.Sobreturno == true)
+                {
+                    <span class="label label-danger">Sobreturno</span>
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.Hora)
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Paciente.Documento)
