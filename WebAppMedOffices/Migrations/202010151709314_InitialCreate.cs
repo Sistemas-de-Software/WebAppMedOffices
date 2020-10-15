@@ -14,14 +14,13 @@ namespace WebAppMedOffices.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         ConsultorioId = c.Int(nullable: false),
                         MedicoId = c.Int(nullable: false),
-                        TrabajoTurno = c.Int(nullable: false),
                         Dia = c.Int(nullable: false),
                         HoraInicio = c.DateTime(nullable: false),
                         HoraFin = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Consultorios", t => t.ConsultorioId, cascadeDelete: true)
-                .ForeignKey("dbo.Medicos", t => t.MedicoId, cascadeDelete: true)
+                .ForeignKey("dbo.Consultorios", t => t.ConsultorioId)
+                .ForeignKey("dbo.Medicos", t => t.MedicoId)
                 .Index(t => t.ConsultorioId)
                 .Index(t => t.MedicoId);
             
@@ -31,6 +30,7 @@ namespace WebAppMedOffices.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Nombre = c.String(nullable: false, maxLength: 30),
+                        BaseEstado = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Nombre, unique: true, name: "Consultorio_Nombre_Index");
@@ -42,11 +42,13 @@ namespace WebAppMedOffices.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Nombre = c.String(nullable: false, maxLength: 30),
                         Apellido = c.String(nullable: false, maxLength: 30),
+                        UserName = c.String(nullable: false, maxLength: 30),
                         Telefono = c.String(nullable: false, maxLength: 30),
                         Celular = c.String(nullable: false, maxLength: 30),
                         Matricula = c.String(nullable: false, maxLength: 50),
                     })
                 .PrimaryKey(t => t.Id)
+                .Index(t => t.UserName, unique: true, name: "Medico_UserName_Index")
                 .Index(t => t.Matricula, unique: true, name: "Medico_Matricula_Index");
             
             CreateTable(
@@ -59,8 +61,8 @@ namespace WebAppMedOffices.Migrations
                         Duracion = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Especialidades", t => t.EspecialidadId, cascadeDelete: true)
-                .ForeignKey("dbo.Medicos", t => t.MedicoId, cascadeDelete: true)
+                .ForeignKey("dbo.Especialidades", t => t.EspecialidadId)
+                .ForeignKey("dbo.Medicos", t => t.MedicoId)
                 .Index(t => new { t.MedicoId, t.EspecialidadId }, unique: true, name: "DuracionTurnoEspecialidad_MedicoId_EspecialidadId_Index");
             
             CreateTable(
@@ -82,8 +84,8 @@ namespace WebAppMedOffices.Migrations
                         EspecialidadId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Especialidades", t => t.EspecialidadId, cascadeDelete: true)
-                .ForeignKey("dbo.ObrasSociales", t => t.ObraSocialId, cascadeDelete: true)
+                .ForeignKey("dbo.Especialidades", t => t.EspecialidadId)
+                .ForeignKey("dbo.ObrasSociales", t => t.ObraSocialId)
                 .Index(t => t.ObraSocialId)
                 .Index(t => t.EspecialidadId);
             
@@ -114,6 +116,7 @@ namespace WebAppMedOffices.Migrations
                         ObraSocialId = c.Int(),
                         NombreContactoEmergencia = c.String(nullable: false, maxLength: 50),
                         TelefonoContactoEmergencia = c.String(nullable: false, maxLength: 30),
+                        Mail = c.String(nullable: false, maxLength: 30),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.ObrasSociales", t => t.ObraSocialId)
@@ -130,8 +133,8 @@ namespace WebAppMedOffices.Migrations
                         Descripcion = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Enfermedades", t => t.EnfermedadId, cascadeDelete: true)
-                .ForeignKey("dbo.Pacientes", t => t.PacienteId, cascadeDelete: true)
+                .ForeignKey("dbo.Enfermedades", t => t.EnfermedadId)
+                .ForeignKey("dbo.Pacientes", t => t.PacienteId)
                 .Index(t => new { t.PacienteId, t.EnfermedadId }, unique: true, name: "PacienteEnfermedad_PacienteId_EnfermedadId_Index");
             
             CreateTable(
@@ -143,7 +146,7 @@ namespace WebAppMedOffices.Migrations
                         TipoEnfermedadId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.TipoEnfermedades", t => t.TipoEnfermedadId, cascadeDelete: true)
+                .ForeignKey("dbo.TipoEnfermedades", t => t.TipoEnfermedadId)
                 .Index(t => t.Nombre, unique: true, name: "Consultorio_Nombre_Index")
                 .Index(t => t.TipoEnfermedadId);
             
@@ -172,10 +175,11 @@ namespace WebAppMedOffices.Migrations
                         Costo = c.Decimal(precision: 18, scale: 2),
                         Sobreturno = c.Boolean(),
                         TieneObraSocial = c.Boolean(),
+                        Comentario = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Especialidades", t => t.EspecialidadId, cascadeDelete: true)
-                .ForeignKey("dbo.Medicos", t => t.MedicoId, cascadeDelete: true)
+                .ForeignKey("dbo.Especialidades", t => t.EspecialidadId)
+                .ForeignKey("dbo.Medicos", t => t.MedicoId)
                 .ForeignKey("dbo.ObrasSociales", t => t.ObraSocialId)
                 .ForeignKey("dbo.Pacientes", t => t.PacienteId)
                 .Index(t => t.MedicoId)
@@ -195,8 +199,8 @@ namespace WebAppMedOffices.Migrations
                         Comentario = c.String(nullable: false, maxLength: 50),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Pacientes", t => t.PacienteId, cascadeDelete: true)
-                .ForeignKey("dbo.Turnos", t => t.TurnoId, cascadeDelete: true)
+                .ForeignKey("dbo.Pacientes", t => t.PacienteId)
+                .ForeignKey("dbo.Turnos", t => t.TurnoId)
                 .Index(t => t.PacienteId)
                 .Index(t => t.TurnoId);
             
@@ -218,8 +222,8 @@ namespace WebAppMedOffices.Migrations
                         RoleId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
             
@@ -253,7 +257,7 @@ namespace WebAppMedOffices.Migrations
                         ClaimValue = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
                 .Index(t => t.UserId);
             
             CreateTable(
@@ -265,7 +269,7 @@ namespace WebAppMedOffices.Migrations
                         UserId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
                 .Index(t => t.UserId);
             
         }
@@ -315,6 +319,7 @@ namespace WebAppMedOffices.Migrations
             DropIndex("dbo.ObraSocialTarifas", new[] { "ObraSocialId" });
             DropIndex("dbo.DuracionTurnoEspecialidades", "DuracionTurnoEspecialidad_MedicoId_EspecialidadId_Index");
             DropIndex("dbo.Medicos", "Medico_Matricula_Index");
+            DropIndex("dbo.Medicos", "Medico_UserName_Index");
             DropIndex("dbo.Consultorios", "Consultorio_Nombre_Index");
             DropIndex("dbo.AtencionHorarios", new[] { "MedicoId" });
             DropIndex("dbo.AtencionHorarios", new[] { "ConsultorioId" });
