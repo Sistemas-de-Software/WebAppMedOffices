@@ -98,3 +98,7 @@ Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -r
 ```
 
 Fuente: https://stackoverflow.com/questions/32780315/could-not-find-a-part-of-the-path-bin-roslyn-csc-exe
+
+### Error ¿Cómo veo la propiedad 'EntityValidationErrors' desde la consola del paquete nuget?
+
+https://qastack.mx/programming/10219864/ef-code-first-how-do-i-see-entityvalidationerrors-property-from-the-nuget-pac
