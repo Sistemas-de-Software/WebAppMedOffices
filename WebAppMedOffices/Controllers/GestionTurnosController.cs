@@ -43,7 +43,7 @@ namespace WebAppMedOffices.Controllers
         public async Task<ActionResult> Index()
         {
             var hoy = DateTime.Now.Date;
-            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado && DbFunctions.TruncateTime( t.FechaHora) == hoy);
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado && DbFunctions.TruncateTime(t.FechaHora) == hoy);
             return View(await turnos.ToListAsync());
         }
 
@@ -78,7 +78,8 @@ namespace WebAppMedOffices.Controllers
                 return RedirectToAction("ListaDeMedicos");
             }
 
-            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible && t.MedicoId == medicoId);
+            var hoy = DateTime.Now.Date;
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible && t.MedicoId == medicoId && DbFunctions.TruncateTime(t.FechaHora) >= hoy);
             return View(await turnos.ToListAsync());
         }
 
@@ -94,7 +95,8 @@ namespace WebAppMedOffices.Controllers
                 return RedirectToAction("ListaDeEspecialidades");
             }
 
-            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible && t.EspecialidadId == especialidadId);
+            var hoy = DateTime.Now.Date;
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible && t.EspecialidadId == especialidadId && DbFunctions.TruncateTime(t.FechaHora) >= hoy);
             return View(await turnos.ToListAsync());
         }
 
@@ -107,7 +109,7 @@ namespace WebAppMedOffices.Controllers
         {
             return View(await db.Especialidades.ToListAsync());
         }
-        
+
         public async Task<ActionResult> ListaDePacientes()
         {
             return View(await db.Pacientes.ToListAsync());
@@ -174,7 +176,7 @@ namespace WebAppMedOffices.Controllers
                 return RedirectToAction("TurnosReservadosInicio");
             }
 
-   
+
             Turno turno = await db.Turnos.FirstOrDefaultAsync(t => t.Id == turnoId && t.PacienteId == pacienteId);
 
             if (turno == null)
@@ -186,9 +188,151 @@ namespace WebAppMedOffices.Controllers
                 };
                 return RedirectToAction("TurnosReservadosInicio");
             }
-            
+
             return View(turno);
         }
+
+        public async Task<ActionResult> ListaCambiarTurno(int? turnoId)
+        {
+            if (turnoId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            var hoy = DateTime.Now.Date;
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible && DbFunctions.TruncateTime(t.FechaHora) >= hoy);
+            Turno turnoAntes = await db.Turnos.FindAsync(turnoId);
+
+            if (turnos == null || turnoAntes == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.PacienteId = turnoAntes.PacienteId;
+            ViewBag.TurnoAntesId = turnoAntes.Id;
+
+            return View(await turnos.ToListAsync());
+        }
+
+        public async Task<ActionResult> CambiarTurno(int? turnoAntesId, int? turnoDespuesId, int? pacienteId)
+        {
+            if (turnoAntesId == null || turnoDespuesId == null || pacienteId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            Turno turnoAntes = await db.Turnos.FindAsync(turnoAntesId);
+            Turno turnoDespues = await db.Turnos.FindAsync(turnoDespuesId);
+            Paciente paciente = await db.Pacientes.FindAsync(pacienteId);
+
+            if (turnoAntes == null || turnoDespues == null || paciente == null )
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+
+            TurnoCambiarView turnoAntesYDespues = new TurnoCambiarView();
+            turnoAntesYDespues.TurnoAntes = turnoAntes;
+            turnoAntesYDespues.TurnoDespues = turnoDespues;
+
+            ViewBag.TieneOS = turnoAntes.TieneOS;
+            
+            return View(turnoAntesYDespues);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CambiarTurno(TurnoCambiarView turno)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Turno turnoAntes = await db.Turnos.FindAsync(turno.TurnoAntes.Id);
+                    Turno turnoDespues = await db.Turnos.FindAsync(turno.TurnoDespues.Id);
+
+                    if (turnoAntes == null || turnoDespues == null)
+                    {
+                        TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = "No se encontró turno.",
+                            MessageType = GenericMessages.danger
+                        };
+                        return RedirectToAction("Index");
+                    }
+
+
+                    turnoDespues.ObraSocialId = turnoAntes.Paciente.ObraSocial.Id; // lo saco del turno anterior
+                    turnoDespues.PacienteId = turnoAntes.PacienteId; // lo saco del turno anterior
+                    turnoDespues.Estado = Estado.Reservado;
+                    turnoDespues.Costo = turnoAntes.Paciente.ObraSocial.Tarifas.Where(t => t.EspecialidadId == turnoDespues.EspecialidadId).FirstOrDefault().Tarifa;
+
+
+                    db.Entry(turnoDespues).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+
+                    turnoAntes.ObraSocialId = null;
+                    turnoAntes.PacienteId = null;
+                    turnoAntes.Estado = Estado.Disponible;
+                    turnoAntes.Costo = null;
+                    turnoAntes.Sobreturno = null;
+                    turnoAntes.TieneObraSocial = null;
+
+
+
+                    db.Entry(turnoAntes).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Turno cambiado exitosamante.",
+                        MessageType = GenericMessages.success
+                    };
+                    
+                    return RedirectToAction("TurnosReservadosInicio");
+                }
+                else
+                {
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Error al validar los campos.",
+                        MessageType = GenericMessages.danger
+                    };
+                    return View(turno);
+                }
+            }
+            catch (Exception ex)
+            {
+                var err = $"Error al cambiar turno: {ex.Message}";
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = err,
+                    MessageType = GenericMessages.danger
+                };
+                return View(turno);
+            }
+        }
+
 
         public async Task<ActionResult> BuscarTurnos(int? id)
         {
@@ -231,7 +375,8 @@ namespace WebAppMedOffices.Controllers
                 return RedirectToAction("Index");
             }
 
-            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible || t.Estado == Estado.Reservado);
+            var hoy = DateTime.Now.Date;
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible && DbFunctions.TruncateTime(t.FechaHora) >= hoy || t.Estado == Estado.Reservado && DbFunctions.TruncateTime(t.FechaHora) >= hoy);
 
             if (turnos == null)
             {
