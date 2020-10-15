@@ -375,7 +375,8 @@ namespace WebAppMedOffices.Controllers
                 return RedirectToAction("Index");
             }
 
-            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible || t.Estado == Estado.Reservado);
+            var hoy = DateTime.Now.Date;
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible && DbFunctions.TruncateTime(t.FechaHora) >= hoy || t.Estado == Estado.Reservado && DbFunctions.TruncateTime(t.FechaHora) >= hoy);
 
             if (turnos == null)
             {
