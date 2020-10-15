@@ -68,6 +68,12 @@ namespace WebAppMedOffices.Models
         [Display(Name = "Teléfono de Emergencia")]
         public string TelefonoContactoEmergencia { get; set; }
 
+        [Required(ErrorMessage = "Debes introducir un {0}")]
+        [StringLength(30, ErrorMessage = "El campo {0} puede contener un máximo de {1} y un mínimo de {2} caracteres", MinimumLength = 3)]        
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "E-mail")]
+        public string Mail { get; set; }
+
         [Display(Name = "Nombre y Apellido")]
         public virtual string NombreCompleto
         {
