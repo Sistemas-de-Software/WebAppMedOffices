@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebAppMedOffices.Models;
+using WebAppMedOffices.Constants;
 
 namespace WebAppMedOffices.Controllers
 {
@@ -41,27 +42,55 @@ namespace WebAppMedOffices.Controllers
         public ActionResult Create()
         {
             ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre");
-            ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "NombreCompleto");
+            ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "Nombre");
             return View();
         }
 
-        // POST: DuracionTurnoEspecialidades/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
-        // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,MedicoId,EspecialidadId,Duracion")] DuracionTurnoEspecialidad duracionTurnoEspecialidad)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.DuracionTurnoEspecialidades.Add(duracionTurnoEspecialidad);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.DuracionTurnoEspecialidades.Add(duracionTurnoEspecialidad);
+                    await db.SaveChangesAsync();
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Registro agregado a la base de datos.",
+                        MessageType = GenericMessages.success
+                    };
+                    return RedirectToAction("Index", "GestionTurnos");
+                }
+                else
+                {
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "El modelo no es válido",
+                        MessageType = GenericMessages.danger
+                    };
+
+                    ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", duracionTurnoEspecialidad.EspecialidadId);
+                    ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "Nombre", duracionTurnoEspecialidad.MedicoId);
+                    return View(duracionTurnoEspecialidad);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                var err = $"No se puede agregar el registro: {ex.Message}";
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = err,
+                    MessageType = GenericMessages.danger
+                };
+
+                ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", duracionTurnoEspecialidad.EspecialidadId);
+                ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "Nombre", duracionTurnoEspecialidad.MedicoId);
+                return View(duracionTurnoEspecialidad);
             }
 
-            ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", duracionTurnoEspecialidad.EspecialidadId);
-            ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "Nombre", duracionTurnoEspecialidad.MedicoId);
-            return View(duracionTurnoEspecialidad);
         }
 
         // GET: DuracionTurnoEspecialidades/Edit/5

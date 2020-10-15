@@ -345,11 +345,6 @@
     <Content Include="Views\Consultorios\Details.cshtml" />
     <Content Include="Views\Consultorios\Edit.cshtml" />
     <Content Include="Views\Consultorios\Index.cshtml" />
-    <Content Include="Views\DuracionTurnoEspecialidades\Create.cshtml" />
-    <Content Include="Views\DuracionTurnoEspecialidades\Delete.cshtml" />
-    <Content Include="Views\DuracionTurnoEspecialidades\Details.cshtml" />
-    <Content Include="Views\DuracionTurnoEspecialidades\Edit.cshtml" />
-    <Content Include="Views\DuracionTurnoEspecialidades\Index.cshtml" />
     <Content Include="Views\AtencionHorarios\Create.cshtml" />
     <Content Include="Views\AtencionHorarios\Delete.cshtml" />
     <Content Include="Views\AtencionHorarios\Details.cshtml" />
@@ -441,6 +436,11 @@
     <Content Include="Views\GestionTurnos\CancelarTurno.cshtml" />
     <Content Include="Views\GestionTurnos\ListaCambiarTurno.cshtml" />
     <Content Include="Views\GestionTurnos\CambiarTurno.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidades\Create.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidades\Delete.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidades\Details.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidades\Edit.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidades\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
