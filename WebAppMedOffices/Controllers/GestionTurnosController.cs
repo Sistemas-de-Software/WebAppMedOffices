@@ -376,7 +376,17 @@ namespace WebAppMedOffices.Controllers
             }
 
             var hoy = DateTime.Now.Date;
-            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible && DbFunctions.TruncateTime(t.FechaHora) >= hoy || t.Estado == Estado.Reservado && DbFunctions.TruncateTime(t.FechaHora) >= hoy);
+            var turnos = await db.Turnos.Include(t => t.Especialidad)
+                                  .Include(t => t.Medico)
+                                  .Include(t => t.ObraSocial)
+                                  .Where(t => t.Estado == Estado.Disponible && DbFunctions.TruncateTime(t.FechaHora) >= hoy || t.Estado == Estado.Reservado && DbFunctions.TruncateTime(t.FechaHora) >= hoy)
+                                  .GroupBy(t => new { DbFunctions.TruncateTime(t.FechaHora).Value, t.MedicoId, t.EspecialidadId })
+                                  .Select(g => new SobreturnoView
+                                  {
+                                      Fecha = g.Key.Value,
+                                      Turnos = g.ToList()
+                                  })
+                                  .ToListAsync();
 
             if (turnos == null)
             {
@@ -390,7 +400,7 @@ namespace WebAppMedOffices.Controllers
 
             ViewBag.PacienteId = id;
 
-            return View(await turnos.ToListAsync());
+            return View(turnos);
         }
 
         public async Task<ActionResult> AsignarTurno(int? id, int? pacienteId)

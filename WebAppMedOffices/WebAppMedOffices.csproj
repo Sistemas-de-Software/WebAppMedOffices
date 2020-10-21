@@ -190,21 +190,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202009301505362_Initial-Create.cs" />
-    <Compile Include="Migrations\202009301505362_Initial-Create.Designer.cs">
-      <DependentUpon>202009301505362_Initial-Create.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010010243334_Columna_UserName_en_Medicos.cs" />
-    <Compile Include="Migrations\202010010243334_Columna_UserName_en_Medicos.Designer.cs">
-      <DependentUpon>202010010243334_Columna_UserName_en_Medicos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009272203470_CargarBase.cs" />
-    <Compile Include="Migrations\202009272203470_CargarBase.Designer.cs">
-      <DependentUpon>202009272203470_CargarBase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010061814052_Agregar_Comentario_en_Turno.cs" />
-    <Compile Include="Migrations\202010061814052_Agregar_Comentario_en_Turno.Designer.cs">
-      <DependentUpon>202010061814052_Agregar_Comentario_en_Turno.cs</DependentUpon>
+    <Compile Include="Migrations\202010151709314_InitialCreate.cs" />
+    <Compile Include="Migrations\202010151709314_InitialCreate.Designer.cs">
+      <DependentUpon>202010151709314_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -223,6 +211,7 @@
     <Compile Include="Models\Paciente.cs" />
     <Compile Include="Models\PacienteEnfermedad.cs" />
     <Compile Include="Models\PacienteEnfermedadView.cs" />
+    <Compile Include="Models\SobreturnoView.cs" />
     <Compile Include="Models\TipoEnfermedad.cs" />
     <Compile Include="Models\Turno.cs" />
     <Compile Include="Models\TurnoCambiarView.cs" />
@@ -459,17 +448,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202009301505362_Initial-Create.resx">
-      <DependentUpon>202009301505362_Initial-Create.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010010243334_Columna_UserName_en_Medicos.resx">
-      <DependentUpon>202010010243334_Columna_UserName_en_Medicos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009272203470_CargarBase.resx">
-      <DependentUpon>202009272203470_CargarBase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010061814052_Agregar_Comentario_en_Turno.resx">
-      <DependentUpon>202010061814052_Agregar_Comentario_en_Turno.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010151709314_InitialCreate.resx">
+      <DependentUpon>202010151709314_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
