@@ -30,7 +30,9 @@ namespace WebAppMedOffices.Shared
     {
         Disponible = 0, 
         Reservado = 1, 
-        Atendido = 2, 
+        Atendido = 2,
+        CANCELADOXMEDICO = 3,
+        CANCELADOXPACIENTE = 4,
     }
 
     // Motivo para Historia Clínica
@@ -39,5 +41,12 @@ namespace WebAppMedOffices.Shared
         CONSULTA = 0,
         INTERNACION = 1,
         ESTUDIO = 2,
+    }
+
+    public enum BaseEstado
+    {
+        CREADO = 0,
+        MODIFICADO = 1,
+        ELIMINADO = 2,
     }
 }

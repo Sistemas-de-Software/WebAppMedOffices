@@ -82,6 +82,14 @@
             @Html.DisplayFor(model => model.TelefonoContactoEmergencia)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Mail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mail)
+        </dd>
+
     </dl>
 </div>
 <p>
@@ -138,14 +146,12 @@ else
             <td>
                 @Html.DisplayFor(modelItem => item.Costo)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Sobreturno)
-            </td>
+        
+            @*Boton cancelar turno Damian *@
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>*@
+                @Html.ActionLink("Cancelar Turno", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" }) 
+             
+            </td>
         </tr>
     }
 

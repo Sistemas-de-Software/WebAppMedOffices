@@ -1,0 +1,42 @@
+﻿@model IEnumerable<WebAppMedOffices.Models.PacienteEnfermedad>
+
+@{
+    ViewBag.Title = "Enfermedades";
+}
+
+<h2>Enfermedades</h2>
+
+<p>
+    @Html.ActionLink("Agregar", "CreatePacienteEnfermedades", new { pacienteId = ViewBag.PacienteId, turnoId = ViewBag.TurnoId }, new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Enfermedad.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Enfermedad.TipoEnfermedad.Nombre)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Enfermedad.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Enfermedad.TipoEnfermedad.Nombre)
+            </td>
+            <td>
+                @Html.ActionLink("Modificar", "EditPacienteEnfermedades", new { id = item.Id, pacienteId = item.PacienteId, turnoId = ViewBag.TurnoId }, new { @class = "btn btn-info" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div>
+    @Html.ActionLink("Volver", "FichaMedicaConAgregarHistoriaClinica", new { pacienteId = ViewBag.PacienteId, turnoId = ViewBag.TurnoId }, new { @class = "btn btn-primary" })
+</div>

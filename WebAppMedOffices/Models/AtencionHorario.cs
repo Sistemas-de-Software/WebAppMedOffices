@@ -23,10 +23,6 @@ namespace WebAppMedOffices.Models
         public int MedicoId { get; set; }
 
         [Required(ErrorMessage = "Debes introducir un {0}")]
-        [Display(Name = "Turno de Trabajo")]
-        public TrabajoTurno TrabajoTurno { get; set; }
-
-        [Required(ErrorMessage = "Debes introducir un {0}")]
         [Display(Name = "Día")]
         public Dia Dia { get; set; }
 

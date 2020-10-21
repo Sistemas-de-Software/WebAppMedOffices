@@ -59,7 +59,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Costo)
+            @Html.DisplayFor(model => model.Paciente.ObraSocial.Tarifas.Where(t => t.EspecialidadId == Model.EspecialidadId).FirstOrDefault().Tarifa)
         </dd>
 
     }
