@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using WebAppMedOffices.Shared;
 
 namespace WebAppMedOffices.Models
 {
@@ -18,6 +19,9 @@ namespace WebAppMedOffices.Models
         [Index("Consultorio_Nombre_Index", IsUnique = true)]
         [Display(Name = "Consultorio")]
         public string Nombre { get; set; }
+        
+        [Required]
+        public BaseEstado BaseEstado { get; set; }
 
         public virtual ICollection<AtencionHorario> AtencionHorarios { get; set; }
     }

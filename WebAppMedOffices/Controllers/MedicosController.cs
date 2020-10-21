@@ -16,13 +16,11 @@ namespace WebAppMedOffices.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Medicos
         public async Task<ActionResult> Index()
         {
             return View(await db.Medicos.ToListAsync());
         }
 
-        // GET: Medicos/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)

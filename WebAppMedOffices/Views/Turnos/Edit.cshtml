@@ -34,6 +34,14 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.PacienteId, "PacienteId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("PacienteId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PacienteId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.ObraSocialId, "ObraSocialId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("ObraSocialId", null, htmlAttributes: new { @class = "form-control" })
@@ -54,6 +62,14 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.FechaHora, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FechaHora, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FechaHoraFin, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FechaHoraFin, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FechaHoraFin, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -82,6 +98,14 @@
                     @Html.EditorFor(model => model.TieneObraSocial)
                     @Html.ValidationMessageFor(model => model.TieneObraSocial, "", new { @class = "text-danger" })
                 </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comentario, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Comentario, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Comentario, "", new { @class = "text-danger" })
             </div>
         </div>
 

@@ -167,6 +167,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Constants\Application.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AtencionHorariosController.cs" />
     <Compile Include="Controllers\DuracionTurnoEspecialidadesController.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Controllers\EspecialidadesController.cs" />
     <Compile Include="Controllers\ConsultoriosController.cs" />
     <Compile Include="Controllers\FichaMedicaController.cs" />
+    <Compile Include="Controllers\GestionMedicosController.cs" />
     <Compile Include="Controllers\GestionTurnosController.cs" />
     <Compile Include="Controllers\HistoriaClinicasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -188,13 +190,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202009301505362_Initial-Create.cs" />
-    <Compile Include="Migrations\202009301505362_Initial-Create.Designer.cs">
-      <DependentUpon>202009301505362_Initial-Create.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010010243334_Columna_UserName_en_Medicos.cs" />
-    <Compile Include="Migrations\202010010243334_Columna_UserName_en_Medicos.Designer.cs">
-      <DependentUpon>202010010243334_Columna_UserName_en_Medicos.cs</DependentUpon>
+    <Compile Include="Migrations\202010151709314_InitialCreate.cs" />
+    <Compile Include="Migrations\202010151709314_InitialCreate.Designer.cs">
+      <DependentUpon>202010151709314_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -203,6 +201,7 @@
     <Compile Include="Models\Especialidad.cs" />
     <Compile Include="Models\Consultorio.cs" />
     <Compile Include="Models\AtencionHorario.cs" />
+    <Compile Include="Models\GenericMessageViewModel.cs" />
     <Compile Include="Models\HistoriaClinica.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -211,8 +210,11 @@
     <Compile Include="Models\ObraSocialTarifa.cs" />
     <Compile Include="Models\Paciente.cs" />
     <Compile Include="Models\PacienteEnfermedad.cs" />
+    <Compile Include="Models\PacienteEnfermedadView.cs" />
+    <Compile Include="Models\SobreturnoView.cs" />
     <Compile Include="Models\TipoEnfermedad.cs" />
     <Compile Include="Models\Turno.cs" />
+    <Compile Include="Models\TurnoCambiarView.cs" />
     <Compile Include="Models\TurnoView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\Enums.cs" />
@@ -332,11 +334,6 @@
     <Content Include="Views\Consultorios\Details.cshtml" />
     <Content Include="Views\Consultorios\Edit.cshtml" />
     <Content Include="Views\Consultorios\Index.cshtml" />
-    <Content Include="Views\DuracionTurnoEspecialidades\Create.cshtml" />
-    <Content Include="Views\DuracionTurnoEspecialidades\Delete.cshtml" />
-    <Content Include="Views\DuracionTurnoEspecialidades\Details.cshtml" />
-    <Content Include="Views\DuracionTurnoEspecialidades\Edit.cshtml" />
-    <Content Include="Views\DuracionTurnoEspecialidades\Index.cshtml" />
     <Content Include="Views\AtencionHorarios\Create.cshtml" />
     <Content Include="Views\AtencionHorarios\Delete.cshtml" />
     <Content Include="Views\AtencionHorarios\Details.cshtml" />
@@ -352,11 +349,6 @@
     <Content Include="Views\ObraSocialTarifas\Details.cshtml" />
     <Content Include="Views\ObraSocialTarifas\Edit.cshtml" />
     <Content Include="Views\ObraSocialTarifas\Index.cshtml" />
-    <Content Include="Views\Turnos\Create.cshtml" />
-    <Content Include="Views\Turnos\Delete.cshtml" />
-    <Content Include="Views\Turnos\Details.cshtml" />
-    <Content Include="Views\Turnos\Edit.cshtml" />
-    <Content Include="Views\Turnos\Index.cshtml" />
     <Content Include="Views\TipoEnfermedades\Create.cshtml" />
     <Content Include="Views\TipoEnfermedades\Delete.cshtml" />
     <Content Include="Views\TipoEnfermedades\Details.cshtml" />
@@ -385,7 +377,6 @@
     <Content Include="Views\GestionTurnos\Index.cshtml" />
     <Content Include="Views\GestionTurnos\ListaPacientes.cshtml" />
     <Content Include="Views\GestionTurnos\DetailsPaciente.cshtml" />
-    <Content Include="Views\GestionTurnos\TurnosDisponibles.cshtml" />
     <Content Include="Views\HistoriaClinicas\Create.cshtml" />
     <Content Include="Views\HistoriaClinicas\Delete.cshtml" />
     <Content Include="Views\HistoriaClinicas\Details.cshtml" />
@@ -393,7 +384,6 @@
     <Content Include="Views\HistoriaClinicas\Index.cshtml" />
     <Content Include="Views\GestionTurnos\BuscarTurnos.cshtml" />
     <Content Include="Views\GestionTurnos\AsignarTurno.cshtml" />
-    <Content Include="Views\GestionTurnos\TurnosReservados.cshtml" />
     <Content Include="Views\GestionTurnos\CreatePaciente.cshtml" />
     <Content Include="Views\GestionTurnos\EditPaciente.cshtml" />
     <Content Include="Views\FichaMedica\Create.cshtml" />
@@ -405,6 +395,41 @@
     <Content Include="Views\FichaMedica\ListarTodosPacientes.cshtml" />
     <Content Include="Views\FichaMedica\HistoriaClinica.cshtml" />
     <Content Include="Views\FichaMedica\FichaMedica.cshtml" />
+    <Content Include="Views\Shared\_GenericMessage.cshtml" />
+    <Content Include="Views\GestionMedicos\Index.cshtml" />
+    <Content Include="Views\GestionMedicos\Details.cshtml" />
+    <Content Include="Views\GestionMedicos\Create.cshtml" />
+    <Content Include="Views\GestionMedicos\Edit.cshtml" />
+    <Content Include="Views\GestionMedicos\Delete.cshtml" />
+    <Content Include="Views\FichaMedica\FichaMedicaConAgregarHistoriaClinica.cshtml" />
+    <Content Include="Views\FichaMedica\AgregarHistoriaClinica.cshtml" />
+    <Content Include="Views\Turnos\Edit.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosReservadosPorMedico.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosReservadosInicio.cshtml" />
+    <Content Include="Views\GestionTurnos\ListaDeMedicos.cshtml" />
+    <Content Include="Views\GestionTurnos\ListaDeEspecialidades.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosReservadosPorEspecialidad.cshtml" />
+    <Content Include="Views\GestionTurnos\ListaDePacientes.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosReservadosPorPaciente.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosDisponiblesInicio.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosDisponiblesListaDeMedicos.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosDisponiblesPorMedico.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosDisponiblesListaDeEspecialidades.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosDisponiblesPorEspecialidad.cshtml" />
+    <Content Include="Views\GestionTurnos\Comprobante.cshtml" />
+    <Content Include="Views\FichaMedica\PacienteEnfermedades.cshtml" />
+    <Content Include="Views\FichaMedica\CreatePacienteEnfermedades.cshtml" />
+    <Content Include="Views\FichaMedica\EditPacienteEnfermedades.cshtml" />
+    <Content Include="Views\GestionTurnos\BuscarSobreturnos.cshtml" />
+    <Content Include="Views\GestionTurnos\AsignarSobreturno.cshtml" />
+    <Content Include="Views\GestionTurnos\CancelarTurno.cshtml" />
+    <Content Include="Views\GestionTurnos\ListaCambiarTurno.cshtml" />
+    <Content Include="Views\GestionTurnos\CambiarTurno.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidades\Create.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidades\Delete.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidades\Details.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidades\Edit.cshtml" />
+    <Content Include="Views\DuracionTurnoEspecialidades\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -423,11 +448,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202009301505362_Initial-Create.resx">
-      <DependentUpon>202009301505362_Initial-Create.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010010243334_Columna_UserName_en_Medicos.resx">
-      <DependentUpon>202010010243334_Columna_UserName_en_Medicos.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010151709314_InitialCreate.resx">
+      <DependentUpon>202010151709314_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

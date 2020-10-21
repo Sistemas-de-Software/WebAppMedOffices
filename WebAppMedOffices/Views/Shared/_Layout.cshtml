@@ -1,13 +1,15 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    @Scripts.Render("~/bundles/jquery")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"> </script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -33,13 +35,14 @@
                                 <li>@Html.ActionLink("Turnos de Hoy", "Index", "GestionTurnos")</li>
                                 <li>@Html.ActionLink("Cargar Turnos", "Create", "GestionTurnos")</li>
                                 <li>@Html.ActionLink("Asignar Turno", "ListaPacientes", "GestionTurnos")</li>
-                                <li>@Html.ActionLink("Turnos Disponibles", "TurnosDisponibles", "GestionTurnos")</li>
-                                <li>@Html.ActionLink("Turnos Reservados", "TurnosReservados", "GestionTurnos")</li>
+                                <li>@Html.ActionLink("Cargar nuevo Paciente", "CreatePaciente", "GestionTurnos")</li>
+                                <li>@Html.ActionLink("Turnos Disponibles", "TurnosDisponiblesInicio", "GestionTurnos")</li>
+                                <li>@Html.ActionLink("Turnos Reservados", "TurnosReservadosInicio", "GestionTurnos")</li>
                             </ul>
                         </li>
 
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Obras Sociales <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ABM Obras Sociales <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink("Obras Sociales", "Index", "ObrasSociales")</li>
                                 <li>@Html.ActionLink("Tarifas por Especialidad", "Index", "ObraSocialTarifas")</li>
@@ -47,10 +50,12 @@
                         </li>
 
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ABMs <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ABM Médicos <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Médicos", "Index", "Medicos")</li>
+                                <li>@Html.ActionLink("Médicos", "Index", "GestionMedicos")</li>
+                                <li>@Html.ActionLink("Cargar Especialidad a Médico", "Create", "DuracionTurnoEspecialidades")</li>
                                 <li>@Html.ActionLink("Asignar Consultorio", "Create", "AtencionHorarios")</li>
+                                <li>@Html.ActionLink("Consultorios", "Index", "Consultorios")</li>
                             </ul>
                         </li>
                     }
@@ -63,19 +68,25 @@
                                 <li>@Html.ActionLink("Turnos de Hoy", "Index", "GestionTurnos")</li>
                                 <li>@Html.ActionLink("Cargar Turnos", "Create", "GestionTurnos")</li>
                                 <li>@Html.ActionLink("Asignar Turno", "ListaPacientes", "GestionTurnos")</li>
-                                <li>@Html.ActionLink("Turnos Disponibles", "TurnosDisponibles", "GestionTurnos")</li>
-                                <li>@Html.ActionLink("Turnos Reservados", "TurnosReservados", "GestionTurnos")</li>
+                                <li>@Html.ActionLink("Cargar nuevo Paciente", "CreatePaciente", "GestionTurnos")</li>
+                                <li>@Html.ActionLink("Turnos Disponibles", "TurnosDisponiblesInicio", "GestionTurnos")</li>
+                                <li>@Html.ActionLink("Turnos Reservados", "TurnosReservadosInicio", "GestionTurnos")</li>
                             </ul>
                         </li>
                     }
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Médicos <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Buscar Pacientes", "ListarTodosPacientes", "FichaMedica")</li>
-                            <li>@Html.ActionLink("Pacientes del Día", "ListarPacientesHoy", "FichaMedica")</li>
-                        </ul>
-                    </li>
+
+                    @if (User.IsInRole("Medico"))
+                    {
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Médicos <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Buscar Pacientes", "ListarTodosPacientes", "FichaMedica")</li>
+                                <li>@Html.ActionLink("Pacientes del Día", "ListarPacientesHoy", "FichaMedica")</li>
+                            </ul>
+                        </li>
+                    }
 
                     @if (User.IsInRole("SuperAdmin"))
                     {
@@ -110,12 +121,13 @@
                         </li>
                     }
 
-                </ul>
+                    </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
     <div class="container body-content">
+        @Html.Partial("_GenericMessage") @*aqui es donde muestra el mensaje*@
         @RenderBody()
         <hr />
         <footer>
@@ -123,7 +135,7 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+    
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
