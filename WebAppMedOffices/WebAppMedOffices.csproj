@@ -211,6 +211,7 @@
     <Compile Include="Models\Paciente.cs" />
     <Compile Include="Models\PacienteEnfermedad.cs" />
     <Compile Include="Models\PacienteEnfermedadView.cs" />
+    <Compile Include="Models\SobreturnoView.cs" />
     <Compile Include="Models\TipoEnfermedad.cs" />
     <Compile Include="Models\Turno.cs" />
     <Compile Include="Models\TurnoCambiarView.cs" />
