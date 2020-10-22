@@ -82,6 +82,17 @@
             @Html.DisplayFor(model => model.TelefonoContactoEmergencia)
         </dd>
 
+        @if (Model.ObraSocialId != 1)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.NroAfiliado)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NroAfiliado)
+            </dd>
+        }
+
         <dt>
             @Html.DisplayNameFor(model => model.Mail)
         </dt>

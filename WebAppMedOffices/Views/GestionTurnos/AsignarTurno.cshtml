@@ -53,7 +53,7 @@
 
     @if (!Model.TieneOS)
     {
-    
+
         <dt>
             @Html.DisplayNameFor(model => model.Costo)
         </dt>
@@ -64,6 +64,16 @@
 
     }
 
+    @if (Model.ObraSocialId != 1)
+    {
+        <dt>
+            @Html.DisplayNameFor(model => model.Paciente.NroAfiliado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Paciente.NroAfiliado)
+        </dd>
+    }
 
 </dl>
 
