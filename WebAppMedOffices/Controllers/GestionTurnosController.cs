@@ -128,7 +128,13 @@ namespace WebAppMedOffices.Controllers
             }
 
             ViewBag.medicoId = medicoId;
-            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado && t.MedicoId == medicoId);
+            var hoy = DateTime.Now.Date;
+            var turnos = db.Turnos.Include(t => t.Especialidad)
+                                .Include(t => t.Medico)
+                                .Include(t => t.ObraSocial)
+                                .Where(t => t.Estado == Estado.Reservado && 
+                                        t.MedicoId == medicoId && 
+                                        DbFunctions.TruncateTime(t.FechaHora) >= hoy);
             return View(await turnos.ToListAsync());
         }
 
@@ -144,7 +150,13 @@ namespace WebAppMedOffices.Controllers
                 return RedirectToAction("ListaDeEspecialidades");
             }
 
-            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado && t.EspecialidadId == especialidadId);
+            var hoy = DateTime.Now.Date;
+            var turnos = db.Turnos.Include(t => t.Especialidad)
+                .Include(t => t.Medico)
+                .Include(t => t.ObraSocial)
+                .Where(t => t.Estado == Estado.Reservado && 
+                    t.EspecialidadId == especialidadId &&
+                    DbFunctions.TruncateTime(t.FechaHora) >= hoy);
             return View(await turnos.ToListAsync());
         }
 
@@ -160,7 +172,13 @@ namespace WebAppMedOffices.Controllers
                 return RedirectToAction("ListaDePacientes");
             }
 
-            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Reservado && t.PacienteId == pacienteId);
+            var hoy = DateTime.Now.Date;
+            var turnos = db.Turnos.Include(t => t.Especialidad)
+                .Include(t => t.Medico)
+                .Include(t => t.ObraSocial)
+                .Where(t => t.Estado == Estado.Reservado && 
+                    t.PacienteId == pacienteId &&
+                    DbFunctions.TruncateTime(t.FechaHora) >= hoy);
             return View(await turnos.ToListAsync());
         }
 
