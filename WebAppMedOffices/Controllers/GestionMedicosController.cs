@@ -53,12 +53,13 @@ namespace WebAppMedOffices.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Medico medico)
+        public async Task<ActionResult> Create(MedicoEspecialidadViewModel medicoEspecialidad)
         {
             //creamos el ámbito de la transacción
             using (var dbContextTransaction = db.Database.BeginTransaction())
@@ -72,10 +73,11 @@ namespace WebAppMedOffices.Controllers
                             Message = "El modelo no es válido",
                             MessageType = GenericMessages.danger
                         };
-                        return View(medico);
+                        ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre");
+                        return View(medicoEspecialidad);
                     }
 
-                    Medico existeMedico = await db.Medicos.FirstOrDefaultAsync(t => t.UserName == medico.UserName);
+                    Medico existeMedico = await db.Medicos.FirstOrDefaultAsync(t => t.UserName == medicoEspecialidad.Medico.UserName);
 
                     if (existeMedico != null)
                     {
@@ -84,19 +86,45 @@ namespace WebAppMedOffices.Controllers
                             Message = "No se puede agregar el registro, El campo E-mail ya existe.",
                             MessageType = GenericMessages.danger
                         };
-                        return View(medico);
+                        ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre");
+                        return View(medicoEspecialidad);
                     }
-                    
+
+                    // Crear nuevo médico 
+                    db.Medicos.Add(medicoEspecialidad.Medico);
+                    await db.SaveChangesAsync();
+
+                    Medico medicoCreado = await db.Medicos.FirstOrDefaultAsync(t => t.UserName == medicoEspecialidad.Medico.UserName);
+                    Especialidad especialidad = await db.Especialidades.FirstOrDefaultAsync(t => t.Id == medicoEspecialidad.DuracionTurnoEspecialidad.EspecialidadId);
+                    if (medicoCreado == null || especialidad == null)
+                    {
+                        TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = "Error al crear nuevo médico.",
+                            MessageType = GenericMessages.danger
+                        };
+                        //hacemos rollback
+                        dbContextTransaction.Rollback();
+                        ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre");
+                        return View(medicoEspecialidad);
+                    }
+
+                    DuracionTurnoEspecialidad duracionTurnoEspecialidad = new DuracionTurnoEspecialidad
+                    {
+                        MedicoId = medicoCreado.Id,
+                        EspecialidadId = especialidad.Id,
+                        Duracion = medicoEspecialidad.DuracionTurnoEspecialidad.Duracion
+                    };
+
+                    db.DuracionTurnoEspecialidades.Add(duracionTurnoEspecialidad);
+                    await db.SaveChangesAsync();
+
                     // Crear usuario y asignar rol
                     var store = new UserStore<ApplicationUser>(db);
                     var userManager = new UserManager<ApplicationUser>(store);
-                    var user = new ApplicationUser { UserName = medico.UserName };
+                    var user = new ApplicationUser { UserName = medicoEspecialidad.Medico.UserName };
                     userManager.Create(user, "Medico1234@");
                     userManager.AddToRole(user.Id, "Medico");
-
-                    // Crear nuevo médico 
-                    db.Medicos.Add(medico);
-                    await db.SaveChangesAsync();
 
                     TempData[Application.MessageViewBagName] = new GenericMessageViewModel
                     {
@@ -120,7 +148,8 @@ namespace WebAppMedOffices.Controllers
 
                     //hacemos rollback si hay excepción
                     dbContextTransaction.Rollback();
-                    return View(medico);
+                    ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre");
+                    return View(medicoEspecialidad);
                 }
             }
         }

@@ -206,6 +206,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Medico.cs" />
+    <Compile Include="Models\MedicoEspecialidadViewModel.cs" />
     <Compile Include="Models\ObraSocial.cs" />
     <Compile Include="Models\ObraSocialTarifa.cs" />
     <Compile Include="Models\Paciente.cs" />
@@ -273,6 +274,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\html2canvas.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
