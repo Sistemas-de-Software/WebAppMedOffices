@@ -25,7 +25,7 @@
                     @Html.DisplayFor(modelItem => item.Nombre)
                 </td>
                 <td>
-                    @Html.ActionLink("Turnos disponibles", "TurnosDisponiblesPorEspecialidad", new { especialidadId = item.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Turnos disponibles", "TurnosDisponiblesPorEspecialidad", new { especialidadId = item.Id, pacienteId = ViewBag.PacienteId }, new { @class = "btn btn-success" })
                 </td>
             </tr>
         }
