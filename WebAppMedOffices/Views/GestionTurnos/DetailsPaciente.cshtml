@@ -124,19 +124,12 @@ else
         <th>
             Médico
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Estado)
-        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().FechaHora)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Costo)
+            Opciones
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Sobreturno)
-        </th>
-        <th></th>*@
     </tr>
 
     @foreach (var item in Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Reservado))
@@ -148,17 +141,9 @@ else
             <td>
                 @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.FechaHora)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Costo)
-            </td>
-        
-            @*Boton cancelar turno Damian *@
             <td>
                 @Html.ActionLink("Cancelar Turno", "CancelarTurno2", new { id = item.Id }, new { @class = "btn btn-danger" }) 
              
