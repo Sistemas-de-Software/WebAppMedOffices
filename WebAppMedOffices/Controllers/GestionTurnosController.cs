@@ -515,7 +515,7 @@ namespace WebAppMedOffices.Controllers
                     Message = "Turno reservado exitosamante.",
                     MessageType = GenericMessages.success
                 };
-                return RedirectToAction("TurnosReservadosInicio");
+                return RedirectToAction("Comprobante", new { @pacienteId = turno.PacienteId, @turnoId = turno.Id });
             }
 
             return View(turno);
