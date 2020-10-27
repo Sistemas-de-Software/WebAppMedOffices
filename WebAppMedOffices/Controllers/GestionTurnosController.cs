@@ -757,7 +757,7 @@ namespace WebAppMedOffices.Controllers
                     MessageType = GenericMessages.success
                 };
 
-                return RedirectToAction("TurnosDisponiblesInicio");
+                return RedirectToAction("Index");
             }
 
             ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", turnoView.EspecialidadId);
@@ -924,24 +924,83 @@ namespace WebAppMedOffices.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreatePaciente(Paciente paciente)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var hoy = DateTime.Now.Date;
-                if (paciente.FechaNacimiento.Date > hoy)
+                if (ModelState.IsValid)
                 {
+                    var hoy = DateTime.Now.Date;
+                    if (paciente.FechaNacimiento.Date > hoy)
+                    {
+                        TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = "La fecha de nacimiento no puede ser mayor que la fecha de Hoy.",
+                            MessageType = GenericMessages.warning
+                        };
+                        return RedirectToAction("CreatePaciente");
+                    }
+
+                    if (paciente.ObraSocialId == null)
+                    {
+                        TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = "Error al validar los campos.",
+                            MessageType = GenericMessages.danger
+                        };
+                        return RedirectToAction("TurnosReservadosInicio");
+                    }
+
+                    ObraSocial obraSocial = await db.ObrasSociales.FindAsync(paciente.ObraSocialId);
+
+                    if (obraSocial == null)
+                    {
+                        TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = "No existe Obra Social.",
+                            MessageType = GenericMessages.warning
+                        };
+                        return RedirectToAction("TurnosReservadosInicio");
+                    }
+
+                    Paciente pacienteConNroAfiliado = await db.Pacientes.Where(t => t.ObraSocialId == paciente.ObraSocialId && t.NroAfiliado == paciente.NroAfiliado).FirstOrDefaultAsync();
+
+                    if (pacienteConNroAfiliado != null)
+                    {
+                        TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = "Ya existe el Número de Afiliado para esa Obra Social.",
+                            MessageType = GenericMessages.warning
+                        };
+                        ViewBag.ObraSocialId = new SelectList(db.ObrasSociales, "Id", "Nombre", paciente.ObraSocialId);
+                        return View(paciente);
+                    }
+
+
+                    db.Pacientes.Add(paciente);
+                    await db.SaveChangesAsync();
                     TempData[Application.MessageViewBagName] = new GenericMessageViewModel
                     {
-                        Message = "La fecha de nacimiento no puede ser menor que la fecha de Hoy.",
-                        MessageType = GenericMessages.warning
+                        Message = "Paciente guardado con exito.",
+                        MessageType = GenericMessages.success
                     };
-                    return RedirectToAction("CreatePaciente");
+                    return RedirectToAction("ListaPacientes");
                 }
-                db.Pacientes.Add(paciente);
-                await db.SaveChangesAsync();
+                else
+                {
+                    return View(paciente);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                var err = $"Error al crear Paciente: {ex.Message}";
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = err,
+                    MessageType = GenericMessages.danger
+                };
                 return RedirectToAction("ListaPacientes");
             }
 
-            return View(paciente);
         }
 
         public async Task<ActionResult> FichaMedicaConHistoriaClinica(int? pacienteId, int? turnoId)

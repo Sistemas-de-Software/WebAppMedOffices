@@ -42,6 +42,13 @@
                         </li>
 
                         <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestión Liquidaciones <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Liquidacion Pacientes Particulares", "CrearLiquidacionPacientesParticulares", "GestionLiquidaciones")</li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestión de Obras Sociales <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink("Obras Sociales", "Index", "ObrasSociales")</li>
@@ -119,7 +126,7 @@
                         </li>
                     }
 
-                    </ul>
+                </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
