@@ -714,11 +714,11 @@ namespace WebAppMedOffices.Controllers
                 }
 
                 var diasHorarios = db.AtencionHorarios.Where(t => t.MedicoId == turnoView.MedicoId).ToList();
-                if (diasHorarios == null)
+                if (diasHorarios.Count == 0)
                 {
                     TempData[Application.MessageViewBagName] = new GenericMessageViewModel
                     {
-                        Message = "El Médico no tiene horario de atención cargados.",
+                        Message = "El Médico no tiene Consultorio ni Horario de Atención asignados.",
                         MessageType = GenericMessages.warning
                     };
                     ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", turnoView.EspecialidadId);
