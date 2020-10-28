@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Turnos Disponibles - Inicio";
+}
+
+<h2>Turnos Disponibles</h2>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <h3>Médicos</h3>
+        <p>Buscar turnos disponibles de un Médico.</p>
+        <p>@Html.ActionLink("Buscar", "TurnosDisponiblesListaDeMedicosVista", new { }, new { @class = "btn btn-primary" })</p>
+    </div>
+    <div class="col-md-4">
+        <h3>Especialidad</h3>
+        <p>Buscar turnos disponibles de una Especialidad.</p>
+        <p>@Html.ActionLink("Buscar", "TurnosDisponiblesListaDeEspecialidadesVista", new { }, new { @class = "btn btn-primary" })</p>
+    </div>
+</div>
+

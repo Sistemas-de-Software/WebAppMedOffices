@@ -63,10 +63,16 @@ namespace WebAppMedOffices.Controllers
             return View();
         }
 
+        public ActionResult TurnosDisponiblesInicioVista()
+        {
+            return View();
+        }
+
         public ActionResult TurnosReservadosInicio()
         {
             return View();
         }
+
         public async Task<ActionResult> TurnosDisponiblesListaDeMedicos(int? pacienteId)
         {
             if (pacienteId == null)
@@ -83,6 +89,11 @@ namespace WebAppMedOffices.Controllers
             return View(await db.Medicos.ToListAsync());
         }
 
+        public async Task<ActionResult> TurnosDisponiblesListaDeMedicosVista()
+        {
+            return View(await db.Medicos.ToListAsync());
+        }
+
         public async Task<ActionResult> TurnosDisponiblesListaDeEspecialidades(int? pacienteId)
         {
             if (pacienteId == null)
@@ -96,6 +107,11 @@ namespace WebAppMedOffices.Controllers
             }
 
             ViewBag.PacienteId = pacienteId;
+            return View(await db.Especialidades.ToListAsync());
+        }
+
+        public async Task<ActionResult> TurnosDisponiblesListaDeEspecialidadesVista()
+        {
             return View(await db.Especialidades.ToListAsync());
         }
 
@@ -117,6 +133,23 @@ namespace WebAppMedOffices.Controllers
             return View(await turnos.ToListAsync());
         }
 
+        public async Task<ActionResult> TurnosDisponiblesPorMedicoVista(int? medicoId)
+        {
+            if (medicoId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("TurnosDisponiblesListaDeMedicosVista");
+            }
+
+            var hoy = DateTime.Now.Date;
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible && t.MedicoId == medicoId && DbFunctions.TruncateTime(t.FechaHora) >= hoy);
+            return View(await turnos.ToListAsync());
+        }
+
         public async Task<ActionResult> TurnosDisponiblesPorEspecialidad(int? especialidadId, int? pacienteId)
         {
             if (especialidadId == null || pacienteId == null)
@@ -130,6 +163,23 @@ namespace WebAppMedOffices.Controllers
             }
 
             ViewBag.PacienteId = pacienteId;
+            var hoy = DateTime.Now.Date;
+            var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible && t.EspecialidadId == especialidadId && DbFunctions.TruncateTime(t.FechaHora) >= hoy);
+            return View(await turnos.ToListAsync());
+        }
+
+        public async Task<ActionResult> TurnosDisponiblesPorEspecialidadVista(int? especialidadId)
+        {
+            if (especialidadId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("TurnosDisponiblesListaDeEspecialidadesVista");
+            }
+
             var hoy = DateTime.Now.Date;
             var turnos = db.Turnos.Include(t => t.Especialidad).Include(t => t.Medico).Include(t => t.ObraSocial).Where(t => t.Estado == Estado.Disponible && t.EspecialidadId == especialidadId && DbFunctions.TruncateTime(t.FechaHora) >= hoy);
             return View(await turnos.ToListAsync());
