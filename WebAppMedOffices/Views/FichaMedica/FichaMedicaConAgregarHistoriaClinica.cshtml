@@ -136,7 +136,7 @@
 
 <div class="row">
     <div class="col-md-6">
-        <h4><strong>Historia Clínica</strong> de mis pacientes</h4>
+        <h4><strong>Historia Clínica</strong> atendida por mi</h4>
         @if (Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Atendido && t.MedicoId == ViewBag.Turno.MedicoId).Count() == 0)
         {
             <h5>No hay historia clínica</h5>
@@ -182,7 +182,7 @@
         }
     </div>
     <div class="col-md-6">
-        <h4><strong>Historia Clínica</strong> de pacientes atendidos por otros médicos</h4>
+        <h4><strong>Historia Clínica</strong> por otros médicos</h4>
         @if (Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Atendido && t.MedicoId != ViewBag.Turno.MedicoId).Count() == 0)
         {
             <h5>No hay historia clínica</h5>
