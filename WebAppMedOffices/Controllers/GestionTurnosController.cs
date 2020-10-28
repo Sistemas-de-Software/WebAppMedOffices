@@ -1010,28 +1010,38 @@ namespace WebAppMedOffices.Controllers
                         };
                         return RedirectToAction("TurnosReservadosInicio");
                     }
-
-                    Paciente pacienteConNroAfiliado = await db.Pacientes.Where(t => t.ObraSocialId == paciente.ObraSocialId && t.NroAfiliado == paciente.NroAfiliado).FirstOrDefaultAsync();
-
-                    if (pacienteConNroAfiliado != null)
+                    
+                    if (paciente.NroAfiliado == null)
+                    {
+                        if(paciente.ObraSocialId != 1)
+                        {                                            
+                            TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                            {
+                                Message = "Debe cargar el número de afiliado.",
+                                MessageType = GenericMessages.info
+                            };
+                            ViewBag.ObraSocialId = new SelectList(db.ObrasSociales, "Id", "Nombre", paciente.ObraSocialId);
+                            return View(paciente);
+                        }
+                        else if (paciente.ObraSocialId == 1)
+                        {                                                        
+                            TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                            {
+                                Message = "Paciente guardado con exito.",
+                                MessageType = GenericMessages.success
+                            };
+                        }
+                    }
+                    else
                     {
                         TempData[Application.MessageViewBagName] = new GenericMessageViewModel
                         {
-                            Message = "Ya existe el Número de Afiliado para esa Obra Social.",
-                            MessageType = GenericMessages.warning
+                            Message = "Paciente guardado con exito.",
+                            MessageType = GenericMessages.success
                         };
-                        ViewBag.ObraSocialId = new SelectList(db.ObrasSociales, "Id", "Nombre", paciente.ObraSocialId);
-                        return View(paciente);
                     }
-
-
                     db.Pacientes.Add(paciente);
                     await db.SaveChangesAsync();
-                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
-                    {
-                        Message = "Paciente guardado con exito.",
-                        MessageType = GenericMessages.success
-                    };
                     return RedirectToAction("ListaPacientes");
                 }
                 else
