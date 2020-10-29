@@ -54,11 +54,9 @@ namespace WebAppMedOffices.Models
         [Display(Name = "Celular")]
         public string Celular { get; set; }
 
-        [Index("Paciente_ObraSocialId_NroAfiliado_Index", IsUnique = true, Order = 1)]
         [Display(Name = "Obra Social")]
         public int? ObraSocialId { get; set; }
 
-        [Index("Paciente_ObraSocialId_NroAfiliado_Index", IsUnique = true, Order = 2)]
         [StringLength(30, ErrorMessage = "El campo {0} debe contener entre {2} y {1} caracteres", MinimumLength = 3)]
         [Display(Name = "Número de afiliado")]
         public string NroAfiliado { get; set; }

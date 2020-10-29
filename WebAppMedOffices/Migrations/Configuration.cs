@@ -144,9 +144,9 @@ namespace WebAppMedOffices.Migrations
                     new ObraSocial() { Id = 4, Nombre = "Swiss Medical", Telefono = "423990", Email = "swiss@gmail.com" }
                     );
                 context.ObraSocialTarifas.AddOrUpdate(x => x.Id,
-                    new ObraSocialTarifa() { Id = 1, Tarifa = new decimal(4000.50), ObraSocialId = 1, EspecialidadId = 1 },
-                    new ObraSocialTarifa() { Id = 2, Tarifa = new decimal(4000.50), ObraSocialId = 1, EspecialidadId = 2 },
-                    new ObraSocialTarifa() { Id = 3, Tarifa = new decimal(4000.50), ObraSocialId = 1, EspecialidadId = 3 },
+                    new ObraSocialTarifa() { Id = 1, Tarifa = new decimal(4200.00), ObraSocialId = 1, EspecialidadId = 1 },
+                    new ObraSocialTarifa() { Id = 2, Tarifa = new decimal(3000.00), ObraSocialId = 1, EspecialidadId = 2 },
+                    new ObraSocialTarifa() { Id = 3, Tarifa = new decimal(5500.50), ObraSocialId = 1, EspecialidadId = 3 },
                     new ObraSocialTarifa() { Id = 4, Tarifa = new decimal(500.20), ObraSocialId = 2, EspecialidadId = 1 },
                     new ObraSocialTarifa() { Id = 5, Tarifa = new decimal(500.20), ObraSocialId = 2, EspecialidadId = 2 },
                     new ObraSocialTarifa() { Id = 6, Tarifa = new decimal(500.20), ObraSocialId = 2, EspecialidadId = 3 },
@@ -162,9 +162,14 @@ namespace WebAppMedOffices.Migrations
                 new TipoEnfermedad() { Id = 2, Nombre = "Alergias" }
                 );
                 context.Pacientes.AddOrUpdate(x => x.Id,
-                new Paciente() { Id = 1, Nombre = "Franco", Apellido = "Baez", Documento = "40345671", FechaNacimiento = new DateTime(1998, 10, 01), Direccion = "Oribe 892", Telefono = "442342", Celular = "1143234267", NombreContactoEmergencia = "Fulanito1", TelefonoContactoEmergencia = "432580", ObraSocialId = 1, Mail = "paciente1@test.com"},
-                new Paciente() { Id = 2, Nombre = "Soledad", Apellido = "Ibarra", Documento = "30428916", FechaNacimiento = new DateTime(1999, 05, 20), Direccion = "Alvear 1213", Telefono = "425154", Celular = "1165423452", NombreContactoEmergencia = "Fulanito2", TelefonoContactoEmergencia = "425432", ObraSocialId = 2, Mail = "paciente1@test.com" },
-                new Paciente() { Id = 3, Nombre = "Jesica", Apellido = "Amodil", Documento = "40314424", FechaNacimiento = new DateTime(2000, 01, 01), Direccion = "Atahualpa 703", Telefono = "443285", Celular = "1162808393", NombreContactoEmergencia = "Fulanito3", TelefonoContactoEmergencia = "441242", ObraSocialId = 3, Mail = "paciente1@test.com" }
+                new Paciente() { Id = 1, Nombre = "Franco", Apellido = "Baez", Documento = "40345671", FechaNacimiento = new DateTime(1998, 10, 01), Direccion = "Oribe 892", Telefono = "442342", Celular = "1143234267", NombreContactoEmergencia = "Fulanito1", TelefonoContactoEmergencia = "4325803453", ObraSocialId = 1, NroAfiliado = "00000001", Mail = "paciente1@test.com"},
+                new Paciente() { Id = 2, Nombre = "Soledad", Apellido = "Ibarra", Documento = "30428916", FechaNacimiento = new DateTime(1999, 05, 20), Direccion = "Alvear 1213", Telefono = "425154", Celular = "1165423452", NombreContactoEmergencia = "Fulanito2", TelefonoContactoEmergencia = "425432", ObraSocialId = 2, NroAfiliado = "00000002", Mail = "paciente2@test.com" },
+                new Paciente() { Id = 3, Nombre = "Jesica", Apellido = "Amodil", Documento = "40314424", FechaNacimiento = new DateTime(2000, 01, 01), Direccion = "Atahualpa 703", Telefono = "443285", Celular = "1162808393", NombreContactoEmergencia = "Fulanito3", TelefonoContactoEmergencia = "44124", ObraSocialId = 3, NroAfiliado = "00000003", Mail = "paciente3@test.com" },
+                new Paciente() { Id = 4, Nombre = "Juana", Apellido = "Amodil", Documento = "40456790", FechaNacimiento = new DateTime(2001, 01, 01), Direccion = "Lafinur 3403", Telefono = "243622345", Celular = "1162345345", NombreContactoEmergencia = "Fulanito4", TelefonoContactoEmergencia = "4412", ObraSocialId = 1, NroAfiliado = null, Mail = "paciente4@test.com" },
+                new Paciente() { Id = 5, Nombre = "Analía", Apellido = "Pereyra", Documento = "41459376", FechaNacimiento = new DateTime(2002, 03, 01), Direccion = "Latorre 3254", Telefono = "3453245", Celular = "1163453544", NombreContactoEmergencia = "Fulanito5", TelefonoContactoEmergencia = "44134", ObraSocialId = 2, NroAfiliado = "00000005", Mail = "paciente5@test.com" },
+                new Paciente() { Id = 6, Nombre = "Natalia", Apellido = "Murua", Documento = "43314426", FechaNacimiento = new DateTime(1998, 04, 01), Direccion = "Mareo 7287", Telefono = "3453434534", Celular = "1162567576", NombreContactoEmergencia = "Fulanito6", TelefonoContactoEmergencia = "44124234", ObraSocialId = 3, NroAfiliado = "00000006", Mail = "paciente6@test.com" },
+                new Paciente() { Id = 7, Nombre = "Brenda", Apellido = "Solís", Documento = "44957838", FechaNacimiento = new DateTime(2002, 01, 01), Direccion = "Las Torres 74", Telefono = "23423525", Celular = "1162345643", NombreContactoEmergencia = "Fulanito7", TelefonoContactoEmergencia = "44124236", ObraSocialId = 1, NroAfiliado = null, Mail = "paciente7@test.com" },
+                new Paciente() { Id = 8, Nombre = "Aracelli", Apellido = "Maidana", Documento = "43098900", FechaNacimiento = new DateTime(1994, 03, 24), Direccion = "Jilgero 2332", Telefono = "443281", Celular = "116123455", NombreContactoEmergencia = "Fulanito8", TelefonoContactoEmergencia = "44124267", ObraSocialId = 1, NroAfiliado = null, Mail = "paciente8@test.com" }
                 );
                 context.Enfermedades.AddOrUpdate(x => x.Id,
                     new Enfermedad() { Id = 1, Nombre = "ANEMIA", TipoEnfermedadId = 1 },

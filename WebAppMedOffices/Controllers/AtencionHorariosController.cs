@@ -12,7 +12,7 @@ using WebAppMedOffices.Constants;
 
 namespace WebAppMedOffices.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Secretaria")]
     public class AtencionHorariosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

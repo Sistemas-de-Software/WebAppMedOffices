@@ -37,9 +37,16 @@
                                 <li>@Html.ActionLink("Cargar Turnos", "Create", "GestionTurnos")</li>
                                 <li>@Html.ActionLink("Asignar Turno", "ListaPacientes", "GestionTurnos")</li>
                                 <li>@Html.ActionLink("Cargar nuevo Paciente", "CreatePaciente", "GestionTurnos")</li>
-                                <li>@Html.ActionLink("Turnos Disponibles", "TurnosDisponiblesInicio", "GestionTurnos")</li>
                                 <li>@Html.ActionLink("Turnos Reservados", "TurnosReservadosInicio", "GestionTurnos")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Turnos Disponibles", "TurnosDisponiblesInicioVista", "GestionTurnos")</li>
+                            </ul>
+                        </li>
 
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestión Liquidaciones <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Liquidacion Pacientes Particulares", "CrearLiquidacionPacientesParticulares", "GestionLiquidaciones")</li>
                             </ul>
                         </li>
 
@@ -70,9 +77,17 @@
                                 <li>@Html.ActionLink("Cargar Turnos", "Create", "GestionTurnos")</li>
                                 <li>@Html.ActionLink("Asignar Turno", "ListaPacientes", "GestionTurnos")</li>
                                 <li>@Html.ActionLink("Cargar nuevo Paciente", "CreatePaciente", "GestionTurnos")</li>
-                                <li>@Html.ActionLink("Turnos Disponibles", "TurnosDisponiblesInicio", "GestionTurnos")</li>
                                 <li>@Html.ActionLink("Turnos Reservados", "TurnosReservadosInicio", "GestionTurnos")</li>
-                                <li>@Html.ActionLink("Cancelar Turno por Rango", "CancelarTurnoRango", "GestionTurnos")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Turnos Disponibles", "TurnosDisponiblesInicioVista", "GestionTurnos")</li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestión Liquidaciones <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Liquidacion Pacientes Particulares", "CrearLiquidacionPacientesParticulares", "GestionLiquidaciones")</li>
+                                <li>@Html.ActionLink("Liquidacion Pacientes Obra Social", "CrearLiquidacionPacienteObraSocial", "GestionLiquidaciones")</li>
                             </ul>
                         </li>
                     }
@@ -123,7 +138,7 @@
                         </li>
                     }
 
-                    </ul>
+                </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
