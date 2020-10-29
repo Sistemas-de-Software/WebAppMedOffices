@@ -116,42 +116,42 @@
 }
 else
 {
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Especialidad.Nombre)
-        </th>
-        <th>
-            Médico
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().FechaHora)
-        </th>
-        <th>
-            Opciones
-        </th>
-    </tr>
-
-    @foreach (var item in Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Reservado))
-    {
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaHora)
-            </td>
-            <td>
-                @Html.ActionLink("Cancelar Turno", "CancelarTurno2", new { id = item.Id }, new { @class = "btn btn-danger" }) 
-             
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Especialidad.Nombre)
+            </th>
+            <th>
+                Médico
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().FechaHora)
+            </th>
+            <th>
+                Opciones
+            </th>
         </tr>
-    }
+        
+        @foreach (var item in Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Reservado && t.FechaHora >= ViewBag.hoy))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaHora)
+                </td>
+                <td>
+                    @Html.ActionLink("Cancelar Turno", "CancelarTurno2", new { id = item.Id }, new { @class = "btn btn-danger" })
 
-</table>
+                </td>
+            </tr>
+        }
+
+    </table>
 
 
 }

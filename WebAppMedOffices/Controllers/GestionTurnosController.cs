@@ -885,7 +885,8 @@ namespace WebAppMedOffices.Controllers
             }
 
             Paciente paciente = await db.Pacientes.FindAsync(id);
-
+            
+            ViewBag.hoy = DateTime.Now.Date;
             if (paciente == null)
             {
                 return HttpNotFound();
