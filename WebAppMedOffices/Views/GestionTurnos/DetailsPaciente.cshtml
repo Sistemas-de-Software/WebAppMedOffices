@@ -82,6 +82,17 @@
             @Html.DisplayFor(model => model.TelefonoContactoEmergencia)
         </dd>
 
+        @if (Model.ObraSocialId != 1)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.NroAfiliado)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NroAfiliado)
+            </dd>
+        }
+
         <dt>
             @Html.DisplayNameFor(model => model.Mail)
         </dt>
@@ -95,7 +106,7 @@
 <p>
     @Html.ActionLink("Volver", "ListaPacientes", new { }, new { @class = "btn btn-primary" })
     @*@Html.ActionLink("Editar Paciente", "EditPaciente", new { id = Model.Id }, new { @class = "btn btn-warning" })*@
-    @Html.ActionLink("Asignar turno", "BuscarTurnos", new { id = Model.Id }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Buscar turno", "TurnosDisponiblesInicio", new { pacienteId = Model.Id }, new { @class = "btn btn-success" })
 </p>
 
 <h4>Turnos Reservados</h4>
@@ -105,57 +116,42 @@
 }
 else
 {
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Especialidad.Nombre)
-        </th>
-        <th>
-            Médico
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Estado)
-        </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().FechaHora)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Costo)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Sobreturno)
-        </th>
-        <th></th>*@
-    </tr>
-
-    @foreach (var item in Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Reservado))
-    {
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaHora)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Costo)
-            </td>
-        
-            @*Boton cancelar turno Damian *@
-            <td>
-                @Html.ActionLink("Cancelar Turno", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" }) 
-             
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Especialidad.Nombre)
+            </th>
+            <th>
+                Médico
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().FechaHora)
+            </th>
+            <th>
+                Opciones
+            </th>
         </tr>
-    }
+        
+        @foreach (var item in Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Reservado && t.FechaHora >= ViewBag.hoy))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaHora)
+                </td>
+                <td>
+                    @Html.ActionLink("Cancelar Turno", "CancelarTurno2", new { id = item.Id }, new { @class = "btn btn-danger" })
 
-</table>
+                </td>
+            </tr>
+        }
+
+    </table>
 
 
 }

@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @*@Scripts.Render("~/bundles/html2canvas")*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -36,13 +37,21 @@
                                 <li>@Html.ActionLink("Cargar Turnos", "Create", "GestionTurnos")</li>
                                 <li>@Html.ActionLink("Asignar Turno", "ListaPacientes", "GestionTurnos")</li>
                                 <li>@Html.ActionLink("Cargar nuevo Paciente", "CreatePaciente", "GestionTurnos")</li>
-                                <li>@Html.ActionLink("Turnos Disponibles", "TurnosDisponiblesInicio", "GestionTurnos")</li>
                                 <li>@Html.ActionLink("Turnos Reservados", "TurnosReservadosInicio", "GestionTurnos")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Turnos Disponibles", "TurnosDisponiblesInicioVista", "GestionTurnos")</li>
                             </ul>
                         </li>
 
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ABM Obras Sociales <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestión Liquidaciones <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Liquidacion Pacientes Particulares", "CrearLiquidacionPacientesParticulares", "GestionLiquidaciones")</li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestión de Obras Sociales <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink("Obras Sociales", "Index", "ObrasSociales")</li>
                                 <li>@Html.ActionLink("Tarifas por Especialidad", "Index", "ObraSocialTarifas")</li>
@@ -50,10 +59,9 @@
                         </li>
 
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ABM Médicos <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestión de Médicos <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Médicos", "Index", "GestionMedicos")</li>
-                                <li>@Html.ActionLink("Cargar Especialidad a Médico", "Create", "DuracionTurnoEspecialidades")</li>
+                                <li>@Html.ActionLink("ABM Médicos", "Index", "GestionMedicos")</li>
                                 <li>@Html.ActionLink("Asignar Consultorio", "Create", "AtencionHorarios")</li>
                                 <li>@Html.ActionLink("Consultorios", "Index", "Consultorios")</li>
                             </ul>
@@ -69,8 +77,17 @@
                                 <li>@Html.ActionLink("Cargar Turnos", "Create", "GestionTurnos")</li>
                                 <li>@Html.ActionLink("Asignar Turno", "ListaPacientes", "GestionTurnos")</li>
                                 <li>@Html.ActionLink("Cargar nuevo Paciente", "CreatePaciente", "GestionTurnos")</li>
-                                <li>@Html.ActionLink("Turnos Disponibles", "TurnosDisponiblesInicio", "GestionTurnos")</li>
                                 <li>@Html.ActionLink("Turnos Reservados", "TurnosReservadosInicio", "GestionTurnos")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Turnos Disponibles", "TurnosDisponiblesInicioVista", "GestionTurnos")</li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestión Liquidaciones <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Liquidacion Pacientes Particulares", "CrearLiquidacionPacientesParticulares", "GestionLiquidaciones")</li>
+                                <li>@Html.ActionLink("Liquidacion Pacientes Obra Social", "CrearLiquidacionPacienteObraSocial", "GestionLiquidaciones")</li>
                             </ul>
                         </li>
                     }
@@ -121,7 +138,7 @@
                         </li>
                     }
 
-                    </ul>
+                </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

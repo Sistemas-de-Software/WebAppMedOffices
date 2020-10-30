@@ -12,7 +12,7 @@ using WebAppMedOffices.Constants;
 
 namespace WebAppMedOffices.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Secretaria")]
     public class AtencionHorariosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -60,13 +60,13 @@ namespace WebAppMedOffices.Controllers
                 .Join(db.Medicos, a => a.MedicoId, m => m.Id, 
                 (a,m) => new { a.MedicoId, a.ConsultorioId, a.Dia, HoraInicio = a.horaInicio, HoraFin = a.horaFin})
                 .Where(a => a.Dia == atencionHorario.Dia && a.MedicoId == atencionHorario.MedicoId &&
-                a.HoraInicio.Hour <= atencionHorario.HoraInicio.Hour && a.HoraFin.Hour>atencionHorario.HoraInicio.Hour ||
-                a.Dia == atencionHorario.Dia &&  a.MedicoId == atencionHorario.MedicoId &&
-                a.HoraInicio.Hour <= atencionHorario.HoraFin.Hour && a.HoraFin.Hour>=atencionHorario.HoraFin.Hour ||
+                a.HoraInicio.Hour < atencionHorario.HoraFin.Hour && a.HoraFin.Hour>=atencionHorario.HoraFin.Hour ||
+                a.Dia == atencionHorario.Dia && a.MedicoId == atencionHorario.MedicoId &&
+                a.HoraInicio.Hour <= atencionHorario.HoraInicio.Hour && a.HoraFin.Hour > atencionHorario.HoraInicio.Hour ||
                 a.Dia == atencionHorario.Dia && a.ConsultorioId == atencionHorario.ConsultorioId &&
-                a.HoraInicio.Hour <= atencionHorario.HoraFin.Hour && a.HoraFin.Hour >= atencionHorario.HoraFin.Hour ||
+                a.HoraInicio.Hour < atencionHorario.HoraFin.Hour && a.HoraFin.Hour >= atencionHorario.HoraFin.Hour ||
                 a.Dia == atencionHorario.Dia && a.ConsultorioId == atencionHorario.ConsultorioId &&
-                a.HoraInicio.Hour <= atencionHorario.HoraFin.Hour && a.HoraFin.Hour >= atencionHorario.HoraFin.Hour).ToList();
+                a.HoraInicio.Hour <= atencionHorario.HoraInicio.Hour && a.HoraFin.Hour > atencionHorario.HoraInicio.Hour).ToList();
 
             if (ModelState.IsValid)
             {

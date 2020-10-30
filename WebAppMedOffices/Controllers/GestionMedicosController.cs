@@ -53,12 +53,13 @@ namespace WebAppMedOffices.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Medico medico)
+        public async Task<ActionResult> Create(MedicoEspecialidadViewModel medicoEspecialidad)
         {
             //creamos el ámbito de la transacción
             using (var dbContextTransaction = db.Database.BeginTransaction())
@@ -72,10 +73,11 @@ namespace WebAppMedOffices.Controllers
                             Message = "El modelo no es válido",
                             MessageType = GenericMessages.danger
                         };
-                        return View(medico);
+                        ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre");
+                        return View(medicoEspecialidad);
                     }
 
-                    Medico existeMedico = await db.Medicos.FirstOrDefaultAsync(t => t.UserName == medico.UserName);
+                    Medico existeMedico = await db.Medicos.FirstOrDefaultAsync(t => t.UserName == medicoEspecialidad.Medico.UserName);
 
                     if (existeMedico != null)
                     {
@@ -84,19 +86,45 @@ namespace WebAppMedOffices.Controllers
                             Message = "No se puede agregar el registro, El campo E-mail ya existe.",
                             MessageType = GenericMessages.danger
                         };
-                        return View(medico);
+                        ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre");
+                        return View(medicoEspecialidad);
                     }
-                    
+
+                    // Crear nuevo médico 
+                    db.Medicos.Add(medicoEspecialidad.Medico);
+                    await db.SaveChangesAsync();
+
+                    Medico medicoCreado = await db.Medicos.FirstOrDefaultAsync(t => t.UserName == medicoEspecialidad.Medico.UserName);
+                    Especialidad especialidad = await db.Especialidades.FirstOrDefaultAsync(t => t.Id == medicoEspecialidad.DuracionTurnoEspecialidad.EspecialidadId);
+                    if (medicoCreado == null || especialidad == null)
+                    {
+                        TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = "Error al crear nuevo médico.",
+                            MessageType = GenericMessages.danger
+                        };
+                        //hacemos rollback
+                        dbContextTransaction.Rollback();
+                        ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre");
+                        return View(medicoEspecialidad);
+                    }
+
+                    DuracionTurnoEspecialidad duracionTurnoEspecialidad = new DuracionTurnoEspecialidad
+                    {
+                        MedicoId = medicoCreado.Id,
+                        EspecialidadId = especialidad.Id,
+                        Duracion = medicoEspecialidad.DuracionTurnoEspecialidad.Duracion
+                    };
+
+                    db.DuracionTurnoEspecialidades.Add(duracionTurnoEspecialidad);
+                    await db.SaveChangesAsync();
+
                     // Crear usuario y asignar rol
                     var store = new UserStore<ApplicationUser>(db);
                     var userManager = new UserManager<ApplicationUser>(store);
-                    var user = new ApplicationUser { UserName = medico.UserName };
+                    var user = new ApplicationUser { UserName = medicoEspecialidad.Medico.UserName };
                     userManager.Create(user, "Medico1234@");
                     userManager.AddToRole(user.Id, "Medico");
-
-                    // Crear nuevo médico 
-                    db.Medicos.Add(medico);
-                    await db.SaveChangesAsync();
 
                     TempData[Application.MessageViewBagName] = new GenericMessageViewModel
                     {
@@ -120,7 +148,8 @@ namespace WebAppMedOffices.Controllers
 
                     //hacemos rollback si hay excepción
                     dbContextTransaction.Rollback();
-                    return View(medico);
+                    ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre");
+                    return View(medicoEspecialidad);
                 }
             }
         }
@@ -264,6 +293,200 @@ namespace WebAppMedOffices.Controllers
                 };
                 return RedirectToAction("Index");
             }
+        }
+
+        public async Task<ActionResult> EspecialidadesDeMedico(int? medicoId)
+        {
+            if (medicoId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            Medico medico = await db.Medicos.FindAsync(medicoId);
+
+            if (medico == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            var duracionTurnoEspecialidades = db.DuracionTurnoEspecialidades.Include(d => d.Especialidad)
+                                                                            .Include(d => d.Medico)
+                                                                            .Where(t => t.MedicoId == medicoId);
+            return View(await duracionTurnoEspecialidades.ToListAsync());
+        }
+
+        public async Task<ActionResult> CreateDuracionTurnoEspecialidad(int? medicoId)
+        {
+            if (medicoId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            Medico medico = await db.Medicos.FindAsync(medicoId);
+
+            if (medico == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre");
+            DuracionTurnoEspecialidad dte = new DuracionTurnoEspecialidad { MedicoId = medico.Id };
+            return View(dte);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateDuracionTurnoEspecialidad([Bind(Include = "Id,MedicoId,EspecialidadId,Duracion")] DuracionTurnoEspecialidad duracionTurnoEspecialidad)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    DuracionTurnoEspecialidad dte = await db.DuracionTurnoEspecialidades.FirstOrDefaultAsync(t => t.MedicoId == duracionTurnoEspecialidad.MedicoId &&
+                                                                                                                  t.EspecialidadId == duracionTurnoEspecialidad.EspecialidadId);
+
+                    if (dte != null)
+                    {
+                        TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = "El médico ya tiene la especialidad elegida.",
+                            MessageType = GenericMessages.warning
+                        };
+                        ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", duracionTurnoEspecialidad.EspecialidadId);
+                        return View(duracionTurnoEspecialidad);
+                    }
+
+                    db.DuracionTurnoEspecialidades.Add(duracionTurnoEspecialidad);
+                    await db.SaveChangesAsync();
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Registro agregado a la base de datos.",
+                        MessageType = GenericMessages.success
+                    };
+                    return RedirectToAction("EspecialidadesDeMedico", new {medicoId = duracionTurnoEspecialidad.MedicoId });
+                }
+                else
+                {
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "El modelo no es válido",
+                        MessageType = GenericMessages.danger
+                    };
+
+                    ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", duracionTurnoEspecialidad.EspecialidadId);
+                    return View(duracionTurnoEspecialidad);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                var err = $"No se puede agregar el registro: {ex.Message}";
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = err,
+                    MessageType = GenericMessages.danger
+                };
+
+                ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", duracionTurnoEspecialidad.EspecialidadId);
+                return View(duracionTurnoEspecialidad);
+            }
+
+        }
+
+        public async Task<ActionResult> EditDuracionTurnoEspecialidad(int? id)
+        {
+            if (id == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            DuracionTurnoEspecialidad duracionTurnoEspecialidad = await db.DuracionTurnoEspecialidades.FindAsync(id);
+            
+            if (duracionTurnoEspecialidad == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", duracionTurnoEspecialidad.EspecialidadId);
+            ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "Nombre", duracionTurnoEspecialidad.MedicoId);
+
+            return View(duracionTurnoEspecialidad);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditDuracionTurnoEspecialidad([Bind(Include = "Id,MedicoId,EspecialidadId,Duracion")] DuracionTurnoEspecialidad duracionTurnoEspecialidad)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Entry(duracionTurnoEspecialidad).State = EntityState.Modified;
+
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Registro editado exitosamante.",
+                        MessageType = GenericMessages.success
+                    };
+
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("EspecialidadesDeMedico", new { medicoId = duracionTurnoEspecialidad.MedicoId });
+                }
+                else
+                {
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Error al validar algunos de los campos.",
+                        MessageType = GenericMessages.danger
+                    };
+
+                    ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", duracionTurnoEspecialidad.EspecialidadId);
+                    return View(duracionTurnoEspecialidad);
+                }
+            }
+            catch (Exception ex)
+            {
+                var err = $"No se puede agregar el registro: {ex.Message}";
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = err,
+                    MessageType = GenericMessages.danger
+                };
+
+                ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", duracionTurnoEspecialidad.EspecialidadId);
+                return View(duracionTurnoEspecialidad);
+            }
+
         }
 
         protected override void Dispose(bool disposing)

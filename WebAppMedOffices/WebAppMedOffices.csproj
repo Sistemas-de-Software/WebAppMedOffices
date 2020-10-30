@@ -175,6 +175,7 @@
     <Compile Include="Controllers\EspecialidadesController.cs" />
     <Compile Include="Controllers\ConsultoriosController.cs" />
     <Compile Include="Controllers\FichaMedicaController.cs" />
+    <Compile Include="Controllers\GestionLiquidacionesController.cs" />
     <Compile Include="Controllers\GestionMedicosController.cs" />
     <Compile Include="Controllers\GestionTurnosController.cs" />
     <Compile Include="Controllers\HistoriaClinicasController.cs" />
@@ -190,9 +191,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202010151709314_InitialCreate.cs" />
-    <Compile Include="Migrations\202010151709314_InitialCreate.Designer.cs">
-      <DependentUpon>202010151709314_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202010262151147_InitialCreate.cs" />
+    <Compile Include="Migrations\202010262151147_InitialCreate.Designer.cs">
+      <DependentUpon>202010262151147_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -204,8 +205,10 @@
     <Compile Include="Models\GenericMessageViewModel.cs" />
     <Compile Include="Models\HistoriaClinica.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LiquidacionPacienteViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Medico.cs" />
+    <Compile Include="Models\MedicoEspecialidadViewModel.cs" />
     <Compile Include="Models\ObraSocial.cs" />
     <Compile Include="Models\ObraSocialTarifa.cs" />
     <Compile Include="Models\Paciente.cs" />
@@ -273,6 +276,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\html2canvas.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -430,6 +434,19 @@
     <Content Include="Views\DuracionTurnoEspecialidades\Details.cshtml" />
     <Content Include="Views\DuracionTurnoEspecialidades\Edit.cshtml" />
     <Content Include="Views\DuracionTurnoEspecialidades\Index.cshtml" />
+    <Content Include="Views\GestionMedicos\EspecialidadesDeMedico.cshtml" />
+    <Content Include="Views\GestionMedicos\CreateDuracionTurnoEspecialidad.cshtml" />
+    <Content Include="Views\GestionMedicos\EditDuracionTurnoEspecialidad.cshtml" />
+    <Content Include="Views\GestionTurnos\FichaMedicaConHistoriaClinica.cshtml" />
+    <Content Include="Views\GestionLiquidaciones\LiquidacionPacientesParticulares.cshtml" />
+    <Content Include="Views\GestionLiquidaciones\CrearLiquidacionPacientesParticulares.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosDisponiblesInicioVista.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosDisponiblesListaDeMedicosVista.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosDisponiblesListaDeEspecialidadesVista.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosDisponiblesPorMedicoVista.cshtml" />
+    <Content Include="Views\GestionTurnos\TurnosDisponiblesPorEspecialidadVista.cshtml" />
+    <Content Include="Views\GestionLiquidaciones\CrearLiquidacionPacienteObraSocial.cshtml" />
+    <Content Include="Views\GestionLiquidaciones\LiquidacionPacienteObraSocial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -448,8 +465,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202010151709314_InitialCreate.resx">
-      <DependentUpon>202010151709314_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010262151147_InitialCreate.resx">
+      <DependentUpon>202010262151147_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

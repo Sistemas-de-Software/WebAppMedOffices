@@ -134,51 +134,101 @@
     @Html.ActionLink("Agregar/Modificar Enfermedades", "PacienteEnfermedades", new { pacienteId = Model.Id, turnoId = ViewBag.Turno.Id }, new { @class = "btn btn-info" })
 </p>
 
-
-<h4>Historia Clínica</h4>
-@if (Model.Turnos.Count == 0)
-{
-    <h5>No hay historia clínica</h5>
-}
-else
-{
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Especialidad.Nombre)
-            </th>
-            <th>
-                Médico
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().FechaHora)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Comentario)
-            </th>
-        </tr>
-
-        @foreach (var item in Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Atendido))
+<div class="row">
+    <div class="col-md-6">
+        <h4><strong>Historia Clínica</strong> atendida por mi</h4>
+        @if (Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Atendido && t.MedicoId == ViewBag.Turno.MedicoId).Count() == 0)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaHora)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Comentario)
-                </td>
-            </tr>
+            <h5>No hay historia clínica</h5>
         }
+        else
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Especialidad.Nombre)
+                    </th>
+                    <th>
+                        Médico
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().FechaHora)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Comentario)
+                    </th>
+                </tr>
 
-    </table>
+                @foreach (var item in Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Atendido && t.MedicoId == ViewBag.Turno.MedicoId))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaHora)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comentario)
+                        </td>
+                    </tr>
+                }
 
-}
+            </table>
+
+        }
+    </div>
+    <div class="col-md-6">
+        <h4><strong>Historia Clínica</strong> por otros médicos</h4>
+        @if (Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Atendido && t.MedicoId != ViewBag.Turno.MedicoId).Count() == 0)
+        {
+            <h5>No hay historia clínica</h5>
+        }
+        else
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Especialidad.Nombre)
+                    </th>
+                    <th>
+                        Médico
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().FechaHora)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Comentario)
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Atendido && t.MedicoId != ViewBag.Turno.MedicoId))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaHora)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comentario)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+
+        }
+    </div>
+</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
