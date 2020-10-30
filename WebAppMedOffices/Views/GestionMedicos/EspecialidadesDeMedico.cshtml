@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WebAppMedOffices.Models.DuracionTurnoEspecialidad>
+
+@{
+    ViewBag.Title = "Especialidades";
+}
+
+<h2>Especialidades</h2>
+
+<p>
+    @Html.ActionLink("Cargar especialidad", "CreateDuracionTurnoEspecialidad", new {medicoId = Model.FirstOrDefault().MedicoId }, new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Especialidad.Nombre)
+        </th>
+        <th>
+            Duración de Atención
+        </th>
+        <th>Opciones</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duracion) min
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "EditDuracionTurnoEspecialidad", new { id = item.Id }, new { @class = "btn btn-info" })
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div>
+    @Html.ActionLink("Volver", "Index", new { }, new { @class = "btn btn-primary" })
+</div>

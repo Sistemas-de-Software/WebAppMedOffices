@@ -76,6 +76,7 @@
                 {
                     @Html.ActionLink("Cambiar Turno", "ListaCambiarTurno", new { turnoId = item.Id }, new { @class = "btn btn-info" })
                 }
+                @Html.ActionLink("Ficha Medica", "FichaMedicaConHistoriaClinica", new { pacienteId = item.PacienteId, turnoId = item.Id }, new { @class = "btn btn-info" })
             </td>
         </tr>
         }

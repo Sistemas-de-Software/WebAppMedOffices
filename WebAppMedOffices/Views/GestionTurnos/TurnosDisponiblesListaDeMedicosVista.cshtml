@@ -1,22 +1,16 @@
-﻿@model IEnumerable<WebAppMedOffices.Models.Paciente>
+﻿@model IEnumerable<WebAppMedOffices.Models.Medico>
 
 @{
-    ViewBag.Title = "Lista de Pacientes";
+    ViewBag.Title = "Médicos";
 }
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
 
-<h2>Buscar Paciente</h2>
+<h2>Médicos</h2>
 
-<p>
-    @Html.ActionLink("Nuevo Paciente", "CreatePaciente", new { }, new { @class = "btn btn-primary" })
-</p>
 <table id="table_id" class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Documento)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
@@ -29,16 +23,16 @@
             <th>
                 @Html.DisplayNameFor(model => model.Celular)
             </th>
-            <th>Opciones</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Matricula)
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Documento)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Nombre)
                 </td>
@@ -51,17 +45,15 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Celular)
                 </td>
-            <td>
-                @Html.ActionLink("Detalle", "DetailsPaciente", new { id = item.Id }, new { @class = "btn btn-info" })
-                @Html.ActionLink("Editar", "EditPaciente", new { id = item.Id }, new { @class = "btn btn-warning" })
-                @Html.ActionLink("Buscar Turnos", "TurnosDisponiblesInicio", new { pacienteId = item.Id }, new { @class = "btn btn-success" })
-                @Html.ActionLink("Sobreturno", "BuscarSobreturnos", new { id = item.Id }, new { @class = "btn btn-info" })
-                @*@Html.ActionLink("Eliminar", "DeletePaciante", new { id = item.Id }, new { @class = "btn btn-danger" })*@
-            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Matricula)
+                </td>
+                <td>
+                    @Html.ActionLink("Turnos disponibles", "TurnosDisponiblesPorMedicoVista", new { medicoId = item.Id }, new { @class = "btn btn-success" })
+                </td>
             </tr>
         }
     </tbody>
-
 </table>
 
 @section Scripts {

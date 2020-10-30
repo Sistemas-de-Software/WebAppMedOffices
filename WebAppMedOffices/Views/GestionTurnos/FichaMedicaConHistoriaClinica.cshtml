@@ -1,12 +1,10 @@
-@model WebAppMedOffices.Models.Paciente
+﻿@model WebAppMedOffices.Models.Paciente
 
 @{
     ViewBag.Title = "Ficha Médica";
 }
 
 <h2>Ficha Médica</h2>
-
-
 
 <div id="content" class="row">
     <div class="col-md-6">
@@ -128,10 +126,8 @@
 </div>
 
 <p>
-    @Html.ActionLink("Volver", "ListarTodosPacientes", new { }, new { @class = "btn btn-primary" })
-    <button id="descargar" class="btn btn-danger">Descargar Ficha Médica</button>
+    @Html.ActionLink("Volver", "TurnosReservadosPorPaciente", new { pacienteId = Model.Id }, new { @class = "btn btn-primary" })
 </p>
-
 
 <h4>Historia Clínica</h4>
 @if (Model.Turnos.Count == 0)
@@ -176,56 +172,4 @@ else
 
     </table>
 
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    
-
-    <script>
-        $(document).ready(function () {
-            var doc = new jsPDF('p', 'pt', 'letter');
-            var specialElementHandlers = {
-                '#editor': function (element, renderer) {
-                    return true;
-                }
-            };
-
-
-            $('#descargar').click(function () {
-                doc.fromHTML($('#content').html(), 15, 15, {
-                    'width': 170,
-                    //'elementHandlers': specialElementHandlers
-                });
-                doc.save('ficha-medica.pdf');
-            });
-
-            //$('#descargar').click(function () {
-            //    html2canvas($('#content')[0], {
-            //        onrendered: function (canvas) {
-
-            //            var img = canvas.toDataURL("image/png");
-            //            var doc = new jsPDF();
-            //            doc.addImage(img, 'JPEG', 20, 20);
-            //            doc.save('test.pdf');
-            //        }
-            //    });
-            //});
-        });
-    </script>
-    @*<script type="text/javascript">
-        function genPDF() {
-            html2canvas(document.body, {
-                onrendered: function (canvas) {
-
-                    var img = canvas.toDataURL("image/png");
-                    var doc = new jsPDF();
-                    doc.addImage(img, 'JPEG', 20, 20);
-                    doc.save('test.pdf');
-                }
-
-            });
-
-        }
-    </script>*@
 }

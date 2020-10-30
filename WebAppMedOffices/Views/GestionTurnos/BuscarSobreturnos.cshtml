@@ -26,20 +26,24 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Turnos.FirstOrDefault().Especialidad.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Turnos.FirstOrDefault().Medico.NombreCompleto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Turnos.FirstOrDefault().Fecha)
-                </td>
-                <td>
-                    @Html.ActionLink("Asignar Sobreturno", "AsignarSobreturno", new { id = item.Turnos.FirstOrDefault().Id, pacienteId = ViewBag.PacienteId }, new { @class = "btn btn-success" })
-                </td>
-            </tr>
+            if (item.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Disponible).Count() == 0)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Turnos.FirstOrDefault().Especialidad.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Turnos.FirstOrDefault().Medico.NombreCompleto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Turnos.FirstOrDefault().Fecha)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Asignar Sobreturno", "AsignarSobreturno", new { id = item.Turnos.FirstOrDefault().Id, pacienteId = ViewBag.PacienteId }, new { @class = "btn btn-success" })
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>

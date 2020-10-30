@@ -114,8 +114,9 @@ namespace WebAppMedOffices.Migrations
                         Telefono = c.String(nullable: false, maxLength: 30),
                         Celular = c.String(nullable: false, maxLength: 30),
                         ObraSocialId = c.Int(),
-                        NombreContactoEmergencia = c.String(nullable: false, maxLength: 50),
-                        TelefonoContactoEmergencia = c.String(nullable: false, maxLength: 30),
+                        NroAfiliado = c.String(maxLength: 30),
+                        NombreContactoEmergencia = c.String(maxLength: 50),
+                        TelefonoContactoEmergencia = c.String(maxLength: 30),
                         Mail = c.String(nullable: false, maxLength: 30),
                     })
                 .PrimaryKey(t => t.Id)
