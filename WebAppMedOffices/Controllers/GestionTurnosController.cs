@@ -819,7 +819,7 @@ namespace WebAppMedOffices.Controllers
                     MessageType = GenericMessages.success
                 };
 
-                return RedirectToAction("Index");
+                return RedirectToAction("TurnosDisponiblesInicioVista");
             }
 
             ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", turnoView.EspecialidadId);
