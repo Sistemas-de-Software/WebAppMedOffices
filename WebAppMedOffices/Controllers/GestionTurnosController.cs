@@ -596,6 +596,18 @@ namespace WebAppMedOffices.Controllers
                 return RedirectToAction("Index");
             }
 
+            DateTime fecha = turno.Fecha.Date;
+            var turnos = await db.Turnos.Where(t => t.Sobreturno == true && t.MedicoId == turno.MedicoId && DbFunctions.TruncateTime(t.FechaHora) == fecha).ToListAsync();
+            if (turnos.Count > 0)
+            {
+                var mensaje = $"El medico ya tiene {turnos.Count} sobreturno asignados para la fecha: {turno.Fecha.ToString("d")}";
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = mensaje,
+                    MessageType = GenericMessages.warning
+                };
+            }
+
             Turno nuevoTurno = new Turno();
             nuevoTurno.MedicoId = turno.MedicoId;
             nuevoTurno.EspecialidadId = turno.EspecialidadId;
