@@ -149,9 +149,6 @@
                         @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Especialidad.Nombre)
                     </th>
                     <th>
-                        Médico
-                    </th>
-                    <th>
                         @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().FechaHora)
                     </th>
                     <th>
@@ -164,9 +161,6 @@
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.FechaHora)
