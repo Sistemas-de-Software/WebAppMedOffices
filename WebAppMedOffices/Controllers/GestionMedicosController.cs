@@ -70,7 +70,18 @@ namespace WebAppMedOffices.Controllers
                     {
                         TempData[Application.MessageViewBagName] = new GenericMessageViewModel
                         {
-                            Message = "El modelo no es válido",
+                            Message = "Error al validar los campos",
+                            MessageType = GenericMessages.danger
+                        };
+                        ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre");
+                        return View(medicoEspecialidad);
+                    }
+
+                    if (medicoEspecialidad.DuracionTurnoEspecialidad.Duracion <= 9)
+                    {
+                        TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = "Error al validar duración del turno, la duración debe ser mayor o igual a 10 minutos",
                             MessageType = GenericMessages.danger
                         };
                         ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre");
