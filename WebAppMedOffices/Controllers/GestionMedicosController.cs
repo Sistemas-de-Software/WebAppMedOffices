@@ -133,7 +133,11 @@ namespace WebAppMedOffices.Controllers
                     // Crear usuario y asignar rol
                     var store = new UserStore<ApplicationUser>(db);
                     var userManager = new UserManager<ApplicationUser>(store);
-                    var user = new ApplicationUser { UserName = medicoEspecialidad.Medico.UserName };
+                    var user = new ApplicationUser { 
+                        UserName = medicoEspecialidad.Medico.UserName, 
+                        FirstName = medicoEspecialidad.Medico.Nombre,
+                        LastName = medicoEspecialidad.Medico.Apellido
+                    };
                     userManager.Create(user, "Medico1234@");
                     userManager.AddToRole(user.Id, "Medico");
 

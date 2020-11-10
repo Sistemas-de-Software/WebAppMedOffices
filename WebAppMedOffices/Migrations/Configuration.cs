@@ -76,9 +76,9 @@ namespace WebAppMedOffices.Migrations
                 {
                     var store = new UserStore<ApplicationUser>(context);
                     var manager = new UserManager<ApplicationUser>(store);
-                    var user = new ApplicationUser { UserName = "medico1@medoffices.com" };
+                    var user = new ApplicationUser { UserName = "medico1@medoffices.com", FirstName = "Roberto", LastName = "Suarez" };
 
-                    manager.Create(user, "Medico11234@");
+                    manager.Create(user, "Medico1234@");
                     manager.AddToRole(user.Id, "Medico");
                 }
 
@@ -86,9 +86,9 @@ namespace WebAppMedOffices.Migrations
                 {
                     var store = new UserStore<ApplicationUser>(context);
                     var manager = new UserManager<ApplicationUser>(store);
-                    var user = new ApplicationUser { UserName = "medico2@medoffices.com" };
+                    var user = new ApplicationUser { UserName = "medico2@medoffices.com", FirstName = "Juan", LastName = "Sanchez" };
 
-                    manager.Create(user, "Medico21234@");
+                    manager.Create(user, "Medico1234@");
                     manager.AddToRole(user.Id, "Medico");
                 }
 
@@ -96,9 +96,9 @@ namespace WebAppMedOffices.Migrations
                 {
                     var store = new UserStore<ApplicationUser>(context);
                     var manager = new UserManager<ApplicationUser>(store);
-                    var user = new ApplicationUser { UserName = "medico3@medoffices.com" };
+                    var user = new ApplicationUser { UserName = "medico3@medoffices.com", FirstName = "Kevin", LastName = "Ferreyra" };
 
-                    manager.Create(user, "Medico31234@");
+                    manager.Create(user, "Medico1234@");
                     manager.AddToRole(user.Id, "Medico");
                 }
 

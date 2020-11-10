@@ -195,6 +195,10 @@
     <Compile Include="Migrations\202010262151147_InitialCreate.Designer.cs">
       <DependentUpon>202010262151147_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011100025041_Login.cs" />
+    <Compile Include="Migrations\202011100025041_Login.Designer.cs">
+      <DependentUpon>202011100025041_Login.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DuracionTurnoEspecialidad.cs" />
@@ -467,6 +471,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202010262151147_InitialCreate.resx">
       <DependentUpon>202010262151147_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011100025041_Login.resx">
+      <DependentUpon>202011100025041_Login.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
