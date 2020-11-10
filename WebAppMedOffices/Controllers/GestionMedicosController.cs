@@ -466,6 +466,19 @@ namespace WebAppMedOffices.Controllers
             {
                 if (ModelState.IsValid)
                 {
+
+                    if (duracionTurnoEspecialidad.Duracion <= 9)
+                    {
+                        TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = "Error al validar duración del turno, la duración debe ser mayor o igual a 10 minutos",
+                            MessageType = GenericMessages.danger
+                        };
+                        ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", duracionTurnoEspecialidad.EspecialidadId);
+                        ViewBag.MedicoId = new SelectList(db.Medicos, "Id", "Nombre", duracionTurnoEspecialidad.MedicoId);
+                        return View(duracionTurnoEspecialidad);
+                    }
+
                     db.Entry(duracionTurnoEspecialidad).State = EntityState.Modified;
 
                     TempData[Application.MessageViewBagName] = new GenericMessageViewModel

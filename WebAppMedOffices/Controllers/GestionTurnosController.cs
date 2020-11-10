@@ -758,7 +758,7 @@ namespace WebAppMedOffices.Controllers
                     {
                         
                         TimeSpan diferencia = turnoView.FechaHasta - turnoView.FechaDesde;
-                        for (int i = 0; i < diferencia.TotalDays; i++)
+                        for (int i = 0; i <= diferencia.TotalDays; i++)
                         {
                             DateTime fechaActual = new DateTime();
                             fechaActual = turnoView.FechaDesde.AddDays(i);
@@ -768,7 +768,7 @@ namespace WebAppMedOffices.Controllers
                                 if ((int) diaHorario.Dia == (int) fechaActual.DayOfWeek)
                                 {
                                     DateTime horarioActual = diaHorario.HoraInicio;
-                                    while (horarioActual + TimeSpan.FromMinutes(duracion.Duracion) < diaHorario.HoraFin)
+                                    while (horarioActual + TimeSpan.FromMinutes(duracion.Duracion) <= diaHorario.HoraFin)
                                     {
 
                                         //una consulta
@@ -804,22 +804,29 @@ namespace WebAppMedOffices.Controllers
                         //Hacemos commit de todos los datos
                         dbContextTransaction.Commit();
 
+                        TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = "Turno creados exitosamante.",
+                            MessageType = GenericMessages.success
+                        };
+
+                        return RedirectToAction("TurnosDisponiblesInicioVista");
+
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         //hacemos rollback si hay excepción
                         dbContextTransaction.Rollback();
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                        var err = $"Error al crear Paciente: {ex.Message}";
+                        TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = err,
+                            MessageType = GenericMessages.danger
+                        };
+                        return RedirectToAction("TurnosDisponiblesInicioVista");
                     }
                 }
-
-                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
-                {
-                    Message = "Turno creados exitosamante.",
-                    MessageType = GenericMessages.success
-                };
-
-                return RedirectToAction("TurnosDisponiblesInicioVista");
+                
             }
 
             ViewBag.EspecialidadId = new SelectList(db.Especialidades, "Id", "Nombre", turnoView.EspecialidadId);
@@ -1146,14 +1153,24 @@ namespace WebAppMedOffices.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
             }
 
             Paciente paciente = await db.Pacientes.FindAsync(id);
 
             if (paciente == null)
             {
-                return HttpNotFound();
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
             }
 
             ViewBag.ObraSocialId = new SelectList(db.ObrasSociales, "Id", "Nombre", paciente.ObraSocialId);
@@ -1168,6 +1185,11 @@ namespace WebAppMedOffices.Controllers
             {
                 db.Entry(paciente).State = EntityState.Modified;
                 await db.SaveChangesAsync();
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "Paciente editado con exito.",
+                    MessageType = GenericMessages.success
+                };
                 return RedirectToAction("ListaPacientes");
             }
 
