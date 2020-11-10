@@ -105,8 +105,8 @@
 </div>
 <p>
     @Html.ActionLink("Volver", "ListaPacientes", new { }, new { @class = "btn btn-primary" })
-    @*@Html.ActionLink("Editar Paciente", "EditPaciente", new { id = Model.Id }, new { @class = "btn btn-warning" })*@
     @Html.ActionLink("Buscar turno", "TurnosDisponiblesInicio", new { pacienteId = Model.Id }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Historial de Turnos", "HistorialTurnosPaciente", new { pacienteId = Model.Id }, new { @class = "btn btn-warning" })
 </p>
 
 <h4>Turnos Reservados</h4>

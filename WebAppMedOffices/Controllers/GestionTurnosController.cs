@@ -1107,6 +1107,41 @@ namespace WebAppMedOffices.Controllers
             return View(paciente);
         }
 
+        public async Task<ActionResult> HistorialTurnosPaciente(int? pacienteId)
+        {
+            if (pacienteId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            Paciente paciente = await db.Pacientes.FindAsync(pacienteId);
+
+            if (paciente == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            var turnos = db.Turnos.Include(t => t.Especialidad)
+                .Include(t => t.Medico)
+                .Include(t => t.ObraSocial)
+                .Where(t => t.PacienteId == pacienteId && t.Estado == Estado.Atendido);
+
+            ViewBag.PacienteId = paciente.Id;
+
+            return View(await turnos.ToListAsync());
+        }
+
+        
         public async Task<ActionResult> EditPaciente(int? id)
         {
             if (id == null)
