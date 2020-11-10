@@ -206,6 +206,7 @@
     <Compile Include="Models\Especialidad.cs" />
     <Compile Include="Models\Consultorio.cs" />
     <Compile Include="Models\AtencionHorario.cs" />
+    <Compile Include="Models\FiltroDiaViewModel.cs" />
     <Compile Include="Models\GenericMessageViewModel.cs" />
     <Compile Include="Models\HistoriaClinica.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -452,6 +453,8 @@
     <Content Include="Views\GestionLiquidaciones\CrearLiquidacionPacienteObraSocial.cshtml" />
     <Content Include="Views\GestionLiquidaciones\LiquidacionPacienteObraSocial.cshtml" />
     <Content Include="Views\GestionTurnos\HistorialTurnosPaciente.cshtml" />
+    <Content Include="Views\GestionTurnos\FiltroDiaControlTurnos.cshtml" />
+    <Content Include="Views\GestionTurnos\ListaControlTurnos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

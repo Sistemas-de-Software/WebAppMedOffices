@@ -1260,7 +1260,57 @@ namespace WebAppMedOffices.Controllers
             return View();
         }
 
+        public ActionResult FiltroDiaControlTurnos()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult FiltroDiaControlTurnos(FiltroDiaViewModel filtroDia)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+
+                    var fecha = filtroDia.Fecha.Date;
+                    
+                    return RedirectToAction("ListaControlTurnos", new { fecha = fecha });
+                }
+                else
+                {
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "El campo Fecha no es válido.",
+                        MessageType = GenericMessages.warning
+                    };
+                    return View(filtroDia);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                var err = $"Error al buscar turnos: {ex.Message}";
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = err,
+                    MessageType = GenericMessages.danger
+                };
+                return RedirectToAction("Index");
+            }
+
+        }
+
+        public async Task<ActionResult> ListaControlTurnos(DateTime fecha)
+        {
+            var fechaBuscada = fecha.Date;
+            var turnos = db.Turnos.Include(t => t.Especialidad)
+                .Include(t => t.Medico)
+                .Include(t => t.ObraSocial)
+                .Where(t => DbFunctions.TruncateTime(t.FechaHora) == fechaBuscada && t.Estado == Estado.Reservado);
+            return View(await turnos.ToListAsync());
+        }
 
     }
 }
