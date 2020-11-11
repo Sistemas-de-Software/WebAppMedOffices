@@ -1208,42 +1208,21 @@ namespace WebAppMedOffices.Controllers
 
 
         //Cancelar Turno Damian
-        public async Task<ActionResult> CancelarTurno2(int? id)
+        public async Task<ActionResult> CancelarSobreturno(int? id)
         {
+            
 
             Turno turno = await db.Turnos.FindAsync(id);
-
-            if (id == null)
-            {
-                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
-                {
-                    Message = "No existe el turno.",
-                    MessageType = GenericMessages.warning
-                };
-                return RedirectToAction("Index");
-            }
-
-
-            turno.ObraSocialId = null;
-            turno.PacienteId = null;
-            turno.Estado = Estado.Disponible;
-            turno.Costo = null;
-            turno.Sobreturno = null;
-            turno.TieneObraSocial = null;
-
-
-            db.Entry(turno).State = EntityState.Modified;
+            db.Turnos.Remove(turno);
             await db.SaveChangesAsync();
-
 
             TempData[Application.MessageViewBagName] = new GenericMessageViewModel
             {
-                Message = "Turno cancelado exitosamante.",
+                Message = "Sobre Turno cancelado exitosamante.",
                 MessageType = GenericMessages.success
             };
 
             return RedirectToAction("ListaPacientes");
-
 
         }
 

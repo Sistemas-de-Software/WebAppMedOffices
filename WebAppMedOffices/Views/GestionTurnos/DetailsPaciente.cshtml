@@ -135,21 +135,62 @@ else
         @foreach (var item in Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Reservado && t.FechaHora >= ViewBag.hoy))
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaHora)
-                </td>
-                <td>
-                    @Html.ActionLink("Cancelar Turno", "CancelarTurno2", new { id = item.Id }, new { @class = "btn btn-danger" })
 
-                </td>
+                @if (item.Sobreturno == false)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaHora)
+                    </td>
+
+                    <td>
+                   
+                             @Html.ActionLink("Cancelar Turno", "CancelarTurno2", new { id = item.Id }, new { @class = "btn btn-danger" })
+                   
+                    </td>
+                }
+
+
+                @if (item.Sobreturno == true)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
+                    </td>
+
+                    <td>
+                    
+                    </td>
+
+                    <td>
+
+                        @Html.ActionLink("Cancelar Sobreturno", "CancelarSobreturno", new { id = item.Id }, new { @class = "btn btn-danger" })
+
+                    </td>
+                }
+
+
+
+
+
+
             </tr>
         }
+
+
+
+
+
+
+
+
 
     </table>
 
