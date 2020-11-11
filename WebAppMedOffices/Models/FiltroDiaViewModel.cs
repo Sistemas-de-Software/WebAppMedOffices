@@ -12,7 +12,7 @@ namespace WebAppMedOffices.Models
     {
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Fecha Hasta")]
+        [Display(Name = "Fecha")]
         public DateTime Fecha { get; set; }
     }
 }
