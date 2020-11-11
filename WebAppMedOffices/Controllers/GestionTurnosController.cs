@@ -1275,7 +1275,16 @@ namespace WebAppMedOffices.Controllers
                 {
 
                     var fecha = filtroDia.Fecha.Date;
-                    
+                    var hoy = DateTime.Now.Date;
+                    if (fecha > hoy)
+                    {
+                        TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = "La fecha no puede ser mayor a la fecha de Hoy.",
+                            MessageType = GenericMessages.warning
+                        };
+                        return RedirectToAction("FiltroDiaControlTurnos");
+                    }
                     return RedirectToAction("ListaControlTurnos", new { fecha = fecha });
                 }
                 else
@@ -1308,8 +1317,59 @@ namespace WebAppMedOffices.Controllers
             var turnos = db.Turnos.Include(t => t.Especialidad)
                 .Include(t => t.Medico)
                 .Include(t => t.ObraSocial)
-                .Where(t => DbFunctions.TruncateTime(t.FechaHora) == fechaBuscada && t.Estado == Estado.Reservado);
+                .Where(t => DbFunctions.TruncateTime(t.FechaHora) == fechaBuscada && t.Estado != Estado.Disponible);
             return View(await turnos.ToListAsync());
+        }
+
+        public async Task<ActionResult> ConfirmarTurnoAsutente(int? turnoId)
+        {
+            if (turnoId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            Turno turno = await db.Turnos.FindAsync(turnoId);
+
+            if (turno == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            try
+            {
+
+                turno.Estado = Estado.Ausente;
+                db.Entry(turno).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "Ausencia confirmada.",
+                    MessageType = GenericMessages.success
+                };
+
+                return RedirectToAction("ListaControlTurnos", new { fecha = turno.Fecha.Date });
+            }
+            catch (Exception ex)
+            {
+                var err = $"Error al cambiar turno: {ex.Message}";
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = err,
+                    MessageType = GenericMessages.danger
+                };
+                return RedirectToAction("ListaControlTurnos", new { fecha = turno.Fecha.Date });
+            }
         }
 
     }

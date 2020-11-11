@@ -28,6 +28,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Especialidad.Nombre)
             </th>
+            <th>
+                Estado
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -61,7 +64,25 @@
                 @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
             </td>
             <td>
-                Botones...
+                @if (item.Estado == WebAppMedOffices.Shared.Estado.Ausente)
+                {
+                    <span class="label label-danger">AUSENTE</span>
+                }
+                else if (item.Estado == WebAppMedOffices.Shared.Estado.Reservado)
+                {
+                    <span class="label label-warning">RESERVADO</span>
+                }
+                else
+                //if (item.Estado == WebAppMedOffices.Shared.Estado.Reservado)
+                {
+                    <span class="label label-info">@item.Estado</span>
+                }
+            </td>
+            <td>
+                @if (item.Estado == WebAppMedOffices.Shared.Estado.Reservado)
+                {
+                    @Html.ActionLink("Ausente", "ConfirmarTurnoAsutente", new { turnoId = item.Id }, new { @class = "btn btn-primary" })
+                }
             </td>
         </tr>
         }
@@ -97,7 +118,7 @@
                     "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
                     "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
                     "sInfoPostFix": "",
-                    "sSearch": "Filtrar por Médico:",
+                    "sSearch": "Buscar:",
                     "sUrl": "",
                     "sInfoThousands": ",",
                     "sLoadingRecords": "Cargando...",
