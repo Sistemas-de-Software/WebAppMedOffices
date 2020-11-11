@@ -85,6 +85,13 @@
         @if (Model.ObraSocialId != 1)
         {
             <dt>
+                @Html.DisplayNameFor(model => model.ObraSocial.Nombre)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ObraSocial.Nombre)
+            </dd>
+            <dt>
                 @Html.DisplayNameFor(model => model.NroAfiliado)
             </dt>
 
