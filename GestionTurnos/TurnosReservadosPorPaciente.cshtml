@@ -1,0 +1,96 @@
+﻿@model IEnumerable<WebAppMedOffices.Models.Turno>
+
+@{
+    ViewBag.Title = "Turnos Reservados";
+}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+<h2>Turnos Reservados</h2>
+
+<table id="table_id" class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Especialidad.Nombre)
+            </th>
+            <th>
+                Médico
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ObraSocial.Nombre)
+            </th>
+            <th>
+                Paciente
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaHora)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Costo)
+            </th>
+            <th></th>
+            <th>
+                Opciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ObraSocial.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paciente.NombreCompleto)
+            </td>
+            <td>
+                @if (item.Sobreturno == true)
+                {
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.FechaHora)
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Costo)
+            </td>
+            <td>
+                @if (item.Sobreturno == true)
+                {
+                    <span class="label label-danger">Sobreturno</span>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Ver Comprobante", "Comprobante", new { pacienteId = item.PacienteId, turnoId = item.Id }, new { @class = "btn btn-success" })
+                @if (item.Sobreturno != true)
+                {
+                    @Html.ActionLink("Cambiar Turno", "ListaCambiarTurno", new { turnoId = item.Id }, new { @class = "btn btn-info" })
+                }
+                @*@Html.ActionLink("Ficha Medica", "FichaMedicaConHistoriaClinica", new { pacienteId = item.PacienteId, turnoId = item.Id }, new { @class = "btn btn-info" })*@
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#table_id').DataTable();
+        } );
+    </script>
+}
+

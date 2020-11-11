@@ -1,0 +1,152 @@
+﻿@model WebAppMedOffices.Models.TurnoCambiarView
+
+@{
+    ViewBag.Title = "Turno";
+}
+
+<h2>Cambiar Turno</h2>
+
+<h4>Turno Antes</h4>
+<hr />
+
+<dl class="dl-horizontal">
+
+    <dt>
+        @Html.DisplayNameFor(model => model.TurnoAntes.Especialidad.Nombre)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.TurnoAntes.Especialidad.Nombre)
+    </dd>
+
+    <dt>
+        Nombre Médico
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.TurnoAntes.Medico.NombreCompleto)
+    </dd>
+
+    <dt>
+        Nombre Paciente
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.TurnoAntes.Paciente.NombreCompleto)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.TurnoAntes.FechaHora)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.TurnoAntes.FechaHora)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.TurnoAntes.ObraSocial.Nombre)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.TurnoAntes.ObraSocial.Nombre)
+    </dd>
+
+    @if (ViewBag.TieneOS == false)
+    {
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TurnoAntes.Costo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TurnoAntes.Costo)
+        </dd>
+
+    }
+
+
+</dl>
+
+<h4>Turno Después</h4>
+<hr />
+
+<dl class="dl-horizontal">
+
+    <dt>
+        @Html.DisplayNameFor(model => model.TurnoDespues.Especialidad.Nombre)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.TurnoDespues.Especialidad.Nombre)
+    </dd>
+
+    <dt>
+        Nombre Médico
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.TurnoDespues.Medico.NombreCompleto)
+    </dd>
+
+    <dt>
+        Nombre Paciente
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.TurnoAntes.Paciente.NombreCompleto)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.TurnoDespues.FechaHora)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.TurnoDespues.FechaHora)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.TurnoAntes.ObraSocial.Nombre)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.TurnoAntes.ObraSocial.Nombre)
+    </dd>
+
+    @if (ViewBag.TieneOS == false)
+    {
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TurnoDespues.Costo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TurnoAntes.Paciente.ObraSocial.Tarifas.Where(t => t.EspecialidadId == Model.TurnoDespues.EspecialidadId).FirstOrDefault().Tarifa)
+        </dd>
+
+    }
+
+
+</dl>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.TurnoAntes.Id)
+    @Html.HiddenFor(model => model.TurnoDespues.Id)
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Confirmar" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}
+<p>
+    @Html.ActionLink("Volver a inicio", "TurnosReservadosInicio", new {  }, new { @class = "btn btn-primary" })
+</p>
