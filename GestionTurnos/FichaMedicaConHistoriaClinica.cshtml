@@ -1,0 +1,175 @@
+﻿@model WebAppMedOffices.Models.Paciente
+
+@{
+    ViewBag.Title = "Ficha Médica";
+}
+
+<h2>Ficha Médica</h2>
+
+<div id="content" class="row">
+    <div class="col-md-6">
+        <h4>Ficha Médica</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Apellido)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Documento)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Documento)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FechaNacimiento)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FechaNacimiento)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Direccion)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Telefono)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Celular)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Celular)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.NombreContactoEmergencia)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NombreContactoEmergencia)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TelefonoContactoEmergencia)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TelefonoContactoEmergencia)
+            </dd>
+
+        </dl>
+
+    </div>
+
+    <div class="col-md-6">
+        <h4>Enfermedades</h4>
+        <hr />
+        @if (ViewBag.TipoEnfermedades.Count == 0)
+        {
+            <h5>No hay nada para mostrar</h5>
+        }
+        else
+        {
+            foreach (var tipoEnfermedad in ViewBag.TipoEnfermedades)
+            {
+                <h5>@tipoEnfermedad.Nombre</h5>
+                if (Model.Enfermedades.Where(t => t.Enfermedad.TipoEnfermedadId == tipoEnfermedad.Id).ToList().Count == 0)
+                {
+                    <ul>
+                        <li>
+                            <h5>Ninguna</h5>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <ul>
+                        @foreach (var item in Model.Enfermedades.Where(t => t.Enfermedad.TipoEnfermedadId == tipoEnfermedad.Id))
+                        {
+                            <li>
+                                @Html.DisplayFor(modelItem => item.Enfermedad.Nombre)
+                            </li>
+
+                        }
+                    </ul>
+                }
+
+            }
+        }
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Volver", "TurnosReservadosPorPaciente", new { pacienteId = Model.Id }, new { @class = "btn btn-primary" })
+</p>
+
+<h4>Historia Clínica</h4>
+@if (Model.Turnos.Count == 0)
+{
+    <h5>No hay historia clínica</h5>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Especialidad.Nombre)
+            </th>
+            <th>
+                Médico
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().FechaHora)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Turnos.FirstOrDefault().Comentario)
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Turnos.Where(t => t.Estado == WebAppMedOffices.Shared.Estado.Atendido))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaHora)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comentario)
+                </td>
+            </tr>
+        }
+
+    </table>
+
+}
