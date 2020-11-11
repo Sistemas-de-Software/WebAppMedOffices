@@ -83,10 +83,10 @@
     <script>
         $(document).ready(function () {
             $('#table_id').DataTable({
-                //"columnDefs": [
-                //    { "targets": [0, 2, 3, 4, 5], "searchable": false }
-                //],
-                searching: true,
+                "columnDefs": [
+                    { "targets": [3, 4, 5], "searchable": false }
+                ],
+                //searching: true,
                 paging: false,
                 pageLength: 10,
                 language: {
