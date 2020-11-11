@@ -11,6 +11,7 @@ using WebAppMedOffices.Models;
 using WebAppMedOffices.Constants;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using WebAppMedOffices.Shared;
 
 namespace WebAppMedOffices.Controllers
 {
@@ -275,27 +276,83 @@ namespace WebAppMedOffices.Controllers
 
             try
             {
+
                 Medico medico = await db.Medicos.FindAsync(id);
+                if (medico == null)
+                {
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "El médico no existe.",
+                        MessageType = GenericMessages.danger
+                    };
+                    return RedirectToAction("Index");
+                }
 
-                //Paciente paciente = await db.Pacientes.FirstOrDefaultAsync(t => t.ObraSocialId == obraSocial.Id);
-                //if (paciente != null)
-                //{
-                //    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
-                //    {
-                //        Message = "No se puede eliminar el registro relacionado.",
-                //        MessageType = GenericMessages.danger
-                //    };
-                //    return RedirectToAction("Index");
-                //}
+                var hoy = DateTime.Now.Date;
+                //Turno existeTurnoReservado = await db.Turnos.FirstOrDefaultAsync(t => t.MedicoId == medico.Id && DbFunctions.TruncateTime(t.FechaHora) >= hoy && t.Estado == Estado.Reservado);
+                Turno existeTurnoCreado = await db.Turnos.FirstOrDefaultAsync(t => t.MedicoId == medico.Id && DbFunctions.TruncateTime(t.FechaHora) >= hoy);
+                if (existeTurnoCreado != null)
+                {
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "El médico no se puede dar de baja, tiene habilitada la agenda.",
+                        MessageType = GenericMessages.danger
+                    };
+                    return RedirectToAction("Index");
+                }
 
+                Turno existeTurnoAntiguo = await db.Turnos.FirstOrDefaultAsync(t => t.MedicoId == medico.Id && DbFunctions.TruncateTime(t.FechaHora) < hoy);
+                if (existeTurnoAntiguo != null)
+                {
+                    medico.DeleteAt = DateTime.Now;
+                    db.Entry(medico).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Baja de médico exitosa.",
+                        MessageType = GenericMessages.success
+                    };
+                    return RedirectToAction("Index");
+                }
+
+                //creamos el ámbito de la transacción
+                using (var dbContextTransaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        // primero eliminamos las especialidades DuracionTurnoEspecialidad asociadas
+                        IEnumerable<DuracionTurnoEspecialidad> especialidades = await db.DuracionTurnoEspecialidades.Where(t => t.MedicoId == medico.Id).ToListAsync();
+                        if (especialidades.Count() > 0)
+                        {
+                            db.DuracionTurnoEspecialidades.RemoveRange(especialidades);
+                        }
+
+                        // luego eliminamos los consultorios AtencionHorario asociados
+                        IEnumerable<AtencionHorario> consultorios = await db.AtencionHorarios.Where(t => t.MedicoId == medico.Id).ToListAsync();
+                        if (consultorios.Count() > 0)
+                        {
+                            db.AtencionHorarios.RemoveRange(consultorios);
+                        }
+
+
+                        db.Medicos.Remove(medico);
+                        await db.SaveChangesAsync();
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                }
+
+                
+                
                 TempData[Application.MessageViewBagName] = new GenericMessageViewModel
                 {
                     Message = "Registro eliminado exitosamente.",
                     MessageType = GenericMessages.success
                 };
-
-                db.Medicos.Remove(medico);
-                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
