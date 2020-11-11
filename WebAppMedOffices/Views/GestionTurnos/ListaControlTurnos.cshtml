@@ -1,73 +1,93 @@
-﻿@model IEnumerable<WebAppMedOffices.Models.AtencionHorario>
+﻿@model IEnumerable<WebAppMedOffices.Models.Turno>
 
 @{
-    ViewBag.Title = "Consultorios Asignados";
+    ViewBag.Title = "Turnos de Hoy";
 }
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
 
-<h2>Consultorios Asignados</h2>
+<h2>Control de turnos</h2>
 
-<p>
-    @Html.ActionLink("Asignar Consultorio", "Create", new { }, new { @class = "btn btn-success" })
-    @Html.ActionLink("Volver a Cargar Turno", "Create", "GestionTurnos", new { }, new { @class = "btn btn-success" })
-</p>
 <table id="table_id" class="table">
     <thead>
+
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Consultorio.Nombre)
+                @Html.DisplayNameFor(model => model.FechaHora)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Medico.Nombre)
+                Paciente
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Medico.Apellido)
+                @Html.DisplayNameFor(model => model.ObraSocial.Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Dia)
+                Médico
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HoraInicio)
+                @Html.DisplayNameFor(model => model.Especialidad.Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HoraFin)
+                Estado
             </th>
-            @*<th></th>*@
+            <th></th>
         </tr>
     </thead>
 
     <tbody>
+
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Consultorio.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Medico.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Medico.Apellido)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Dia)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HoraInicio)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HoraFin)
-                </td>
-                @*<td>
-                        @Html.ActionLink("Editar", "Edit", new { id=item.Id }, new { @class = "btn btn-warning" })
-                        @Html.ActionLink("Detalle", "Details", new { id=item.Id }, new { @class = "btn btn-info" })
-                        @Html.ActionLink("Eliminar", "Delete", new { id=item.Id }, new { @class = "btn btn-danger" })
-                    </td>*@
-            </tr>
+        <tr>
+            <td>
+                @if (item.Sobreturno == true)
+                {
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                    <span class="label label-danger">Sobreturno</span>
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.FechaHora)
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paciente.NombreCompleto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ObraSocial.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
+            </td>
+            <td>
+                @if (item.Estado == WebAppMedOffices.Shared.Estado.Ausente)
+                {
+                    <span class="label label-danger">AUSENTE</span>
+                }
+                else if (item.Estado == WebAppMedOffices.Shared.Estado.Reservado)
+                {
+                    <span class="label label-warning">RESERVADO</span>
+                }
+                else
+                //if (item.Estado == WebAppMedOffices.Shared.Estado.Reservado)
+                {
+                    <span class="label label-info">@item.Estado</span>
+                }
+            </td>
+            <td>
+                @if (item.Estado == WebAppMedOffices.Shared.Estado.Reservado)
+                {
+                    @Html.ActionLink("Ausente", "ConfirmarTurnoAsutente", new { turnoId = item.Id }, new { @class = "btn btn-primary" })
+                }
+            </td>
+        </tr>
         }
     </tbody>
+
 </table>
 
 @section Scripts {
@@ -83,10 +103,10 @@
     <script>
         $(document).ready(function () {
             $('#table_id').DataTable({
-                "columnDefs": [
-                    { "targets": [3, 4, 5], "searchable": false }
-                ],
-                //searching: true,
+                //"columnDefs": [
+                //    { "targets": [0, 2, 3, 4, 5], "searchable": false }
+                //],
+                searching: true,
                 paging: false,
                 pageLength: 10,
                 language: {
@@ -98,7 +118,7 @@
                     "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
                     "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
                     "sInfoPostFix": "",
-                    "sSearch": "Filtrar:",
+                    "sSearch": "Buscar:",
                     "sUrl": "",
                     "sInfoThousands": ",",
                     "sLoadingRecords": "Cargando...",
@@ -114,10 +134,15 @@
                     }
                 },
                 //dom: 'Blfrtip',
+                //buttons: [
+                //    {
+                //        extend: 'print',
+                //        text: 'Imprimir',
+                //        title: 'Turnos de Hoy'
+                //    }
+                //],
                 "order": [[1, "asc"]]
             });
         });
     </script>
 }
-
-
