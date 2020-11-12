@@ -129,7 +129,8 @@
 
 <p>
     @Html.ActionLink("Volver", "ListarTodosPacientes", new { }, new { @class = "btn btn-primary" })
-    <button id="descargar" class="btn btn-danger">Descargar Ficha Médica</button>
+    @*<button id="descargar" class="btn btn-danger">Descargar Ficha Médica</button>*@
+    @Html.ActionLink("Descargar", "PrintFichaMedica", new { pacienteId = Model.Id, turnoId = Model.Turnos.FirstOrDefault().Id }, new { @class = "btn btn-danger" })
 </p>
 
 
