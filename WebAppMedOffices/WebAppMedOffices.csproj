@@ -211,6 +211,7 @@
     <Compile Include="Models\HistoriaClinica.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LiquidacionPacienteViewModel.cs" />
+    <Compile Include="Models\LiquidacionViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Medico.cs" />
     <Compile Include="Models\MedicoEspecialidadViewModel.cs" />
