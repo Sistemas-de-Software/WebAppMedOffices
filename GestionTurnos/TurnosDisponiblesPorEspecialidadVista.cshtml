@@ -21,29 +21,23 @@
                 Médico
             </th>
 
-            <th>
-                Opciones
-            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaHora)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
-            </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaHora)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
+                </td>
 
-            <td>
-                @Html.ActionLink("Asignar Turno", "AsignarTurno", new { id = item.Id, pacienteId = ViewBag.PacienteId }, new { @class = "btn btn-success" })
-            </td>
-        </tr>
+            </tr>
         }
     </tbody>
 </table>

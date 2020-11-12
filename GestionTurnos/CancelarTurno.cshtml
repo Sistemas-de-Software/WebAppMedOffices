@@ -1,0 +1,115 @@
+﻿@model IEnumerable<WebAppMedOffices.Models.Turno>
+
+@{
+    ViewBag.Title = "CancelarTurno";
+}
+
+<h2>Turnos del día</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Especialidad.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Medico.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ObraSocial.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Paciente.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaHora)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaHoraFin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Costo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sobreturno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TieneObraSocial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comentario)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Medico.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ObraSocial.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paciente.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaHora)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaHoraFin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Costo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sobreturno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TieneObraSocial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comentario)
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @foreach (var turnos in Model)
+    {
+         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+         @Html.HiddenFor(model => turnos.Id)
+         @Html.HiddenFor(model => turnos.MedicoId)
+         @Html.HiddenFor(model => turnos.EspecialidadId)
+         @Html.HiddenFor(model => turnos.PacienteId)
+         @Html.HiddenFor(model => turnos.ObraSocialId)
+         @Html.HiddenFor(model => turnos.Estado)
+         @Html.HiddenFor(model => turnos.FechaHora)
+         @Html.HiddenFor(model => turnos.FechaHoraFin)
+         @Html.HiddenFor(model => turnos.Costo)
+         @Html.HiddenFor(model => turnos.Sobreturno)
+         @Html.HiddenFor(model => turnos.TieneObraSocial)        
+    }
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @Html.ActionLink("Volver", "TurnosReservadosPorMedico", new { medicoId = ViewBag.MedicoId }, new { @class = "btn btn-primary" })
+            <input type="submit" value="Cancelar Turnos" class="btn btn-danger" />
+        </div>
+    </div>
+</div>
+}

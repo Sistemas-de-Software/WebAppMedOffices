@@ -1,25 +1,20 @@
-﻿@model IEnumerable<WebAppMedOffices.Models.Turno>
+﻿@model IEnumerable<WebAppMedOffices.Models.Especialidad>
 
 @{
-    ViewBag.Title = "Turnos Disponibles";
+    ViewBag.Title = "Lista de Especialidades";
 }
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
 
-<h2>Turnos Disponibles</h2>
+<h2>Especialidades</h2>
 
 <table id="table_id" class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FechaHora)
+                @Html.DisplayNameFor(model => model.Nombre)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Especialidad.Nombre)
-            </th>
-            <th>
-                Médico
-            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -27,13 +22,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FechaHora)
+                    @Html.DisplayFor(modelItem => item.Nombre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
+                    @Html.ActionLink("Turnos disponibles", "TurnosDisponiblesPorEspecialidad", new { especialidadId = item.Id, pacienteId = ViewBag.PacienteId }, new { @class = "btn btn-success" })
                 </td>
             </tr>
         }
