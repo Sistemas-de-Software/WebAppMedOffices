@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebAppMedOffices.Models.LiquidacionViewModel>
+﻿@model IEnumerable<WebAppMedOffices.Models.LiquidacionObraSocialViewModel>
 
 @{
     ViewBag.Title = "Liquidacion Pacientes Con Obra Social";
@@ -12,7 +12,13 @@
     <thead>
         <tr>
             <th>
-                Médico y Especialidad
+                Obra Social
+            </th>
+            <th>
+                Médico
+            </th>
+            <th>
+                Especialidad
             </th>
             <th>
                 Nombre del Paciente
@@ -23,9 +29,6 @@
             <th>
                 Costo
             </th>
-            <th>
-                Obra Social
-            </th>
         </tr>
     </thead>
     <tbody>
@@ -33,18 +36,9 @@
         {
             <tr>
                 <td>
-                    Médico: @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
+                    @Html.DisplayFor(modelItem => item.ObraSocial.Nombre)
                 </td>
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-
-            <tr>
-                <td>
-                    Especialidad: @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
-                </td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -53,23 +47,28 @@
 
             foreach (var turno in item.Turnos)
             {
-            <tr>
-                <td></td>
-                <td>
-                    @Html.DisplayFor(modelItem => turno.Paciente.NombreCompleto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => turno.Fecha)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => turno.Costo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => turno.ObraSocial.Nombre)
-                </td>
-            </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        @Html.DisplayFor(modelItem => turno.Medico.NombreCompleto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => turno.Especialidad.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => turno.Paciente.NombreCompleto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => turno.Fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => turno.Costo)
+                    </td>
+                </tr>
             }
             <tr>
+                <td></td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td>
@@ -78,11 +77,12 @@
                 <td>
                     @item.SubTotal
                 </td>
-                <td></td>
             </tr>
         }
 
         <tr>
+            <td></td>
+            <td></td>
             <td></td>
             <td></td>
             <td>
@@ -91,7 +91,6 @@
             <td>
                 @ViewBag.Total
             </td>
-            <td></td>
         </tr>
     </tbody>
 </table>
