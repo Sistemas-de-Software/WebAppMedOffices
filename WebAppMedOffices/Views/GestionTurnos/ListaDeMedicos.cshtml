@@ -50,6 +50,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("Turnos reservados", "TurnosReservadosPorMedico", new { medicoId = item.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Cancelar Turnos", "CancelarTurnosMedicoPorRango", new { medicoId = item.Id }, new { @class = "btn btn-danger" })
                 </td>
             </tr>
         }
