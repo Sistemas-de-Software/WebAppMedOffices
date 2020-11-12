@@ -1283,6 +1283,123 @@ namespace WebAppMedOffices.Controllers
 
         }
 
+        public async Task<ActionResult> CancelarTurnosMedicoPorRango(int? medicoId)
+        {
+            if (medicoId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe el turno.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            Medico medico = await db.Medicos.FindAsync(medicoId);
+
+            if (medico == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("Index");
+            }
+
+            CancelarTurnoMedicoRangoView rango = new CancelarTurnoMedicoRangoView { MedicoId = medico.Id };
+            return View(rango);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CancelarTurnosMedicoPorRango([Bind(Include = "MedicoId,FechaDesde,FechaHasta")] CancelarTurnoMedicoRangoView cancelarTurno)
+        {
+            if (ModelState.IsValid)
+            {
+                if (cancelarTurno.FechaDesde.Date > cancelarTurno.FechaHasta.Date)
+                {
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "La fecha Desde no puede ser mayor que la fecha Hasta.",
+                        MessageType = GenericMessages.warning
+                    };
+                    return View(cancelarTurno);
+                }
+
+                var hoy = DateTime.Now.Date;
+                if (cancelarTurno.FechaDesde.Date < hoy)
+                {
+                    TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "La fecha Desde no puede ser menor que la fecha de Hoy.",
+                        MessageType = GenericMessages.warning
+                    };
+                    return View(cancelarTurno);
+                }
+
+                //creamos el ámbito de la transacción
+                using (var dbContextTransaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        ICollection<Turno> turnos = await db.Turnos.Where(t => DbFunctions.TruncateTime(t.FechaHora) >= cancelarTurno.FechaDesde &&
+                        DbFunctions.TruncateTime(t.FechaHora) <= cancelarTurno.FechaHasta && 
+                        t.MedicoId == cancelarTurno.MedicoId && 
+                        t.Estado != Estado.Atendido).ToListAsync();
+                        if (turnos.Count() <= 0)
+                        {
+                            TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                            {
+                                Message = "No hay turnos del médico para eliminar dentro del ramgo de horario elegido.",
+                                MessageType = GenericMessages.warning
+                            };
+                            return View(cancelarTurno);
+                        }
+
+                        db.Turnos.RemoveRange(turnos);
+                        await db.SaveChangesAsync();
+
+                        //Hacemos commit de todos los datos
+                        dbContextTransaction.Commit();
+
+                        TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = "Turno eliminados exitosamante.",
+                            MessageType = GenericMessages.success
+                        };
+
+                        return RedirectToAction("TurnosDisponiblesInicioVista");
+
+                    }
+                    catch (Exception ex)
+                    {
+                        //hacemos rollback si hay excepción
+                        dbContextTransaction.Rollback();
+                        var err = $"Error al crear Paciente: {ex.Message}";
+                        TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = err,
+                            MessageType = GenericMessages.danger
+                        };
+                        return RedirectToAction("TurnosDisponiblesInicioVista");
+                    }
+                }
+
+            }
+            else
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "Alguno de los campos no son válidos.",
+                    MessageType = GenericMessages.warning
+                };
+                return View(cancelarTurno);
+            }
+        }
+
+
 
         //Cancelar sobreTurno
         public async Task<ActionResult> CancelarSobreturno(int? id)

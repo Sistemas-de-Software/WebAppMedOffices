@@ -233,6 +233,7 @@
     <Compile Include="Models\TipoEnfermedad.cs" />
     <Compile Include="Models\Turno.cs" />
     <Compile Include="Models\TurnoCambiarView.cs" />
+    <Compile Include="Models\CancelarTurnoMedicoRangoView.cs" />
     <Compile Include="Models\TurnoView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\Enums.cs" />
@@ -472,6 +473,7 @@
     <Content Include="Views\GestionTurnos\ListaControlTurnos.cshtml" />
     <Content Include="Views\GestionTurnos\ComprobanteCopy.cshtml" />
     <Content Include="Views\FichaMedica\FichaMedicaConAgregarHistoriaClinicaCopy.cshtml" />
+    <Content Include="Views\GestionTurnos\CancelarTurnosMedicoPorRango.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
