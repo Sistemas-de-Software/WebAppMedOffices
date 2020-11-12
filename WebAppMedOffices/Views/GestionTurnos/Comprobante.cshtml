@@ -93,7 +93,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button id="descargar" class="btn btn-danger">Descargar Comprobante</button>
+                @Html.ActionLink("Descargar comprobante", "PrintComprobante", new { pacienteId = Model.PacienteId, turnoId = Model.Id }, new { @class = "btn btn-danger" })
+                @*<button id="descargar" class="btn btn-danger">Descargar Comprobante</button>*@
             </div>
         </div>
     </div>
