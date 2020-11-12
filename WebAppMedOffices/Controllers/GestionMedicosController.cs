@@ -304,18 +304,19 @@ namespace WebAppMedOffices.Controllers
                     Turno existeTurnoAntiguo = await db.Turnos.FirstOrDefaultAsync(t => t.MedicoId == medico.Id && DbFunctions.TruncateTime(t.FechaHora) < hoy);
                     if (existeTurnoAntiguo != null)
                     {
-                        medico.DeleteAt = DateTime.Now;
-                        db.Entry(medico).State = EntityState.Modified;
-                        await db.SaveChangesAsync();
+                        //medico.DeleteAt = DateTime.Now;
+                        //db.Entry(medico).State = EntityState.Modified;
+                        //await db.SaveChangesAsync();
 
                         TempData[Application.MessageViewBagName] = new GenericMessageViewModel
                         {
-                            Message = "Baja de médico exitosa.",
-                            MessageType = GenericMessages.success
+                            Message = "Ups, hay problemas al dar de baja un médico con turnos antiguos, No te preocupes!! estamos trabajando para solucionarlo.",
+                            //MessageType = GenericMessages.success
+                            MessageType = GenericMessages.danger
                         };
                         return RedirectToAction("Index");
                     }
-                
+
                     // primero eliminamos las especialidades DuracionTurnoEspecialidad asociadas
                     IEnumerable<DuracionTurnoEspecialidad> especialidades = await db.DuracionTurnoEspecialidades.Where(t => t.MedicoId == medico.Id).ToListAsync();
                     if (especialidades.Count() > 0)
