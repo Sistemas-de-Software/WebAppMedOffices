@@ -167,31 +167,29 @@ namespace WebAppMedOffices.Controllers
                         DbFunctions.TruncateTime(t.FechaHora) <= liquidacionPacientes.FechaHasta).ToListAsync();
 
 
-                ICollection<Medico> medicos = await db.Medicos.ToListAsync();
+                ICollection<ObraSocial> obrasSociales = await db.ObrasSociales.ToListAsync();
 
-                List<LiquidacionViewModel> liquidacionesTotales = new List<LiquidacionViewModel>();
+                List<LiquidacionObraSocialViewModel> liquidacionesTotales = new List<LiquidacionObraSocialViewModel>();
 
-                foreach (var medico in medicos)
+                foreach (var obraSocial in obrasSociales)
                 {
-                    foreach (var duracionTurnoEspecialidad in medico.DuracionTurnoEspecialidades)
-                    {
+                    //foreach (var duracionTurnoEspecialidad in medico.DuracionTurnoEspecialidades)
+                    //{
                         List<Turno> turnos = new List<Turno>();
-                        turnos = liquidacionesDB.Where(t => t.MedicoId == medico.Id &&
-                            t.EspecialidadId == duracionTurnoEspecialidad.EspecialidadId).ToList();
+                        turnos = liquidacionesDB.Where(t => t.ObraSocialId == obraSocial.Id).ToList();
 
                         if (turnos.Count() > 0)
                         {
-                            LiquidacionViewModel liquidacion = new LiquidacionViewModel
+                            LiquidacionObraSocialViewModel liquidacion = new LiquidacionObraSocialViewModel
                             {
-                                Medico = medico,
-                                Especialidad = duracionTurnoEspecialidad.Especialidad,
+                                ObraSocial = obraSocial,
                                 Turnos = turnos,
                                 SubTotal = turnos.Sum(t => t.Costo.Value)
                             };
 
                             liquidacionesTotales.Add(liquidacion);
                         }
-                    }
+                    //}
                 }
 
                 if (liquidacionesTotales.Count() == 0)
