@@ -1208,10 +1208,9 @@ namespace WebAppMedOffices.Controllers
 
 
 
-        //Cancelar Turno2
-        public async Task<ActionResult> CancelarTurno2(int? id)
+        //Cancelar turno por paciente, el turno vuel a quedar disponible
+        public async Task<ActionResult> CancelarXpaciente(int? id)
         {
-
 
             Turno turno = await db.Turnos.FindAsync(id);
 
@@ -1252,7 +1251,6 @@ namespace WebAppMedOffices.Controllers
         public async Task<ActionResult> CancelarSobreturno(int? id)
         {
             
-
             Turno turno = await db.Turnos.FindAsync(id);
             db.Turnos.Remove(turno);
             await db.SaveChangesAsync();
@@ -1260,6 +1258,25 @@ namespace WebAppMedOffices.Controllers
             TempData[Application.MessageViewBagName] = new GenericMessageViewModel
             {
                 Message = "Sobre Turno cancelado exitosamante.",
+                MessageType = GenericMessages.success
+            };
+
+            return RedirectToAction("ListaPacientes");
+        }
+
+
+
+        //Cancelar turno por médico, el turno se elimina
+        public async Task<ActionResult> CancelarXmedico(int? id)
+        {
+
+            Turno turno = await db.Turnos.FindAsync(id);
+            db.Turnos.Remove(turno);
+            await db.SaveChangesAsync();
+
+            TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+            {
+                Message = "Turno cancelado exitosamante.",
                 MessageType = GenericMessages.success
             };
 
