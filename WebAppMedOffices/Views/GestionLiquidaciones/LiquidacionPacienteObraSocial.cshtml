@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebAppMedOffices.Models.LiquidacionPacienteViewModel>
+﻿@model IEnumerable<WebAppMedOffices.Models.LiquidacionViewModel>
 
 @{
     ViewBag.Title = "Liquidacion Pacientes Con Obra Social";
@@ -12,51 +12,78 @@
     <thead>
         <tr>
             <th>
-                Nombre del Paciente
+                Médico y Especialidad
             </th>
             <th>
-                Nro de Afiliado
+                Nombre del Paciente
             </th>
             <th>
                 Fecha
             </th>
             <th>
-                Nombre del Medico
+                Costo
             </th>
             <th>
-                Matricula
-            </th>
-            <th>
-                Sub Total
+                Obra Social
             </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Turnos.FirstOrDefault().Paciente.NombreCompleto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Turnos.FirstOrDefault().Paciente.NroAfiliado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fecha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Turnos.FirstOrDefault().Medico.NombreCompleto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Turnos.FirstOrDefault().Medico.Matricula)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SubTotal)
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    Médico: @Html.DisplayFor(modelItem => item.Medico.NombreCompleto)
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>
+                    Especialidad: @Html.DisplayFor(modelItem => item.Especialidad.Nombre)
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            foreach (var turno in item.Turnos)
+            {
+            <tr>
+                <td></td>
+                <td>
+                    @Html.DisplayFor(modelItem => turno.Paciente.NombreCompleto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => turno.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => turno.Costo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => turno.ObraSocial.Nombre)
+                </td>
+            </tr>
+            }
+            <tr>
+                <td></td>
+                <td></td>
+                <td>
+                    Sub total:
+                </td>
+                <td>
+                    @item.SubTotal
+                </td>
+                <td></td>
+            </tr>
         }
 
         <tr>
+            <td></td>
             <td></td>
             <td>
                 Total:
@@ -64,6 +91,7 @@
             <td>
                 @ViewBag.Total
             </td>
+            <td></td>
         </tr>
     </tbody>
 </table>
@@ -82,6 +110,7 @@
         $(document).ready(function () {
             $('#table_id').DataTable({
                 searching: false,
+                ordering: false,
                 paging: false,
                 language: {
                     "sProcessing": "Procesando...",
@@ -115,7 +144,7 @@
                         title: 'Liquidacion Pacientes Particulares'
                     }
                 ],
-                "order": [[1, "asc"]]
+                //"order": [[1, "asc"]]
             });
         });
     </script>

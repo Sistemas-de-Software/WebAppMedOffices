@@ -11,6 +11,7 @@ using WebAppMedOffices.Models;
 using WebAppMedOffices.Shared;
 using Microsoft.AspNet.Identity;
 using WebAppMedOffices.Constants;
+using Rotativa;
 
 namespace WebAppMedOffices.Controllers
 {
@@ -131,6 +132,45 @@ namespace WebAppMedOffices.Controllers
             ViewBag.Turno = turno;
 
             return View(paciente);
+        }
+
+        // Este controlador es público, y es una copia del anterior,
+        // solo para mostrar la vista que se va a descargar como PDF
+        [AllowAnonymous]
+        public async Task<ActionResult> FichaMedicaConAgregarHistoriaClinicaCopy(int? pacienteId, int? turnoId)
+        {
+            if (pacienteId == null || turnoId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("ListarPacientesHoy");
+            }
+
+            Paciente paciente = await db.Pacientes.FindAsync(pacienteId);
+            Turno turno = await db.Turnos.FirstOrDefaultAsync(t => t.Id == turnoId && t.PacienteId == pacienteId);
+
+            if (paciente == null || turno == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("ListarPacientesHoy");
+            }
+
+            ViewBag.TipoEnfermedades = await db.TipoEnfermedades.ToListAsync();
+            ViewBag.Turno = turno;
+
+            return View(paciente);
+        }
+
+        public ActionResult PrintFichaMedica(int pacienteId, int turnoId)
+        {
+            return new ActionAsPdf("FichaMedicaConAgregarHistoriaClinicaCopy", new { pacienteId = pacienteId, turnoId = turnoId }) { FileName = "ficha-medica.pdf" };
         }
 
         public async Task<ActionResult> AgregarHistoriaClinica(int? id)

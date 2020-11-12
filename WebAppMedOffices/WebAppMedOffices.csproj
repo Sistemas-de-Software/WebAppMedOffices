@@ -49,6 +49,9 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.7.3\lib\net461\Rotativa.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -216,6 +219,7 @@
     <Compile Include="Models\HistoriaClinica.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LiquidacionPacienteViewModel.cs" />
+    <Compile Include="Models\LiquidacionViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Medico.cs" />
     <Compile Include="Models\MedicoEspecialidadViewModel.cs" />
@@ -283,8 +287,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
+    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
+    <Content Include="Rotativa\wkhtmltoimage.exe" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\html2canvas.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -460,6 +469,8 @@
     <Content Include="Views\GestionTurnos\HistorialTurnosPaciente.cshtml" />
     <Content Include="Views\GestionTurnos\FiltroDiaControlTurnos.cshtml" />
     <Content Include="Views\GestionTurnos\ListaControlTurnos.cshtml" />
+    <Content Include="Views\GestionTurnos\ComprobanteCopy.cshtml" />
+    <Content Include="Views\FichaMedica\FichaMedicaConAgregarHistoriaClinicaCopy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

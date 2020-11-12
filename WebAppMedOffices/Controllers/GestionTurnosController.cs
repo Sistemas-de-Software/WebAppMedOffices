@@ -14,6 +14,7 @@ using WebAppMedOffices.Shared;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Core.Metadata.Edm;
 using WebAppMedOffices.Constants;
+using Rotativa;
 
 namespace WebAppMedOffices.Controllers
 {
@@ -217,8 +218,8 @@ namespace WebAppMedOffices.Controllers
             var turnos = db.Turnos.Include(t => t.Especialidad)
                                 .Include(t => t.Medico)
                                 .Include(t => t.ObraSocial)
-                                .Where(t => t.Estado == Estado.Reservado && 
-                                        t.MedicoId == medicoId && 
+                                .Where(t => t.Estado == Estado.Reservado &&
+                                        t.MedicoId == medicoId &&
                                         DbFunctions.TruncateTime(t.FechaHora) >= hoy);
             return View(await turnos.ToListAsync());
         }
@@ -239,7 +240,7 @@ namespace WebAppMedOffices.Controllers
             var turnos = db.Turnos.Include(t => t.Especialidad)
                 .Include(t => t.Medico)
                 .Include(t => t.ObraSocial)
-                .Where(t => t.Estado == Estado.Reservado && 
+                .Where(t => t.Estado == Estado.Reservado &&
                     t.EspecialidadId == especialidadId &&
                     DbFunctions.TruncateTime(t.FechaHora) >= hoy);
             return View(await turnos.ToListAsync());
@@ -261,7 +262,7 @@ namespace WebAppMedOffices.Controllers
             var turnos = db.Turnos.Include(t => t.Especialidad)
                 .Include(t => t.Medico)
                 .Include(t => t.ObraSocial)
-                .Where(t => t.Estado == Estado.Reservado && 
+                .Where(t => t.Estado == Estado.Reservado &&
                     t.PacienteId == pacienteId &&
                     DbFunctions.TruncateTime(t.FechaHora) >= hoy);
             return View(await turnos.ToListAsync());
@@ -293,6 +294,42 @@ namespace WebAppMedOffices.Controllers
             }
 
             return View(turno);
+        }
+
+        // Este controlador es público, y es una copia del anterior,
+        // solo para mostrar la vista que se va a descargar como PDF
+        [AllowAnonymous]
+        public async Task<ActionResult> ComprobanteCopy(int? pacienteId, int? turnoId)
+        {
+            if (pacienteId == null || turnoId == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("TurnosReservadosInicio");
+            }
+
+
+            Turno turno = await db.Turnos.FirstOrDefaultAsync(t => t.Id == turnoId && t.PacienteId == pacienteId);
+
+            if (turno == null)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "No existe la ruta.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("TurnosReservadosInicio");
+            }
+
+            return View(turno);
+        }
+
+        public ActionResult PrintComprobante(int pacienteId, int turnoId)
+        {
+            return new ActionAsPdf("ComprobanteCopy", new { pacienteId = pacienteId, turnoId = turnoId }) { FileName = "comprobante.pdf" };
         }
 
         public async Task<ActionResult> ListaCambiarTurno(int? turnoId)
@@ -1208,10 +1245,9 @@ namespace WebAppMedOffices.Controllers
 
 
 
-        //Cancelar Turno2
-        public async Task<ActionResult> CancelarTurno2(int? id)
+        //Cancelar turno por paciente, el turno vuel a quedar disponible
+        public async Task<ActionResult> CancelarXpaciente(int? id)
         {
-
 
             Turno turno = await db.Turnos.FindAsync(id);
 
@@ -1252,7 +1288,6 @@ namespace WebAppMedOffices.Controllers
         public async Task<ActionResult> CancelarSobreturno(int? id)
         {
             
-
             Turno turno = await db.Turnos.FindAsync(id);
             db.Turnos.Remove(turno);
             await db.SaveChangesAsync();
@@ -1260,6 +1295,25 @@ namespace WebAppMedOffices.Controllers
             TempData[Application.MessageViewBagName] = new GenericMessageViewModel
             {
                 Message = "Sobre Turno cancelado exitosamante.",
+                MessageType = GenericMessages.success
+            };
+
+            return RedirectToAction("ListaPacientes");
+        }
+
+
+
+        //Cancelar turno por médico, el turno se elimina
+        public async Task<ActionResult> CancelarXmedico(int? id)
+        {
+
+            Turno turno = await db.Turnos.FindAsync(id);
+            db.Turnos.Remove(turno);
+            await db.SaveChangesAsync();
+
+            TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+            {
+                Message = "Turno cancelado exitosamante.",
                 MessageType = GenericMessages.success
             };
 
