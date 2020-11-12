@@ -1,0 +1,97 @@
+﻿@model WebAppMedOffices.Models.Paciente
+
+@{
+    ViewBag.Title = "Ficha Médica";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Ficha Médica</h4>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-info">
+                                <strong>DATOS DEL PACIENTE</strong>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Nombre:</strong> @Model.Nombre
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Apellido:</strong> @Model.Apellido
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Documento:</strong> @Model.Documento
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Fecha de Nacimiento:</strong> @Model.FechaNacimiento.ToString("dd/MM/yyyy")
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Dirección:</strong> @Model.Direccion
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Teléfono:</strong> @Model.Telefono  &nbsp;&nbsp;&nbsp;&nbsp; <strong>Celular:</strong> @Model.Celular
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Contacto de Emergencia:</strong> @Model.NombreContactoEmergencia &nbsp;&nbsp;&nbsp;&nbsp; <strong>Teléfono:</strong> @Model.TelefonoContactoEmergencia
+                            </li>
+
+                            <li class="list-group-item list-group-item-info">
+                                <strong>ENFERMEDADES</strong>
+                            </li>
+
+                            @if (ViewBag.TipoEnfermedades.Count == 0)
+                            {
+                                <li class="list-group-item">
+                                    <strong>No tiene enfermedades</strong>
+                                </li>
+                            }
+                            else
+                            {
+                                foreach (var tipoEnfermedad in ViewBag.TipoEnfermedades)
+                                {
+                                    <li class="list-group-item list-group-item-success">
+                                        <strong>@tipoEnfermedad.Nombre</strong>
+                                    </li>
+                                    if (Model.Enfermedades.Where(t => t.Enfermedad.TipoEnfermedadId == tipoEnfermedad.Id).ToList().Count == 0)
+                                    {
+                                        <li class="list-group-item">
+                                            Ninguna
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        foreach (var item in Model.Enfermedades.Where(t => t.Enfermedad.TipoEnfermedadId == tipoEnfermedad.Id))
+                                        {
+                                            <li class="list-group-item">
+                                                @item.Enfermedad.Nombre
+                                            </li>
+                                        }
+                                    }
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

@@ -465,6 +465,7 @@
     <Content Include="Views\GestionTurnos\FiltroDiaControlTurnos.cshtml" />
     <Content Include="Views\GestionTurnos\ListaControlTurnos.cshtml" />
     <Content Include="Views\GestionTurnos\ComprobanteCopy.cshtml" />
+    <Content Include="Views\FichaMedica\FichaMedicaConAgregarHistoriaClinicaCopy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

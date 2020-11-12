@@ -129,7 +129,8 @@
 
 <p>
     @Html.ActionLink("Volver", "ListarPacientesHoy", new { }, new { @class = "btn btn-primary" })
-    <button id="descargar" class="btn btn-danger">Descargar Ficha Médica</button>
+    @*<button id="descargar" class="btn btn-danger">Descargar Ficha Médica</button>*@
+    @Html.ActionLink("Descargar", "PrintFichaMedica", new { pacienteId = Model.Id, turnoId = ViewBag.Turno.Id }, new { @class = "btn btn-danger" })
     @Html.ActionLink("Agregar Historia Clínica", "AgregarHistoriaClinica", new { id = ViewBag.Turno.Id }, new { @class = "btn btn-success" })
     @Html.ActionLink("Agregar/Modificar Enfermedades", "PacienteEnfermedades", new { pacienteId = Model.Id, turnoId = ViewBag.Turno.Id }, new { @class = "btn btn-info" })
 </p>
