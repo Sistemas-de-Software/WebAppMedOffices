@@ -134,7 +134,7 @@ namespace WebAppMedOffices.Controllers
                     Message = "Los campos no son válidos",
                     MessageType = GenericMessages.warning
                 };
-                return RedirectToAction("CrearLiquidacionPacientesParticulares");
+                return RedirectToAction("CrearLiquidacionPacienteObraSocial");
             }
 
             if (liquidacionPacientes.FechaDesde.Date > liquidacionPacientes.FechaHasta.Date)
@@ -144,40 +144,69 @@ namespace WebAppMedOffices.Controllers
                     Message = "La fecha Desde no puede ser mayor que la fecha Hasta.",
                     MessageType = GenericMessages.warning
                 };
-                return RedirectToAction("CrearLiquidacionPacientesParticulares");
+                return RedirectToAction("CrearLiquidacionPacienteObraSocial");
             }
 
             var hoy = DateTime.Now.Date;
-            
+            if (liquidacionPacientes.FechaHasta.Date > hoy)
+            {
+                TempData[Application.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "La liquidación puede ser solo hasta la fecha de Hoy.",
+                    MessageType = GenericMessages.warning
+                };
+                return RedirectToAction("CrearLiquidacionPacienteObraSocial");
+            }
+
             try
             {
-                var turnos = db.Turnos.Include(t => t.Paciente)
-                                                     .Where(t => t.ObraSocialId != 1 &&
-                                                                t.Estado == Shared.Estado.Atendido &&
-                                                                DbFunctions.TruncateTime(t.FechaHora) >= liquidacionPacientes.FechaDesde &&
-                                                                DbFunctions.TruncateTime(t.FechaHora) <= liquidacionPacientes.FechaHasta)
-                                                     .GroupBy(t => t.PacienteId).
-                                                     Select(g => new LiquidacionPacienteViewModel
-                                                     {
-                                                         PacienteId = g.Key.Value,
-                                                         Turnos = g.ToList(),
-                                                         SubTotal = g.Sum(p => p.Costo.Value),
-                                                         Fecha = hoy
-                                                     });
+                List<Turno> liquidacionesDB = await db.Turnos
+                    .Where(t => t.ObraSocialId != 1 &&
+                        t.Estado == Shared.Estado.Atendido &&
+                        DbFunctions.TruncateTime(t.FechaHora) >= liquidacionPacientes.FechaDesde &&
+                        DbFunctions.TruncateTime(t.FechaHora) <= liquidacionPacientes.FechaHasta).ToListAsync();
 
-                if (turnos.Count() == 0)
+
+                ICollection<Medico> medicos = await db.Medicos.ToListAsync();
+
+                List<LiquidacionViewModel> liquidacionesTotales = new List<LiquidacionViewModel>();
+
+                foreach (var medico in medicos)
+                {
+                    foreach (var duracionTurnoEspecialidad in medico.DuracionTurnoEspecialidades)
+                    {
+                        List<Turno> turnos = new List<Turno>();
+                        turnos = liquidacionesDB.Where(t => t.MedicoId == medico.Id &&
+                            t.EspecialidadId == duracionTurnoEspecialidad.EspecialidadId).ToList();
+
+                        if (turnos.Count() > 0)
+                        {
+                            LiquidacionViewModel liquidacion = new LiquidacionViewModel
+                            {
+                                Medico = medico,
+                                Especialidad = duracionTurnoEspecialidad.Especialidad,
+                                Turnos = turnos,
+                                SubTotal = turnos.Sum(t => t.Costo.Value)
+                            };
+
+                            liquidacionesTotales.Add(liquidacion);
+                        }
+                    }
+                }
+
+                if (liquidacionesTotales.Count() == 0)
                 {
                     TempData[Application.MessageViewBagName] = new GenericMessageViewModel
                     {
                         Message = "No hay datos para generar liquidación.",
                         MessageType = GenericMessages.warning
                     };
-                    return RedirectToAction("CrearLiquidacionPacientesParticulares");
+                    return RedirectToAction("CrearLiquidacionPacienteObraSocial");
                 }
 
-                ViewBag.Total = await turnos.SumAsync(t => t.SubTotal);
+                ViewBag.Total = liquidacionesTotales.Sum(t => t.SubTotal);
 
-                return View(await turnos.ToListAsync());
+                return View(liquidacionesTotales);
             }
             catch (Exception ex)
             {
@@ -187,7 +216,7 @@ namespace WebAppMedOffices.Controllers
                     Message = err,
                     MessageType = GenericMessages.danger
                 };
-                return RedirectToAction("CrearLiquidacionPacientesParticulares");
+                return RedirectToAction("CrearLiquidacionPacienteObraSocial");
             }
 
         }
