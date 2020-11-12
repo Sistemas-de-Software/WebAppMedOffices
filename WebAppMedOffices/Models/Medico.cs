@@ -4,14 +4,17 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using WebAppMedOffices.Interfaces;
 
 namespace WebAppMedOffices.Models
 {
     [Table("Medicos")]
-    public class Medico
+    public class Medico : TimeStamp
     {
         [Key]
         public int Id { get; set; }
+
+        public DateTime? DeleteAt { get; set; }
 
         [Required(ErrorMessage = "Debes introducir un {0}")]
         [StringLength(30, ErrorMessage = "El campo {0} puede contener un máximo de {1} y un mínimo de {2} caracteres", MinimumLength = 3)]
@@ -65,6 +68,5 @@ namespace WebAppMedOffices.Models
         
         public virtual ICollection<Turno> Turnos { get; set; }
         
-
     }
 }

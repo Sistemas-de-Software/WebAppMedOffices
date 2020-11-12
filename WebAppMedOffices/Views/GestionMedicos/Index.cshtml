@@ -55,9 +55,9 @@
     </td>
     <td>
         @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Baja", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
         @Html.ActionLink("Especialidades", "EspecialidadesDeMedico", new { medicoId = item.Id }, new { @class = "btn btn-info" })
-        @*@Html.ActionLink("Detalle", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
-        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })*@
+        @*@Html.ActionLink("Detalle", "Details", new { id = item.Id }, new { @class = "btn btn-info" })*@
     </td>
 </tr>
     }
